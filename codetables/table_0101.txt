@@ -1,0 +1,14 @@
+1 Not fitted. 
+2 Mainmast. 
+3 Mainmast port yardarm. 
+4 Mainmast starboard yardarm. 
+5 Aft mast. 
+6 Foremast. 
+7 Foremast port yardarm. 
+8 Foremast starboard yardarm. 
+9 Meteorological mast. 
+10 Mast on wheelhouse top. 
+11 Mast on wheelhouse top port yardarm. 
+12 Mast on wheelhouse top starboard yardarm. 
+13 Handheld. 
+OT Other (specify in footnote). 

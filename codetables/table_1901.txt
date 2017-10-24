@@ -1,0 +1,8 @@
+BTT Bait tanks thermometer. 
+BU Bucket thermometer. 
+C Engine Cooling System Inlet on Motor Ships, or Condensor Intake on Steam Ships
+HC Hull contact sensor. 
+HT "Through Hull" sensor. 
+RAD Radiation thermometer. 
+TT Trailing thermistor. 
+OT Other (specify in footnote). 

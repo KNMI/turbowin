@@ -1,0 +1,7 @@
+A Aspirated (Assmann type). 
+S Screen (non ventilated, i.e. natural ventilation). 
+VS Screen (ventilated, i.e. assisted ventilation). 
+SN Ship's screen (property of the ship). 
+SG Ship's sling. 
+US Unscreened. 
+W Whirling or Sling psychrometer. 

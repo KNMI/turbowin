@@ -1,0 +1,21 @@
+SVCE Voice (ship). Obs sent to a NMS through the telephone network (via Inmarsat/Iridium/Vsat/VHF/etc)
+SMAI Email (ship). Obs sent to a NMS through an email. (via Inmarsat/Iridium/Vsat/etc)
+SWEB Web (ship). Obs sent through the Web (example: TurboWeb) (via Inmarsat/Iridium/Vsat/etc)
+CT41 Inmarsat-C (FM13, SAC41). Standard procedure used to report observations (FM13 messages)
+CTX Inmarsat-C (FM13, other SAC). FM13 messages are sent to a dedicated SAC (other than SAC41)
+CTH Inmarsat-C (EUHC). Compressed data messages (E-SURFMAR format) via Inmarsat-C to a dedicated SAC/LES.
+CDS Inmarsat-C (SEAS). SEAS binary messages sent through Inmarsat-C Data Mode to a dedicated SAC/LES 
+AIS Automated Identification System (direct or through satellite)
+ARG Argos system
+TDUP Cellular (Dial-up). Dial-up communication using terrestrial wireless networks (GSM/GPRS/etc)
+TSMS Cellular (SMS). SMS sent through terrestrial wireless networks (GSM/GPRS/etc)
+GBS Globalstar communication system
+GMS GMS (DCP). Data Collecting Platform of Geostationnary Meteorlogical Satellites
+ISBD Iridium (SBD). Short Burst Data service of Iridium communication system
+IMAI Iridium (Email). Email sent through Iridium (using Easymail for instance)
+IDUP Iridium (Dial-up). Dial-up communication using Iridium
+CDM Inmarsat-C (Data Mode). Data Mode service of Inmarsat-C used by S-AWS (not SEAS)
+CMAI Inmarsat-C (Email). Email sent through Inmarsat-C
+ORBC Orbcomm . Orbcomm communication system
+VMAI Vsat (Email). Email sent through Vsat
+VDUP Vsat (Dial-up). Dial-up communication using Vsat

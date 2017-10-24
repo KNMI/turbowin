@@ -1,0 +1,8 @@
+1 Centigrade to tenths. 
+2 Half degrees centigrade. 
+3 Whole degree centigrade. 
+4 Whole degree fahrenheit. 
+5 Fahrenheit to tenths. 
+6 Dry bulb centigrade, wet bulb fahrenheit. 
+7 Dry bulb fahrenheit, wet bulb centigrade. 
+OT Other combinations or scale (specify in footnote). 

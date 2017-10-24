@@ -1,0 +1,32 @@
+BA Barges, including crane barges and tank barges. 
+BC Bulk Carriers, including Ore/Bulk/Oil (OBO) carriers and Ore/Oil carriers. 
+CA Cable ships. 
+CG Coastguard cutters, patrol ships and launches. 
+CS Container ships, including open and closed container ships and refrigerated container ships. 
+DR Dredgers including bucket, hopper, grab and suction dredgers. 
+FE Passenger ferries (carrying passengers only). 
+FP Floating Production and Storage Units. 
+FV Fishing Vessels including purse seiners, long liners etc., but excluding trawlers. 
+GC General Cargo ships with one or more holds. 
+GT Liquefied gas carriers/tankers including LNG and LPG carriers. 
+IC Icebreaking vessels (dedicated vessel). 
+LC Livestock Carrier (dedicated ship for the carriage of livestock). 
+LT Liquid tankers including oil product/chemical/crude oil tankers (including VLCC’s and ULCC’s). 
+LV Light vessels. 
+MI Mobile installations, including mobile offshore drill ships, jack-up rigs, semi-submersibles. 
+MS Military ships. 
+OW Ocean Weather Ships (dedicated weather ship). 
+PI Pipe Layers. 
+PS Passenger ships and Cruise liners. 
+RF Ro Ro ferries (carrying passengers and laden vehicles). 
+RR Ro Ro cargo ships for carriage of road and/or rail vehicles/cargo, incl. containerized. cargo. 
+RS Refrigerated cargo ships including banana ships. 
+RV Research Vessels, including oceanographic/meteorological/hydrographic/seismographic ships. 
+SA Large sailing vessels, including sail training vessels. 
+SV Support vessels including offshore support/offshore supply/stand-by vessels, pipe carriers etc. 
+TR Trawler fishing vessels. 
+TU Tugs, including fire-fighting tugs, salvage tugs, pusher tugs, pilot vessels, tenders etc. 
+VC Vehicle Carriers: dedicated multi deck ships for the carriage of new unladen road vehicles. 
+YA Yachts and pleasure craft. 
+OT Other (specify in footnote).
+ 

@@ -1,0 +1,4 @@
+1 Anemometer, true wind computed. 
+2 Anemometer, true wind manual. 
+3 Visual estimates (sea state). 
+4 Visual estimate (open sea), anemometer (near port). 

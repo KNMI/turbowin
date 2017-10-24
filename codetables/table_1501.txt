@@ -1,0 +1,27 @@
+BAT Bathythermometer. 
+BT Bathythermograph (towed). 
+FLM Fluorometer. 
+LWR Long wave radiation. 
+MAX Maximum thermometer. 
+MIN Minimum thermometer. 
+NTE Nitrate sensor. 
+NTT Nutrient sensor. 
+P Pilot ballon equipment. 
+CO2 pCO2 system. 
+PLK Plankton recorder. 
+PRS Photosynthetic radiation sensor. 
+PYG Pyrogeometer. 
+R Radiosonde equipment. 
+RG Rain gauge. 
+RSD Radar storm and meteorological phenomena detectiom. 
+RT Reversing thermometer. 
+SKY Sky camera. 
+SLM Solarimeter. 
+ST Sea thermograph. 
+SWR Short wave radiation. 
+TSD Temperature/salinity/depth probe. 
+TUR Turbidity sensor. 
+W Radiowind or radarwind equipment. 
+WR Wave Recorder 
+XBT Expendable bathythermograph. 
+OT Other (specify in footnote). 

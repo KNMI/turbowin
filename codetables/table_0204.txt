@@ -1,0 +1,4 @@
+CR Chart room. 
+PW Pressurised wheelhouse (closed and not vented to the outside). 
+WH Wheelhouse, not pressurised (vented to the outside). 
+OT Other (specify in footnote). 

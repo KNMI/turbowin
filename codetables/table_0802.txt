@@ -1,0 +1,8 @@
+C Capacitance. 
+CM Chilled mirror. 
+E Electric. 
+H Hair hygrometer. 
+HG Hygristor. 
+P Psychrometer. 
+T Torsion. 
+OT Other (specify in footnote). 

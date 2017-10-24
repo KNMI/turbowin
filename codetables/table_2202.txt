@@ -1,0 +1,11 @@
+10 Selected 
+15 Selected (AWS)
+30 VOSClim - VOS Climate
+35 VOSClim (AWS) - VOS Climate (AWS)
+40 Supplementary
+45 Supplementary (AWS) 
+70 Auxiliary 
+75 Auxiliary (AWS)
+90 Platforms and Rigs
+95 Platforms and Rigs (AWS)
+OT Other (specify in footnote) 

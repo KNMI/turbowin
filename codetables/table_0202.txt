@@ -1,0 +1,6 @@
+AN Aneroid barometer (issued by the PMO or a NMS). 
+DA Digital aneroid barometer (aka Precision Aneroid Barometer). 
+ELE Electronic digital barometer (consisting of one or more pressure transducers). 
+MER Mercury barometer. 
+SAN Ship's aneroid barometer. 
+OT Other (specify in footnote). 

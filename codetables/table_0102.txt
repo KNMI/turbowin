@@ -1,0 +1,7 @@
+AN Anemograph. 
+CCV Cup anemometer and wind vane (combined unit). 
+SCV Cup anemometer and wind vane (separate instruments). 
+HA Handheld anemometer. 
+PV Propeller vane. 
+SON Sonic anemometer. 
+OT Other (specify in footnote). 

@@ -1,0 +1,5 @@
+1 Fully automated. 
+2 Always supplemented by manual input. 
+3 Occasionally supplemented by manual input. 
+4 Unknown. 
+5 Fully manual (no automation). 
