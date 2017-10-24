@@ -1,0 +1,920 @@
+ 0 00 001   CCITT_IA5    0        0  24    Table A:  entry
+ 0 00 002   CCITT_IA5    0        0 256    Table A:  data category description, line 1
+ 0 00 003   CCITT_IA5    0        0 256    Table A:  data category description, line 2
+ 0 00 005   CCITT_IA5    0        0  24    BUFR/CREX edition number
+ 0 00 010   CCITT_IA5    0        0   8    F descriptor to be added or defined
+ 0 00 011   CCITT_IA5    0        0  16    X descriptor to be added or defined
+ 0 00 012   CCITT_IA5    0        0  24    Y descriptor to be added or defined
+ 0 00 013   CCITT_IA5    0        0 256    Element name, line 1
+ 0 00 014   CCITT_IA5    0        0 256    Element name, line 2
+ 0 00 015   CCITT_IA5    0        0 192    Units name
+ 0 00 016   CCITT_IA5    0        0   8    Units scale sign
+ 0 00 017   CCITT_IA5    0        0  24    Units scale
+ 0 00 018   CCITT_IA5    0        0   8    Units reference sign
+ 0 00 019   CCITT_IA5    0        0  80    Units reference value
+ 0 00 020   CCITT_IA5    0        0  24    Element data width
+ 0 00 030   CCITT_IA5    0        0  48    Descriptor defining sequence
+ 0 01 001   Numeric      0        0   7    WMO block number
+ 0 01 002   Numeric      0        0  10    WMO station number
+ 0 01 003   Code_table   0        0   3    WMO Region number/geographical area
+ 0 01 004   Numeric      0        0   3    WMO Region sub-area (see Note 9)
+ 0 01 005   Numeric      0        0  17    Buoy/platform identifier
+ 0 01 006   CCITT_IA5    0        0  64    Aircraft flight number
+ 0 01 007   Code_table   0        0  10    Satellite identifier
+ 0 01 008   CCITT_IA5    0        0  64    Aircraft registration number or other identification
+ 0 01 009   CCITT_IA5    0        0  64    Type of commercial aircraft
+ 0 01 010   CCITT_IA5    0        0  64    Stationary buoy platform identifier, e.g. C-MAN buoys
+ 0 01 011   CCITT_IA5    0        0  72    Ship or mobile land station identifier
+ 0 01 012   Degree_true  0        0   9    Direction of motion of moving observing platform**
+ 0 01 013   m_s–1        0        0  10    Speed of motion of moving observing platform**
+ 0 01 014   m_s–1        2        0  10    Platform drift speed (high precision)
+ 0 01 015   CCITT_IA5    0        0 160    Station or site name
+ 0 01 018   CCITT_IA5    0        0  40    Short station or site name
+ 0 01 019   CCITT_IA5    0        0 256    Long Station or site name
+ 0 01 020   Numeric      0        0   4    WMO Region sub-area
+ 0 01 021   Numeric      0        0  14    Synoptic feature identifier
+ 0 01 022   CCITT_IA5    0        0 224    Name of feature (see Note 11)
+ 0 01 023   Numeric      0        0   9    Observation sequence number 
+ 0 01 025   CCITT_IA5    0        0  24    Storm identifier
+ 0 01 026   CCITT_IA5    0        0  64    WMO storm name*
+ 0 01 027   CCITT_IA5    0        0  80    WMO long storm name
+ 0 01 031   Code_table   0        0  16    Identification of originating/generating centre (see Note 10)
+ 0 01 032   Code_table_defined_by_or  0        0   8    Generating application
+ 0 01 033   Common_Code_Table_C-1  0        0   8    Identification of originating/generating centre
+ 0 01 034   Common_Code_Table_C-12  0        0   8    Identification of originating/generating sub-centre
+ 0 01 035   Common_Code_Table_C-11  0        0  16    Originating Centre
+ 0 01 036   Code_table   0        0  20    Agency in charge of operating the Observing platform
+ 0 01 041   m_s-1        5        0  31    Absolute platform velocity – first component (see Note 6)
+ 0 01 042   m_s-1        5        0  31    Absolute platform velocity – second component (see Note 6)
+ 0 01 043   m_s-1        5        0  31    Absolute platform velocity – third component (see Note 6)
+ 0 01 050   Numeric      0        0  17    Platform transmitter ID number
+ 0 01 051   CCITT_IA5    0        0  96    Platform transmitter ID number
+ 0 01 060   CCITT_IA5    0        0  64    Aircraft reporting point (Beacon identifier)
+ 0 01 062   CCITT_IA5    0        0  32    Short ICAO location indicator
+ 0 01 063   CCITT_IA5    0        0  64    ICAO location indicator
+ 0 01 064   CCITT_IA5    0        0  32    Runway designator
+ 0 01 075   CCITT_IA5    0        0  40    Tide station identification
+ 0 01 080   CCITT_IA5    0        0  32    Ship line number according to SOOP
+ 0 01 081   CCITT_IA5    0        0 160    Radiosonde serial number 
+ 0 01 082   Numeric      0        0  14    Radiosonde ascension number (see Note 12)
+ 0 01 083   Numeric      0        0   3    Radiosonde release number (see Note 12)
+ 0 01 085   CCITT_IA5    0        0 160    Observing platform manufacturer's model
+ 0 01 086   CCITT_IA5    0        0 256    Observing platform manufacturer's serial number
+ 0 01 090   Code_table   0        0   8     Technique for making up initial perturbations
+ 0 01 091   Numeric      0        0  10    Ensemble member number 
+ 0 01 092   Code_table   0        0   8    Type of ensemble forecast
+ 0 01 093   CCITT_IA5    0        0  96    Balloon lot number
+ 0 01 094   Numeric      0        0  17    WBAN Number
+ 0 01 095   CCITT_IA5    0        0  32    Observer identification
+ 0 02 001   Code_table   0        0   2    Type of station
+ 0 02 002   Flag_table   0        0   4    Type of instrumentation for wind measurement
+ 0 02 003   Code_table   0        0   4    Type of measuring equipment used
+ 0 02 004   Code_table   0        0   4    Type of instrumentation for evaporation measurement or type of crop for which evapotranspiration is reported
+ 0 02 005   K            2        0   7    Precision of temperature observation
+ 0 02 011   Code_table   0        0   8    Radiosonde type
+ 0 02 012   Code_table   0        0   4    Radiosonde computational method
+ 0 02 013   Code_table   0        0   4    Solar and infrared radiation correction
+ 0 02 014   Code_table   0        0   7    Tracking technique/status of system used
+ 0 02 015   Code_table   0        0   4    Radiosonde completeness
+ 0 02 016   Flag_table   0        0   5    Radiosonde configuration
+ 0 02 019   Code_table   0        0  11    Satellite instruments
+ 0 02 020   Code_table   0        0   9    Satellite classification
+ 0 02 021   Flag_table   0        0   9    Satellite instrument data used in processing*
+ 0 02 022   Flag_table   0        0   8    Satellite data-processing technique used
+ 0 02 023   Code_table   0        0   4    Satellite derived wind computation method
+ 0 02 024   Code_table   0        0   4    Integrated mean humidity computational method
+ 0 02 025   Flag_table   0        0  25    Satellite channel(s) used in computation
+ 0 02 026   m            2        0  12    Cross track resolution
+ 0 02 027   m            2        0  12    Along track resolution
+ 0 02 028   m            0        0  18    Segment size at nadir in X direction
+ 0 02 029   m            0        0  18    Segment size at nadir in Y direction
+ 0 02 030   Code_table   0        0   3    Method of current measurement
+ 0 02 031   Code_table   0        0   5    Duration and time of current measurement
+ 0 02 032   Code_table   0        0   2    Indicator for digitization
+ 0 02 033   Code_table   0        0   3    Method of salinity/depth measurement
+ 0 02 034   Code_table   0        0   5    Drogue type
+ 0 02 035   m            0        0   9    Cable length
+ 0 02 036   Code_table   0        0   2    Buoy type
+ 0 02 037   Code_table   0        0   3    Method of tidal observation
+ 0 02 038   Code_table   0        0   4    Method of water temperature and/or salinity measurement
+ 0 02 039   Code_table   0        0   3    Method of wet-bulb temperature measurement
+ 0 02 040   Code_table   0        0   4    Method of removing velocity and motion of platform from current
+ 0 02 041   Code_table   0        0   6    Method for estimating reports related to synoptic features
+ 0 02 044   Code_table   0        0   4    Indicator for method of calculating spectral wave data
+ 0 02 045   Code_table   0        0   4    Indicator for type of platform
+ 0 02 046   Code_table   0        0   4    Wave measurement instrumentation
+ 0 02 048   Code_table   0        0   4    Satellite sensor indicator
+ 0 02 049   Flag_table   0        0   8    Geostationary satellite data-processing technique used
+ 0 02 050   Flag_table   0        0  20    Geostationary sounder satellite channels used
+ 0 02 051   Code_table   0        0   4    Indicator to specify observing method for extreme temperatures
+ 0 02 052   Flag_table   0        0   6    Geostationary imager satellite channels used
+ 0 02 053   Code_table   0        0   4    GOES-I/M brightness temperature characteristics
+ 0 02 054   Code_table   0        0   4    GOES-I/M soundings parameter characteristics
+ 0 02 055   Code_table   0        0   4    Geostationary soundings statistical parameters
+ 0 02 056   Code_table   0        0   4    Geostationary soundings accuracy statistics
+ 0 02 057   Code_table   0        0   4    Origin of first guess information for GOES-I/M soundings
+ 0 02 058   Code_table   0        0   4    Valid times of first guess information for GOES-I/M soundings
+ 0 02 059   Code_table   0        0   4    Origin of analysis information for GOES-I/M soundings
+ 0 02 060   Code_table   0        0   4    Origin of surface information for GOES-I/M soundings
+ 0 02 061   Code_table   0        0   3    Aircraft navigational system
+ 0 02 062   Code_table   0        0   4    Type of aircraft data relay system
+ 0 02 063   Degree       2        0  16    Aircraft roll angle
+ 0 02 064   Code_table   0        0   2    Aircraft roll angle quality
+ 0 02 065   CCITT_IA5    0        0  40    ACARS ground receiving station
+ 0 02 066   Code_table   0        0   6    Radiosonde ground receiving system
+ 0 02 067   Hz          -5        0  15    Radiosonde operating frequency
+ 0 02 070   Code_table   0        0   4    Original specification of latitude/longitude
+ 0 02 080   Code_table   0        0   6    Balloon manufacturer
+ 0 02 081   Code_table   0        0   5    Type of balloon
+ 0 02 082   kg           3        0  12    Weight of balloon
+ 0 02 083   Code_table   0        0   4    Type of balloon shelter
+ 0 02 084   Code_table   0        0   4    Type of gas used in balloon
+ 0 02 085   kg           3        0  13    Amount of gas used in balloon
+ 0 02 086   m            1        0  10    Balloon flight train length
+ 0 02 091   A            4        0  10    Entry sensor 4/20 mA
+ 0 02 095   Code_table   0        0   5    Type of pressure sensor
+ 0 02 096   Code_table   0        0   5    Type of temperature sensor
+ 0 02 097   Code_table   0        0   5    Type of humidity sensor
+ 0 02 100   dB           1        0  12    Radar constant*
+ 0 02 101   Code_table   0        0   4    Type of antenna
+ 0 02 102   m            0        0   8    Antenna height above tower base
+ 0 02 103   Flag_table   0        0   2    Radome
+ 0 02 104   Code_table   0        0   4    Antenna polarisation
+ 0 02 105   dB           0        0   6    Maximum antenna gain
+ 0 02 106   Degree       1        0   6    3-dB beamwidth
+ 0 02 107   dB           0        0   6    Sidelobe suppression
+ 0 02 108   dB           0        0   6    Crosspol discrimination (on axis)
+ 0 02 109   Degree_s–1   2        0  12    Antenna speed (azimuth)
+ 0 02 110   Degree_s–1   2        0  12    Antenna speed (elevation)
+ 0 02 111   Degree       1        0  10    Radar incidence angle
+ 0 02 112   Degree       1        0  12    Radar look angle
+ 0 02 113   Numeric      0        0   4    Number of azimuth looks
+ 0 02 114   m2           0        0  15    Antenna effective surface area
+ 0 02 115   Code_table   0        0   5    Type of surface observing equipment
+ 0 02 121   Hz           0        0   7    Mean frequency
+ 0 02 122   Hz           0        0   8    Frequency agility range
+ 0 02 123   W            0        0   7    Peak power
+ 0 02 124   W            0        0   7    Average power
+ 0 02 125   Hz           0        0   8    Pulse repetition frequency
+ 0 02 126   s            7        0   6    Pulse width
+ 0 02 127   Hz           0        0   7    Receiver intermediate frequency
+ 0 02 128   Hz           0        0   6    Intermediate frequency bandwidth
+ 0 02 129   dB           0        0   5    Minimum detectable signal
+ 0 02 130   dB           0        0   7    Dynamic range
+ 0 02 131   Flag_table   0        0   2    Sensitivity time control (STC)
+ 0 02 132   Degree       2        0   6    Azimuth pointing accuracy
+ 0 02 133   Degree       2        0   6    Elevation pointing accuracy
+ 0 02 134   Degree       2        0  16    Antenna beam azimuth
+ 0 02 135   Degree       2        0  15    Antenna elevation
+ 0 02 136   m            0        0  16    Range processed by range attenuation correction
+ 0 02 140   Degree       0        0   9    Satellite radar beam azimuth angle
+ 0 02 141   CCITT_IA5    0        0  24    Measurement type
+ 0 02 142   CCITT_IA5    0        0  32    Ozone instrument serial number/ identification
+ 0 02 143   Code_table   0        0   7    Ozone instrument type
+ 0 02 144   Code_table   0        0   4    Light source type for Brewer spectro photometer
+ 0 02 145   Code_table   0        0   4    Wave length setting for Dobson instruments
+ 0 02 146   Code_table   0        0   4    Source conditions for Dobson instruments
+ 0 02 148   Code_table   0        0   5    Data collection and/or location system
+ 0 02 149   Code_table   0        0   6    Type of data buoy
+ 0 02 150   Code_table   0        0   6    TOVS/ATOVS/AVHRR instrumentation channel number
+ 0 02 151   Code_table   0        0  11    Radiometer identifier
+ 0 02 152   Flag_table   0        0  31    Satellite instrument used in data processing(6)
+ 0 02 153   Hz           0        0  26    Satellite channel centre frequency
+ 0 02 154   Hz           0        0  26    Satellite channel band width
+ 0 02 163   Code_table   0        0   4    Height assignment method
+ 0 02 164   Code_table   0        0   3    Tracer correlation method
+ 0 02 166   Code_table   0        0   4    Radiance type
+ 0 02 167   Code_table   0        0   4    Radiance computational method
+ 0 02 168   Pa          -3        0  16    Hydrostatic pressure of lower end of cable (thermistor string)
+ 0 02 169   Code_table   0        0   4    Anemometer type
+ 0 02 172   Code_table   0        0   8    Product type for retrieved atmospheric gases
+ 0 02 173   Degree2      4        0  10    Square of the off nadir angle (7)
+ 0 02 175   Code_table   0        0   4    Method of precipitation measurement 
+ 0 02 176   Code_table   0        0   4    Method of state of ground measurement 
+ 0 02 177   Code_table   0        0   4    Method of snow depth measurement 
+ 0 02 178   Code_table   0        0   4    Method of liquid content measurement of precipitation
+ 0 02 179   Code_table   0        0   4    Type of sky condition algorithm 
+ 0 02 180   Code_table   0        0   4    Main present weather detecting system 
+ 0 02 181   Flag_table   0        0  21    Supplementary present weather sensor
+ 0 02 182   Code_table   0        0   4    Visibility measurement system 
+ 0 02 183   Code_table   0        0   4    Cloud detection system
+ 0 02 184   Code_table   0        0   4    Type of lightning detection sensor
+ 0 02 185   Code_table   0        0   4    Method of evaporation measurement
+ 0 02 186   Flag_table   0        0  30    Capability to detect precipitation phenomena
+ 0 02 187   Flag_table   0        0  18    Capability to detect other weather phenomena
+ 0 02 188   Flag_table   0        0  21    Capability to detect obscuration
+ 0 02 189   Flag_table   0        0  12    Capability to discriminate lightning strikes
+ 0 02 190   %            0        0   7    Lagrangian drifter submergence (% time submerged)
+ 0 04 001   Year         0        0  12    Year
+ 0 04 002   Month        0        0   4    Month
+ 0 04 003   Day          0        0   6    Day
+ 0 04 004   Hour         0        0   5    Hour
+ 0 04 005   Minute       0        0   6    Minute
+ 0 04 006   Second       0        0   6    Second
+ 0 04 007   Second       6        0  26    Seconds within a minute (microsecond accuracy)
+ 0 04 011   Year         0        0  11    Time increment
+ 0 04 012   Month        0        0  11    Time increment
+ 0 04 013   Day          0        0  11    Time increment
+ 0 04 014   Hour         0        0  11    Time increment
+ 0 04 015   Minute       0        0  12    Time increment
+ 0 04 016   Second       0        0  13    Time increment
+ 0 04 017   Minute       0    -1440  12    Reference time period for accumulated or extreme data
+ 0 04 021   Year         0        0  11    Time period or displacement
+ 0 04 022   Month        0        0  11    Time period or displacement
+ 0 04 023   Day          0        0  11    Time period or displacement
+ 0 04 024   Hour         0        0  12    Time period or displacement
+ 0 04 025   Minute       0        0  12    Time period or displacement
+ 0 04 026   Second       0        0  13    Time period or displacement
+ 0 04 031   Hour         0        0   8    Duration of time relating to following value
+ 0 04 032   Minute       0        0   6    Duration of time relating to following value
+ 0 04 041   Minute       0        0  12    Time difference, UTC –LMT (see Note 6)
+ 0 04 043   Day          0        0   9    Day of the year
+ 0 04 051   Hour         0        0   5    Principal time of daily reading of maximum temperature
+ 0 04 052   Hour         0        0   5    Principal time of daily reading of minimum temperature
+ 0 04 053   Numeric      0        0   6    Number of days with precipitation equal to or more than 1 mm
+ 0 04 059   Flag_table   0        0   6    Times of observation used to compute the reported mean values
+ 0 04 065   Minute       0     -128   8    Short time increment
+ 0 04 073   Day          0     -128   8    Short time period or displacement
+ 0 04 074   Hour         0     -128   8    Short time period or displacement
+ 0 04 075   Minute       0     -128   8    Short time period or displacement
+ 0 05 001   Degree       5        0  25    Latitude (high accuracy)
+ 0 05 002   Degree       2        0  15    Latitude (coarse accuracy)
+ 0 05 011   Degree       5        0  25    Latitude increment (high accuracy)
+ 0 05 012   Degree       2        0  15    Latitude increment (coarse accuracy)
+ 0 05 021   Degree_true  2        0  16    Bearing or azimuth
+ 0 05 022   Degree_true  2        0  16    Solar azimuth
+ 0 05 030   Degree       0        0  12    Direction (spectral)
+ 0 05 031   Numeric      0        0  12    Row number
+ 0 05 033   m            0        0  16    Pixel size on horizontal – 1
+ 0 05 034   Numeric      0        0  11    Along track row number
+ 0 05 036   Numeric      0        0   7    Ship transect number according to SOOP
+ 0 05 040   Numeric      0        0  24    Orbit number
+ 0 05 041   Numeric      0        0   8    Scan line number
+ 0 05 042   Numeric      0        0   6    Channel number
+ 0 05 043   Numeric      0        0   8    Field of view number
+ 0 05 044   Numeric      0        0  11    Satellite cycle number
+ 0 05 052   Numeric      0        0   5    Channel number increment
+ 0 05 053   Numeric      0        0   5    Field of view number increment
+ 0 06 001   Degree       5        0  26    Longitude (high accuracy)
+ 0 06 002   Degree       2        0  16    Longitude (coarse accuracy)
+ 0 06 011   Degree       5        0  26    Longitude increment (high accuracy)
+ 0 06 012   Degree       2        0  16    Longitude increment (coarse accuracy)
+ 0 06 021   m            0        0  13    Distance
+ 0 06 030   rad_m–1      5        0  13    Wave number (spectral)
+ 0 06 031   Numeric      0        0  12    Column number
+ 0 06 033   m            0        0  16    Pixel size on horizontal – 2
+ 0 06 034   Numeric      0        0   7    Cross-track cell number
+ 0 06 040   m            0        0  13    Radius of confidence
+ 0 07 001   m            0        0  15    Height of station (see Note 1)
+ 0 07 002   m            0        0  16    Height or altitude
+ 0 07 003   m2_s–2       0        0  17    Geopotential
+ 0 07 004   Pa           0        0  14    Pressure
+ 0 07 005   m            0        0  12    Height increment
+ 0 07 006   m            0        0  15    Height above station
+ 0 07 007   m            0        0  17    Height
+ 0 07 008   m2_s–2       0        0  20    Geopotential
+ 0 07 009   gpm          0        0  17    Geopotential height
+ 0 07 010   m            0    -1024  16    Flight level
+ 0 07 021   Degree       2        0  15    Elevation (see Note 2)
+ 0 07 022   Degree       2        0  15    Solar elevation
+ 0 07 024   Degree       2        0  15    Satellite zenith angle
+ 0 07 025   Degree       2        0  15    Solar zenith angle
+ 0 07 030   m            1    -4000  17    Height of station ground above mean sea level (see Note 3)
+ 0 07 031   m            1    -4000  17    Height of barometer above mean sea level (see Note 4)
+ 0 07 032   m            2        0  16    Height of sensor above local ground (or deck of marine platform) (see Note 5)
+ 0 07 033   m            1        0  12    Height of sensor above water surface (see Note 6)
+ 0 07 061   m            2        0  14    Depth below land surface
+ 0 07 062   m            1        0  17    Depth below sea/water surface
+ 0 07 064   m            0        0   4    Height above station (sensor height artificially corrected) (see Note 7)
+ 0 07 070   m            0        0  10    Drogue depth
+ 0 08 001   Flag_table   0        0   7    Vertical sounding significance
+ 0 08 002   Code_table   0        0   6    Vertical significance (surface observations)
+ 0 08 003   Code_table   0        0   6    Vertical significance (satellite observations)
+ 0 08 004   Code_table   0        0   3    Phase of aircraft flight
+ 0 08 005   Code_table   0        0   4    Meteorological attribute significance
+ 0 08 006   Flag_table   0        0   9    Ozone vertical sounding significance
+ 0 08 007   Code_table   0        0   4    Dimensional significance
+ 0 08 008   Flag_table   0        0   9    Radiation vertical sounding significance
+ 0 08 009   Code_Table   0        0   4    Detailed phase of flight
+ 0 08 010   Code_table   0        0   5    Surface qualifier (temperature data)
+ 0 08 011   Code_table   0        0   6    Meteorological feature
+ 0 08 012   Code_table   0        0   2    Land/sea qualifier
+ 0 08 013   Code_table   0        0   2    Day/night qualifier
+ 0 08 014   Code_table   0        0   4    Qualifier for runway visual range
+ 0 08 016   Code_table   0        0   3    Change qualifier of a trend-type forecast or an aerodrome forecast
+ 0 08 017   Code_table   0        0   2    Qualifier of the time when the forecast change is expected
+ 0 08 018   Flag_table   0        0  17    SEAWINDS land/ice surface type
+ 0 08 020   Numeric      0        0  16    Total number of missing entities (with respect to accumulation or average)
+ 0 08 021   Code_table   0        0   5    Time significance
+ 0 08 022   Numeric      0        0  16    Total number (with respect to accumulation or average)
+ 0 08 023   Code_table   0        0   6    First order statistics
+ 0 08 024   Code_table   0        0   6    Difference statistics
+ 0 08 025   Code_table   0        0   4    Time difference qualifier
+ 0 08 029   Code_table   0        0   8    Remotely sensed surface type
+ 0 08 030   Numeric      0        0  13    Manual on Codes (Volume I.1, Section C) Code table from which data are derived
+ 0 08 031   Numeric      0        0   8    Data category CREX table A
+ 0 08 033   Code_table   0        0   7    Method of derivation of percentage confidence
+ 0 08 035   Code_table   0        0   3    Type of monitoring exercise
+ 0 08 036   Code_table   0        0   3    Type of centre or station performing monitoring
+ 0 08 040   Code_table   0        0   6    Flight Level significance
+ 0 08 041   Code_table   0        0   5    Data significance
+ 0 08 050   Code_table   0        0   4    Qualifier for number of missing values in calculation of statistic
+ 0 08 051   Code_table   0        0   3    Qualifier for number of missing values in calculation of statistic
+ 0 08 052   Code_table   0        0   5    Condition for which number of days of occurrence follows
+ 0 08 053   Code_table   0        0   2    Day of occurrence qualifier
+ 0 08 060   Code_table   0        0   4    Sample scanning mode significance
+ 0 08 070   Code_table   0        0   4    TOVS/ATOVS product qualifier
+ 0 08 072   Code_table   0        0   3    Pixel(s) type
+ 0 08 074   Code_table   0        0   2    Altimeter echo type
+ 0 08 075   Code_table   0        0   2    Ascending/Descending Orbit Qualifier
+ 0 08 076   Code_table   0        0   6    Type of band
+ 0 08 080   Code_table   0        0   6    Qualifier for GTSPP quality flag
+ 0 10 001   m            0        0  15    Height of land surface
+ 0 10 002   m            0        0  16    Height
+ 0 10 003   m2_s–2       0        0  17    Geopotential
+ 0 10 004   Pa           0        0  14    Pressure
+ 0 10 007   m            0        0  17    Height
+ 0 10 008   m2_s–2       0        0  20    Geopotential
+ 0 10 009   gpm          0        0  17    Geopotential height
+ 0 10 010   Pa          -1        0  14    Minimum pressure reduced to mean sea level
+ 0 10 011   Pa          -1        0  14    Maximum pressure reduced to mean sea level
+ 0 10 031   m            2        0  31    In direction of the North Pole, distance from the Earth’s centre
+ 0 10 040   Numeric      0        0  10    Number of retrieved layers
+ 0 10 050   m            2        0  16    Standard deviation altitude
+ 0 10 051   Pa           0        0  14    Pressure reduced to mean sea level
+ 0 10 052   Pa           0        0  14    Altimeter setting (QNH)
+ 0 10 060   Pa           0        0  11    Pressure change
+ 0 10 061   Pa           0        0  10    3-hour pressure change
+ 0 10 062   Pa           0        0  11    24-hour pressure change
+ 0 10 063   Code_table   0        0   4    Characteristic of pressure tendency
+ 0 10 070   m            0        0  16    Indicated aircraft altitude
+ 0 11 001   Degree_true  0        0   9    Wind direction
+ 0 11 002   m_s–1        1        0  12    Wind speed
+ 0 11 003   m_s–1        1        0  13    u-component
+ 0 11 004   m_s–1        1        0  13    v-component
+ 0 11 005   Pa_s–1       1        0  10    w-component
+ 0 11 006   m_s–1        2        0  13    w-component
+ 0 11 010   Degree_true  0        0   9    Wind direction associated with wind speed which follows
+ 0 11 011   Degree_true  0        0   9    Wind direction at 10 m
+ 0 11 012   m_s–1        1        0  12    Wind speed at 10 m
+ 0 11 013   Degree_true  0        0   9    Wind direction at 5 m
+ 0 11 014   m_s–1        1        0  12    Wind speed at 5 m
+ 0 11 016   Degree_true  0        0   9    Extreme counterclockwise wind direction of a variable wind
+ 0 11 017   Degree_true  0        0   9    Extreme clockwise wind direction of a variable wind
+ 0 11 019   %            0        0   7    Steadiness of wind (6)
+ 0 11 021   s–1          9        0  17    Relative vorticity
+ 0 11 022   s–1          9        0  17    Divergence
+ 0 11 023   m2_s–1       0        0  17    Velocity potential
+ 0 11 031   Code_table   0        0   4    Degree of turbulence
+ 0 11 032   m            0        0  16    Height of base of turbulence
+ 0 11 033   m            0        0  16    Height of top of turbulence
+ 0 11 034   m_s–1        1        0  11    Vertical gust velocity
+ 0 11 035   m_s–2        2        0  14    Vertical gust acceleration
+ 0 11 036   m_s–1        1        0  10    Maximum derived equivalent vertical gust speed
+ 0 11 037   Code_table   0        0   6    Turbulence Index
+ 0 11 038   Code_table   0        0   5    Time of occurrence of Peak Eddy Dissipation Rate
+ 0 11 039   Code_table   0        0   6    Extended time of occurrence of peak  Eddy Dissipation Rate
+ 0 11 040   m_s-1        1        0  12    Maximum wind speed (mean wind)
+ 0 11 041   m_s–1        1        0  12    Maximum wind gust speed
+ 0 11 042   m_s–1        1        0  12    Maximum wind speed (10-min mean wind)
+ 0 11 043   Degree_true  0        0   9    Maximum wind gust direction
+ 0 11 044   Degree_true  0        0   9    Mean wind direction for surface – 1500 m (5000 feet)
+ 0 11 045   m_s–1        1        0  12    Mean wind speed for surface – 1500 m (5000 feet)
+ 0 11 046   m_s–1        1        0  12    Maximum instantaneous wind speed
+ 0 11 047   m_s–1        1        0  12    Maximum instantaneous wind speed over 10 minutes
+ 0 11 049   Degree_true  0        0   9    Standard deviation of wind direction
+ 0 11 050   m_s–1        1        0  12    Standard deviation of horizontal wind speed
+ 0 11 051   m_s–1        1        0   8    Standard deviation of vertical wind speed
+ 0 11 052   m_s-1        2        0  13    Formal uncertainty in wind speed
+ 0 11 053   Degree_true  2        0  15    Formal uncertainty in wind direction
+ 0 11 061   m_s–1        1        0  12    Absolute wind shear in 1 km layer below
+ 0 11 062   m_s–1        1        0  12    Absolute wind shear in 1 km layer above
+ 0 11 070   CCITT_IA5    0        0  32    Designator of the runway affected by wind shear (including ALL)
+ 0 11 071   m2_s–2       3        0  14    Turbulent vertical momentum flux
+ 0 11 072   K_m_s–1      3        0  11    Turbulent vertical buoyancy flux
+ 0 11 073   m2_s–2       2        0  13    Turbulent kinetic energy
+ 0 11 074   m2_s–2       2        0  10    Dissipation energy
+ 0 11 075   m2/3_s–1     2        0   8    Mean turbulence intensity (eddy dissipation rate)
+ 0 11 076   m2/3_s–1     2        0   8    Peak turbulence intensity (eddy dissipation rate)
+ 0 11 077   s            0        0  12    Reporting interval or averaging time for Eddy Dissipation Rate
+ 0 11 081   Degree_true  2        0  16    Model wind direction at 10m
+ 0 11 082   m_s-1        2        0  14    Model wind speed at 10m
+ 0 12 001   K            1        0  12    Temperature/dry-bulb temperature
+ 0 12 002   K            1        0  12    Wet-bulb temperature
+ 0 12 003   K            1        0  12    Dew-point temperature
+ 0 12 004   K            1        0  12    Dry-bulb temperature at 2 m
+ 0 12 005   K            1        0  12    Wet-bulb temperature at 2 m
+ 0 12 006   K            1        0  12    Dew-point temperature at 2 m
+ 0 12 007   K            1        0  12    Virtual temperature
+ 0 12 011   K            1        0  12    Maximum temperature, at height and over period specified
+ 0 12 012   K            1        0  12    Minimum temperature, at height and over period specified
+ 0 12 013   K            1        0  12    Ground minimum temperature, past 12 hours
+ 0 12 014   K            1        0  12    Maximum temperature at 2 m, past 12 hours
+ 0 12 015   K            1        0  12    Minimum temperature at 2 m, past 12 hours
+ 0 12 016   K            1        0  12    Maximum temperature at 2 m, past 24 hours
+ 0 12 017   K            1        0  12    Minimum temperature at 2 m, past 24 hours
+ 0 12 021   K            2        0  16    Maximum temperature at 2m
+ 0 12 022   K            2        0  16    Minimum temperature at 2m
+ 0 12 030   K            1        0  12    Soil temperature
+ 0 12 051   K            1        0  10    Standard deviation temperature
+ 0 12 052   K            1        0  12    Highest daily mean temperature
+ 0 12 053   K            1        0  12    Lowest daily mean temperature
+ 0 12 061   K            1        0  12    Skin temperature
+ 0 12 062   K            1        0  12    Equivalent black body temperature
+ 0 12 063   K            1        0  12    Brightness temperature
+ 0 12 064   K            1        0  12    Instrument temperature
+ 0 12 065   K            1        0  12    Standard deviation brightness temperature
+ 0 12 070   K            2        0  16    Warm load temperature
+ 0 12 071   K            1        0  12    Coldest cluster temperature
+ 0 12 072   W_m-2_sr-1   6        0  31    Radiance
+ 0 12 075   W_m-3_sr-1  -3        0  16    Spectral radiance
+ 0 12 076   W_m-2_sr-1   3        0  16    Radiance
+ 0 12 101   K            2        0  16    Temperature/dry-bulb temperature
+ 0 12 102   K            2        0  16    Wet-bulb temperature
+ 0 12 103   K            2        0  16    Dew-point temperature
+ 0 12 104   K            2        0  16    Dry-bulb temperature at 2m
+ 0 12 105   K            2        0  16    Web-bulb temperature at 2m
+ 0 12 106   K            2        0  16    Dew-point temperature at 2m
+ 0 12 107   K            2        0  16    Virtual temperature
+ 0 12 111   K            2        0  16    Maximum temperature, at height and over period specified 
+ 0 12 112   K            2        0  16    Minimum temperature, at height and over period specified
+ 0 12 113   K            2        0  16    Ground minimum temperature, past 12 hours
+ 0 12 114   K            2        0  16    Maximum temperature at 2m, past 12 hours
+ 0 12 115   K            2        0  16    Minimum temperature at 2m, past 12 hours
+ 0 12 116   K            2        0  16    Maximum temperature at 2m, past 24 hours
+ 0 12 117   K            2        0  16    Minimum temperature at 2m, past 24 hours
+ 0 12 118   K            2        0  16    Maximum temperature at height specified, past 24 hours
+ 0 12 119   K            2        0  16    Minimum  temperature at height specified, past 24 hours
+ 0 12 130   K            2        0  16    Soil temperature
+ 0 12 151   K            2        0  12    Standard deviation of daily mean temperature
+ 0 12 152   K            2        0  16    Highest daily mean temperature
+ 0 12 153   K            2        0  16    Lowest daily mean temperature
+ 0 12 161   K            2        0  16    Skin temperature
+ 0 12 162   K            2        0  16    Equivalent black body temperature
+ 0 12 163   K            2        0  16    Brightness temperature
+ 0 12 164   K            2        0  16    Instrument temperature
+ 0 12 171   K            2        0  16    Coldest cluster temperature
+ 0 13 001   kg_kg–1      5        0  14    Specific humidity
+ 0 13 002   kg_kg–1      5        0  14    Mixing ratio
+ 0 13 003   %            0        0   7    Relative humidity
+ 0 13 004   Pa           0        0  10    Vapour pressure
+ 0 13 005   kg_m–3       3        0   7    Vapour density
+ 0 13 006   m            0        0  16    Mixing heights
+ 0 13 007   %            0        0   7    Minimum relative humidity
+ 0 13 008   %            0        0   7    Maximum relative humidity
+ 0 13 009   %            1    -1000  12    Relative humidity
+ 0 13 011   kg_m–2       1        0  14    Total precipitation/total water equivalent
+ 0 13 012   m            2        0  12    Depth of fresh snow
+ 0 13 013   m            2        0  16    Total snow depth
+ 0 13 014   kg_m–2_s–1   4        0  12    Rainfall/water equivalent of snow (averaged rate)
+ 0 13 015   m_s–1        7        0  12    Snowfall  (averaged rate)
+ 0 13 016   kg_m–2       0        0   7    Precipitable water
+ 0 13 019   kg_m–2       1        0  14    Total precipitation past 1 hour
+ 0 13 020   kg_m–2       1        0  14    Total precipitation past 3 hours
+ 0 13 021   kg_m–2       1        0  14    Total precipitation past 6 hours
+ 0 13 022   kg_m–2       1        0  14    Total precipitation past 12 hours
+ 0 13 023   kg_m–2       1        0  14    Total precipitation past 24 hours
+ 0 13 031   kg_m–2       0        0   7    Evapotranspiration
+ 0 13 032   kg_m–2       1        0   8    Evaporation/evapotranspiration
+ 0 13 033   kg_m–2       1        0  10    Evaporation/evapotranspiration
+ 0 13 038   Code_table   0        0   2    Superadiabatic indicator
+ 0 13 039   Code_table   0        0   3    Terrain type (ice/snow)
+ 0 13 040   Code_table   0        0   4    Surface flag
+ 0 13 041   Code_table   0        0   4    Pasquill-Gifford stability category
+ 0 13 042   K            0        0   6    Parcel lifted index (to 500 hPa)
+ 0 13 043   K            0        0   6    Best lifted index (to 500 hPa)
+ 0 13 051   Code_table   0        0   4    Frequency group, precipitation
+ 0 13 052   kg_m–2       1        0  14    Highest daily amount of precipitation
+ 0 13 055   Kg_m-2_s-1   4        0   8    Intensity of precipitation
+ 0 13 058   m            4        0   7    Size of precipitating element
+ 0 13 059   Numeric      0        0   7    Number of flashes (thunderstorm)
+ 0 13 060   kg_m-2       1       -1  17    Total accumulated precipitation
+ 0 13 071   m            2        0  14    Upstream water level
+ 0 13 072   m            2        0  14    Downstream water level
+ 0 13 073   m            2        0  14    Maximum water level
+ 0 13 080   pH_unit      1        0  10    Water pH
+ 0 13 081   S_m-1        3        0  14    Water conductivity
+ 0 13 082   K            1        0  12    Water temperature
+ 0 13 083   kg_m-3       6        0  15    Dissolved oxygen
+ 0 13 084   Lumen        0        0  14    Turbidity
+ 0 13 085   V            3        0  14    Oxydation Reduction Potential (ORP)
+ 0 13 090   kg_m-2       1        0  10    Radiometer water vapour content
+ 0 13 091   kg_m-2       2        0   8    Radiometer liquid content
+ 0 14 001   J_m–2        0        0  12    Long-wave radiation, integrated over 24 hours
+ 0 14 002   J_m–2        0        0  12    Long-wave radiation, integrated over period specified
+ 0 14 003   J_m–2        0        0  12    Short-wave radiation, integrated over 24 hours
+ 0 14 004   J_m–2        0        0  12    Short-wave radiation, integrated over period specified
+ 0 14 011   J_m–2        0        0  12    Net long-wave radiation, integrated over 24 hours
+ 0 14 012   J_m–2        0        0  12    Net long-wave radiation, integrated over period specified
+ 0 14 013   J_m–2        0        0  12    Net short-wave radiation, integrated over 24 hours
+ 0 14 014   J_m–2        0        0  12    Net short-wave radiation, integrated over period specified
+ 0 14 015   J_m–2        0        0  15    Net radiation, integrated over 24 hours
+ 0 14 016   J_m–2        0        0  15    Net radiation, integrated over period specified
+ 0 14 017   W_m–2        0        0  12    Instantaneous long-wave radiation
+ 0 14 018   W_m–2        0        0  12    Instantaneous short-wave radiation
+ 0 14 019   %            0        0   7    Surface albedo
+ 0 14 020   J_m–2        0        0  15    Global solar radiation, integrated over 24 hours
+ 0 14 021   J_m–2        0        0  15    Global solar radiation, integrated over period specified
+ 0 14 022   J_m–2        0        0  15    Diffuse solar radiation, integrated over 24 hours
+ 0 14 023   J_m–2        0        0  15    Diffuse solar radiation, integrated over period specified
+ 0 14 024   J_m–2        0        0  15    Direct solar radiation, integrated over 24 hours
+ 0 14 025   J_m–2        0        0  15    Direct solar radiation, integrated over period specified
+ 0 14 026   %            0        0   7    Albedo at the top of clouds
+ 0 14 027   %            0        0   7    Albedo
+ 0 14 028   J_m-2       -2        0  16    Global solar radiation (high accuracy), integrated over period specified
+ 0 14 029   J_m-2       -2        0  16    Diffuse solar radiation (high accuracy), integrated over period specified
+ 0 14 030   J_m-2       -2        0  16    Direct solar radiation (high accuracy), integrated over period specified
+ 0 14 031   Minute       0        0  11    Total sunshine
+ 0 14 032   Hour         0        0  10    Total sunshine
+ 0 14 033   %            0        0   9    Total sunshine
+ 0 14 034   Minute       0        0  11    Sunshine over period specified
+ 0 14 042   %            0        0   7    Bi-directional reflectance
+ 0 14 045   Wm–2_sr–1_cm–1  0        0  11    Channel radiance
+ 0 14 050   %            1        0  10    Emissivity (see note 5)
+ 0 14 051   J_m-2       -3        0  14    Direct solar radiation, integrated over last hour
+ 0 15 001   DU           0        0  10    Total ozone
+ 0 15 002   Numeric      2        0  10    Air mass (slant path at 22 km)
+ 0 15 003   Pascal       4        0   9    Measured ozone partial pressure (sounding)
+ 0 15 004   Numeric      3        0  11    Ozone sounding correction factor
+ 0 15 005   DU           0        0  10    Ozone p
+ 0 15 011   log_(1/m2)   3    14000  13    Log 10 of integrated electron density
+ 0 15 015   Numeric      0        0  31    Maximum image spectral component before normalization
+ 0 15 020   kg_m-2       8        0  21    Integrated 03 density
+ 0 15 031   m            4    10000  15    Atmospheric path delay in satellite signal
+ 0 15 032   m            4        0  10    Estimated error in atmospheric path delay
+ 0 15 033   m            5   -10000  15    Difference in path delays for limb views at extremes of scan
+ 0 15 034   m            5        0  14    Estimated error in path delay difference
+ 0 15 035   m            4        0  14    Component of zenith path delay due to water vapour
+ 0 19 001   Code_table   0        0   6    Type of synoptic feature
+ 0 19 002   m            0        0  12    Effective radius of feature
+ 0 19 003   m_s–1        0        0   8    Wind speed threshold
+ 0 19 004   m            0        0  12    Effective radius with respect to wind speeds above threshold
+ 0 19 005   Degree_true  0        0   9    Direction of motion of feature
+ 0 19 006   m_s–1        2        0  14    Speed of motion of feature
+ 0 19 007   m            0        0  12    Effective radius of feature
+ 0 19 008   Code_table   0        0   3    Vertical extent of circulation
+ 0 19 009   m            0        0  12    Effective radius with respect to wind speeds above threshold (large storms)
+ 0 19 010   Code_table   0        0   4    Method for tracking the centre of synoptic feature
+ 0 20 001   m            0        0  13    Horizontal visibility
+ 0 20 002   m            0        0   7    Vertical visibility
+ 0 20 003   Code_table   0        0   9    Present weather (see note 1)
+ 0 20 004   Code_table   0        0   5    Past weather (1) (see note 2)
+ 0 20 005   Code_table   0        0   5    Past weather (2) (see note 2)
+ 0 20 008   Code_table   0        0   5    Cloud distribution for aviation
+ 0 20 009   Code_table   0        0   4    General Weather Indicator (TAF/METAR)
+ 0 20 010   %            0        0   7    Cloud cover (total)
+ 0 20 011   Code_table   0        0   4    Cloud amount
+ 0 20 012   Code_table   0        0   6    Cloud type
+ 0 20 013   m            0        0  11    Height of base of cloud
+ 0 20 014   m            0        0  11    Height of top of cloud
+ 0 20 015   Pa           0        0  14    Pressure at base of cloud
+ 0 20 016   Pa           0        0  14    Pressure at top of cloud
+ 0 20 017   Code_table   0        0   4    Cloud top description
+ 0 20 018   Code_table   0        0   2    Tendency of runway visual range
+ 0 20 019   CCITT_IA5    0        0  72    Significant present or forecast weather
+ 0 20 020   CCITT_IA5    0        0  32    Significant recent weather phenomena
+ 0 20 021   Flag_table   0        0  30    Type of precipitation
+ 0 20 022   Code_table   0        0   4    Character of precipitation
+ 0 20 023   Flag_table   0        0  18    Other weather phenomena
+ 0 20 024   Code_table   0        0   3    Intensity of phenomena
+ 0 20 025   Flag_table   0        0  21    Obscuration
+ 0 20 026   Code_table   0        0   4    Character of obscuration
+ 0 20 027   Flag_table   0        0   9    Phenomena occurrence
+ 0 20 029   Code_table   0        0   2    Rain flag
+ 0 20 031   m            2        0   7    Ice deposit (thickness)
+ 0 20 032   Code_table   0        0   3    Rate of ice accretion
+ 0 20 033   Flag_table   0        0   4    Cause of ice accretion
+ 0 20 034   Code_table   0        0   5    Sea ice concentration
+ 0 20 035   Code_table   0        0   4    Amount and type of ice
+ 0 20 036   Code_table   0        0   5    Ice situation
+ 0 20 037   Code_table   0        0   5    Ice development
+ 0 20 038   Degree_true  0        0  12    Bearing of ice edge (see note 3)
+ 0 20 039   m            0        0  13    Ice distance
+ 0 20 041   Code_table   0        0   4    Airframe icing
+ 0 20 042   Code_table   0        0   2    Airframe icing present
+ 0 20 043   kg_m-3       4        0   7    Peak liquid water content
+ 0 20 044   kg_m-3       4        0   7    Average liquid water content
+ 0 20 045   Code_table   0        0   2    Supercooled large droplet (SLD) conditions
+ 0 20 051   %            0        0   7    Amount of low clouds
+ 0 20 052   %            0        0   7    Amount of middle clouds
+ 0 20 053   %            0        0   7    Amount of high clouds
+ 0 20 061   m            0        0  12    Runway visual range (RVR)
+ 0 20 062   Code_table   0        0   5    State of the ground (with or without snow)
+ 0 20 063   Code_table   0        0  10    Special phenomena
+ 0 20 065   %            0        0   7    Snow cover (see note 4)
+ 0 20 070   Numeric      0        0   7    Minimum number of atmospherics
+ 0 20 071   Code_table   0        0   4    Accuracy of fix and rate of atmospherics
+ 0 20 081   %            0        0   7    Cloud amount in segment
+ 0 20 082   %            0        0   7    Amount segment cloud free
+ 0 20 090   Code_table   0        0   4    Special clouds
+ 0 21 001   dB           0        0   7    Horizontal reflectivity
+ 0 21 002   dB           0        0   7    Vertical reflectivity
+ 0 21 003   dB           1        0   7    Differential reflectivity
+ 0 21 005   dB           0        0   6    Linear depolarisation ratio 
+ 0 21 006   dB           0        0   6    Circular depolarisation ratio 
+ 0 21 011   m_s–1        0        0   8    Doppler mean velocity in X-direction
+ 0 21 012   m_s–1        0        0   8    Doppler mean velocity in Y-direction
+ 0 21 013   m_s–1        0        0   8    Doppler mean velocity in Z-direction
+ 0 21 014   m_s–1        1        0  13    Doppler mean velocity (radial)
+ 0 21 017   m_s–1        1        0   8    Doppler velocity spectral width
+ 0 21 021   m            0        0   4    Echo tops 
+ 0 21 030   dB           0        0   8    Signal to noise ratio
+ 0 21 031   kg_m–2       0        0   7    Vertically integrated liquid-water content
+ 0 21 036   m_s–1        7        0  12    Radar rainfall intensity 
+ 0 21 041   m            0        0   8    Bright-band height 
+ 0 21 051   dB           0        0   8    Signal power above 1 mW
+ 0 21 062   dB           2        0  13    Backscatter
+ 0 21 063   %            1        0  10    Radiometric resolution (noise value)
+ 0 21 064   Numeric      0        0   8    Clutter noise estimate
+ 0 21 065   Numeric      0        0   8    Missing packet counter
+ 0 21 066   Flag_table   0        0  12    Wave scatterometer product confidence data
+ 0 21 067   Flag_table   0        0  13    Wind product confidence data
+ 0 21 068   Flag_table   0        0   8    Radar altimeter product confidence data
+ 0 21 069   Flag_table   0        0  10    SST product confidence data
+ 0 21 070   Flag_table   0        0  23    SST product confidence data (SADIST-2)
+ 0 21 071   Numeric      0        0  16    Peakiness
+ 0 21 072   Flag_table   0        0   4    Satellite altimeter calibration status
+ 0 21 073   Flag_table   0        0   9    Satelllite altimeter instrument mode
+ 0 21 075   Numeric      0        0   8    Image spectrum intensity
+ 0 21 076   Code_table   0        0   3    Representation of intensities
+ 0 21 077   m            3        0  14    Altitude correction (ionosphere)
+ 0 21 078   m            3        0   9    Altitude correction (dry troposphere)
+ 0 21 079   m            3     2000  10    Altitude correction (wet troposphere)
+ 0 21 080   m            3        0  11    Altitude correction (calibration constant)
+ 0 21 081   m            3        0  10    Open loop correction (height-time loop)
+ 0 21 082   dB           3        0  14    Open loop correction (auto gain control)
+ 0 21 083   Numeric      0        0  16    Warm target calibration
+ 0 21 084   Numeric      0        0  16    Cold target calibration
+ 0 21 085   Numeric      0        0   4    ATSR sea surface temperature across- track band number
+ 0 21 091   dB           0     -100   8    Radar signal Doppler spectrum 0th moment
+ 0 21 092   dB           0     -100   8    RASS signal Doppler spectrum 0th moment, referring to RASS signal
+ 0 21 101   Numeric      0        0   3    Number of vector ambiguities
+ 0 21 102   Numeric      0        0   3    Index of selected wind vector
+ 0 21 103   Numeric      0        0   5    Total number of sigma-0 measurements
+ 0 21 104   Numeric      3   -30000  15    Likelihood computed for solution
+ 0 21 105   dB           2   -10000  14    Normalized radar cross-section
+ 0 21 106   Numeric      3        0  14    Kp variance coefficient (Alpha)
+ 0 21 107   Numeric      8        0  16    Kp variance coefficient (Beta)
+ 0 21 109   Flag_table   0        0  17    SEAWINDS wind vector cell quality
+ 0 21 110   Numeric      0        0   6    Number of inner-beam Sigma-0 (forward of satellite)
+ 0 21 111   Numeric      0        0   6    Number of outer-beam Sigma-0 (forward of satellite)
+ 0 21 112   Numeric      0        0   6    Number of inner-beam Sigma-0 (aft of satellite)
+ 0 21 113   Numeric      0        0   6    Number of outer-beam Sigma-0 (aft of satellite)
+ 0 21 114   dB           3  -140000  18    Kp variance coefficent (Gamma)
+ 0 21 115   Flag_table   0        0  17    SEAWINDS sigma-0 quality
+ 0 21 116   Flag_table   0        0  17    SEAWINDS sigma-0 mode
+ 0 21 117   Numeric      2        0  16    Sigma-0 variance quality control
+ 0 21 118   dB           2   -10000  14    Attenuation correction on sigma-0
+ 0 21 119   Code_table   0        0   6    Wind scatterometer geophysical model function
+ 0 21 120   Numeric      3        0  10    Probability of rain
+ 0 21 121   Numeric      0        0   8    SEAWINDS NOF* rain index
+ 0 21 122   dB           2   -10000  14    Attenuation correction of sigma-0 (from tB)
+ 0 21 123   dB           2   -30000  15    SEAWINDS normalized radar cross section
+ 0 21 128   Numeric      0        0   8    Number of valid points per second used to derive previous parameters
+ 0 22 001   Degree_true  0        0   9    Direction of waves 
+ 0 22 002   Degree_true  0        0   9    Direction of wind waves 
+ 0 22 003   Degree_true  0        0   9    Direction of swell waves 
+ 0 22 004   Degree_true  0        0   9    Direction of current 
+ 0 22 011   s            0        0   6    Period of waves 
+ 0 22 012   s            0        0   6    Period of wind waves 
+ 0 22 013   s            0        0   6    Period of swell waves 
+ 0 22 021   m            1        0  10    Height of waves 
+ 0 22 022   m            1        0  10    Height of wind waves 
+ 0 22 023   m            1        0  10    Height of swell waves 
+ 0 22 025   m            2        0  10    Standard deviation wave height
+ 0 22 026   m            2        0  10    Standard deviation of significant wave height
+ 0 22 031   m_s–1        2        0  13    Speed of current 
+ 0 22 035   m            2        0  14    Tidal elevation with respect to local chart datum
+ 0 22 036   m            2        0  14    Meteorological residual tidal elevation (surge or offset)
+ 0 22 037   m            3        0  15    Tidal elevation with respect to national land datum
+ 0 22 038   m            3        0  15    Tidal elevation with respect to local chart datum
+ 0 22 039   m            3        0  12    Meteorological residual tidal elevation (surge or offset)
+ 0 22 040   m            3        0  14    Meteorological residual tidal elevation (surge or offset)
+ 0 22 041   K            1        0  12    Sea-surface temperature (15-day running mean)
+ 0 22 042   K            1        0  12    Sea/water temperature
+ 0 22 043   K            2        0  15    Sea/water temperature
+ 0 22 044   m_s–1        1        0  14    Sound velocity 
+ 0 22 045   K            3        0  19    Sea/water temperature
+ 0 22 050   K            2        0   8    Standard deviation sea-surface temperature
+ 0 22 055   Numeric      0        0  10    Float cycle number
+ 0 22 056   Code_table   0        0   2    Direction of profile
+ 0 22 061   Code_table   0        0   4    State of the sea 
+ 0 22 062   Part_per_thousand  2        0  14    Salinity
+ 0 22 063   m            0        0  14    Total water depth 
+ 0 22 064   Part_per_thousand  3        0  17    Salinity
+ 0 22 065   Pa          -3        0  17    Water pressure
+ 0 22 066   S_m-1        6        0  26    Water conductivity
+ 0 22 067   Code_table   0        0  10    Instrument type for water temperature profile measurement
+ 0 22 068   Code_table   0        0   7    Water temperature profile recorder types
+ 0 22 070   m            2        0  13    Significant wave height
+ 0 22 071   s            1        0   9    Spectral peak wave period
+ 0 22 072   m            0        0  13    Spectral peak wave length
+ 0 22 073   m            2        0  13    Maximum wave height
+ 0 22 074   s            1        0   9    Average wave period
+ 0 22 075   m            0        0  13    Average wave length
+ 0 22 076   Degree_true  0        0   9    Direction from which dominant waves are coming
+ 0 22 077   Degree       0        0   9    Directional spread of dominant wave
+ 0 22 078   s            0        0  12    Duration of wave record
+ 0 22 079   m            0        0  16    Length of wave record
+ 0 22 080   Hz           3        0  10    Waveband central frequency
+ 0 22 081   m–1          5        0  13    Waveband central wave number
+ 0 22 082   m2_s         2        0  20    Maximum non-directional spectral wave density
+ 0 22 083   m3           2        0  20    Maximum non-directional spectral wave number
+ 0 22 084   Numeric      0        0   7    Band containing maximum non- directional spectral wave density
+ 0 22 085   Numeric      0        0   7    Spectral wave density ratio
+ 0 22 086   Degree_true  0        0   9    Mean direction from which waves are coming
+ 0 22 087   Degree_true  0        0   9    Principal direction from which waves are coming
+ 0 22 088   Numeric      2        0   7    First normalized polar coordinate from Fourier coefficients
+ 0 22 089   Numeric      2        0   7    Second normalized polar coordinate from Fourier coefficients
+ 0 22 090   m2_s         2        0  20    Non-directional spectral estimate by wave frequency
+ 0 22 091   m3           2        0  20    Non-directional spectral estimate by wave number
+ 0 22 092   m2_rad–1_s   2        0  20    Directional spectral estimate by wave frequency
+ 0 22 093   m4           2        0  20    Directional spectral estimate by wave number
+ 0 22 094   Numeric      0        0   7    Total number of wave bands
+ 0 22 095   Degree       0        0   8    Directional spread of individual waves
+ 0 22 096   s–1          3        0   4    Spectral band width
+ 0 22 097   m            0        0  14    Mean wavelength > 731 m of image spectrum at low wave numbers
+ 0 22 098   m            0        0  14    Wavelength spread (wavelength > 731 m) at low wave numbers
+ 0 22 099   Degree_true  0        0   9    Mean direction at low wave numbers (wavelength > 731 m)
+ 0 22 100   Degree       0        0   9    Direction spread at low wave numbers(wavelength > 731 m)
+ 0 22 101   Numeric      0        0  31    Total energy (wavelength > 731m) at low wave numbers
+ 0 22 120   Code_table   0        0   5    Tide station automated water level check
+ 0 22 121   Code_table   0        0   5    Tide station manual water level check
+ 0 22 122   Code_table   0        0   5    Tide station automated meteorological data check
+ 0 22 123   Code_table   0        0   5    Tide station manual meteorological data check
+ 0 22 141   K            2        0  15    Sea-surface temperature (15-day running mean)
+ 0 23 001   Code_table   0        0   3    Accident early notification — article applicable
+ 0 23 002   Code_table   0        0   5    Activity or facility involved in incident
+ 0 23 003   Code_table   0        0   3    Type of release 
+ 0 23 004   Code_table   0        0   3    Countermeasures taken near border
+ 0 23 005   Code_table   0        0   2    Cause of incident 
+ 0 23 006   Code_table   0        0   3    Incident situation 
+ 0 23 007   Code_table   0        0   3    Characteristics of release
+ 0 23 008   Code_table   0        0   2    State of current release 
+ 0 23 009   Code_table   0        0   2    State of expected release 
+ 0 23 016   Code_table   0        0   2    Possibility of significant chemical toxic health effect
+ 0 23 017   m3_s–1       6        0  20    Flow discharge of major recipient
+ 0 23 018   Code_table   0        0   3    Release behaviour over time
+ 0 23 019   m            0        0  17    Actual release height
+ 0 23 021   m            0        0  17    Effective release height
+ 0 23 022   m            0        0  24    Distance of release point or site of incident
+ 0 23 023   m_s–1        1        0  12    Main transport speed in the atmosphere
+ 0 23 024   m_s–1        2        0  13    Main transport speed in water
+ 0 23 025   m_s–1        2        0  13    Main transport speed in ground water
+ 0 23 027   Degree_true  0        0   9    Main transport direction in the atmosphere
+ 0 23 028   Degree_true  0        0   9    Main transport direction in water
+ 0 23 029   Degree_true  0        0   9    Main transport direction in ground water
+ 0 23 031   Code_table   0        0   2    Possibility that plume will encounter precipitation in State in which incident occurred
+ 0 23 032   Code_table   0        0   2    Plume will encounter change in wind direction and/or speed flag
+ 0 24 001   Bq*         -11        0  28    Estimate of amount of radioactivity released up to specified time
+ 0 24 002   Bq          -11        0  28    Estimated maximum potential release
+ 0 24 003   Code_table   0        0   5    Composition of release
+ 0 24 004   CCITT_IA5    0        0  16    Element name
+ 0 24 005   Numeric      0        0   9    Isotope mass
+ 0 24 011   mSv*/**      2        0  32    Dose
+ 0 24 012   mSv          2        0  32    Trajectory dose (defined location and expected time of arrival)
+ 0 24 013   mSv          2        0  32    Gamma dose in air along the main transport path (defined location and time period)
+ 0 24 021   Bq_m-3       2        0  32    Air concentration (of named isotope type including gross beta)
+ 0 24 022   Bq_1-1       2        0  32    Concentration in precipitation (of names isotope type)
+ 0 24 023   s-1          1        0  14    Pulse rate of beta radiation
+ 0 24 024   s-1          1        0  14    Pulse rate of gamma radiation
+ 0 25 001   m            0        0   6    Range-gate length
+ 0 25 002   Numeric      0        0   4    Number of gates averaged
+ 0 25 003   Numeric      0        0   8    Number of integrated pulses
+ 0 25 004   Code_table   0        0   2    Echo processing
+ 0 25 005   Code_table   0        0   2    Echo integration
+ 0 25 006   Code_table   0        0   3    Z to R conversion
+ 0 25 007   Numeric      0        0  12    Z to R conversion factor
+ 0 25 008   Numeric      2        0   9    Z to R conversion exponent
+ 0 25 009   Flag_table   0        0   4    Calibration method
+ 0 25 010   Code_table   0        0   4    Clutter treatment
+ 0 25 011   Code_table   0        0   2    Ground occultation correction (screening)
+ 0 25 012   Code_table   0        0   2    Range attenuation correction
+ 0 25 013   Flag_table   0        0   2    Bright-band correction
+ 0 25 014   Numeric      0        0  12    Azimuth clutter cut-off (see Note 1)
+ 0 25 015   Flag_table   0        0   2    Radome attenuation correction
+ 0 25 016   dB_m–1       5        0   6    Clear-air attenuation correction
+ 0 25 017   Flag_table   0        0   2    Precipitation attenuation correction
+ 0 25 018   Numeric      7        0   6    A to Z law for attenuation factor
+ 0 25 019   Numeric      2        0   7    A to Z law for attenuation exponent
+ 0 25 020   Code_table   0        0   2    Mean speed estimation
+ 0 25 021   Flag_table   0        0   8    Wind computation enhancement
+ 0 25 025   V            1        0   9    Battery voltage
+ 0 25 030   Code_table   0        0   2    Running mean sea-surface temperature usage
+ 0 25 032   Code_table   0        0   2    Wind profiler mode information*
+ 0 25 033   Code_table   0        0   2    Wind profiler submode information*
+ 0 25 034   Flag_table   0        0   4    Wind profiler quality control test results* 
+ 0 25 036   Code_table   0        0   4    Atmospherics location method
+ 0 25 040   Code_table   0        0   4    CO2 wind product derivation
+ 0 25 041   Code_table   0        0   2    Moving platform direction reporting method
+ 0 25 042   Code_table   0        0   2    Moving platform speed reporting method
+ 0 25 043   s            4        0  15    Wave sampling interval (time)
+ 0 25 044   m            2        0  14    Wave sampling interval (space)
+ 0 25 045   Flag_table   0        0  21    HIRS channel combination
+ 0 25 046   Flag_table   0        0   5    MSU channel combination
+ 0 25 047   Flag_table   0        0   4    SSU channel combination
+ 0 25 048   Flag_table   0        0  16    AMSU-A channel combination
+ 0 25 049   Flag_table   0        0   6    AMSU-B channel combination
+ 0 25 050   Numeric      4  -131072  18    Principal component score
+ 0 25 051   Flag_table   0        0   7    AVHRR channel combination
+ 0 25 053   Flag_table   0        0  12    Observation quality
+ 0 25 054   Numeric      0        0   5    SSMIS Subframe ID nember
+ 0 25 055   K            2        0  16    Multiplexer housekeeping
+ 0 25 060   Numeric      0        0  14    Software identification (see Note 2)
+ 0 25 061   CCITT_IA5    0        0  96    Software identification and version number
+ 0 25 065   Degree       2    -1000  11    Orientation correction (azimuth)
+ 0 25 066   Degree       2    -1000  11    Orientation correction (elevation)
+ 0 25 067   Pa           0    -8000  14    Radiosonde release point pressure correction
+ 0 25 068   Numeric      0        0   7    Number of archive recomputes
+ 0 25 069   Flag_table   0        0   8    Flight level pressure corrections
+ 0 25 070   Numeric      0        0   4    Major frame count
+ 0 25 071   Numeric      0        0   5    Frame count
+ 0 25 075   Numeric      0        0   5    Satellite antenna corrections version number
+ 0 25 076   Log_m–1      8        0  30    Log–10 of (Temperature-radiance central wave number) for ATOVS
+ 0 25 077   Numeric      5        0  18    Bandwidth correction coefficient 1 for ATOVS
+ 0 25 078   Numeric      5        0  17    Bandwidth correction coefficient 2 for ATOVS
+ 0 25 079   W_m–2        4        0  24    Albedo-radiance solar filtered irradiance for ATOVS
+ 0 25 080   m           10        0  14    Albedo-radiance equivalent filter width for ATOVS
+ 0 25 085   Numeric      0        0   7    Fraction of clear pixels in HIRS FOV
+ 0 25 086   Code_table   0        0   2    Depth correction indicator
+ 0 25 091   dB           3   -18192  13    Structure constant of the refraction index (Cn2)
+ 0 25 092   m_s-1        2    28000  14    Acoustic propagation velocity
+ 0 25 093   Flag_table   0        0   8    RASS computation correction
+ 0 25 095   Flag_table   0        0   2    Altimeter state flag
+ 0 25 096   Flag_table   0        0   5    Radiometer state flag
+ 0 25 097   Code_table   0        0   4    Three dimensional error estimate of the navigator orbit
+ 0 25 100   Numeric      5        0  20    XBT/XCTD fall rate equation coefficient a
+ 0 25 101   Numeric      5  -500000  21    XBT/XCTD fall rate equation coefficient b
+ 0 26 001   Hour         1        0  12    Principal time of daily reading in UTC of maximum temperature
+ 0 26 002   Hour         1        0  12    Principal time of daily reading in UTC of minimum temperature
+ 0 26 003   Minute       0        0  12    Time difference
+ 0 26 010   Flag_table   0        0  26    Hours included
+ 0 26 020   Minute       0        0  11    Duration of precipitation
+ 0 27 001   Degree       5        0  25    Latitude (high accuracy)
+ 0 27 002   Degree       2        0  15    Latitude (coarse accuracy)
+ 0 27 003   Degree       2        0  15    Alternate latitude (coarse accuracy)
+ 0 27 004   Degree       5 -9000000  25    Alternate latitude (high accuracy)
+ 0 27 020   Numeric      0        0  16    Satellite location counter
+ 0 27 021   Numeric      0        0  16    Satellite sublocation dimension
+ 0 27 031   m            2        0  31    In direction of 0 degrees longitude, distance from the Earth’s centre
+ 0 28 001   Degree       5        0  26    Longitude (high accuracy)
+ 0 28 002   Degree       2        0  16    Longitude (coarse accuracy)
+ 0 28 003   Degree       2        0  16    Alternate longitude (coarse accuracy)
+ 0 28 004   Degree       5 -18000000  26    Alternate longitude (high accuracy)
+ 0 28 031   m            2        0  31    In direction 90 degrees East, distance from the Earth’s centre
+ 0 29 001   Code_table   0        0   3    Projection type
+ 0 29 002   Code_table   0        0   3    Co-ordinate grid type
+ 0 30 001   Numeric      0        0   4    Pixel value (4 bits)
+ 0 30 002   Numeric      0        0   8    Pixel value (8 bits)
+ 0 30 004   Numeric      0        0  16    Pixel value (16 bits)
+ 0 30 021   Numeric      0        0  12    Number of pixels per row
+ 0 30 022   Numeric      0        0  12    Number of pixels per column
+ 0 30 031   Code_table   0        0   4    Picture type
+ 0 30 032   Flag_table   0        0  16    Combination with other data
+ 0 31 000   Numeric      0        0   1    Short delayed descriptor replication factor
+ 0 31 001   Numeric      0        0   8    Delayed descriptor replication factor
+ 0 31 002   Numeric      0        0  16    Extended delayed descriptor replication factor
+ 0 31 011   Numeric      0        0   8    Delayed descriptor and data repetition factor
+ 0 31 012   Numeric      0        0  16    Extended delayed descriptor and data repetition factor
+ 0 31 021   Code_table   0        0   6    Associated field significance
+ 0 31 031   Flag_table   0        0   1    Data present indicator
+ 0 33 001   _            0        0   0    Reserved
+ 0 33 002   Code_table   0        0   2    Quality information
+ 0 33 003   Code_table   0        0   3    Quality information
+ 0 33 004   _            0        0   0    Reserved
+ 0 33 005   Flag_table   0        0  30    Quality information (AWS data)
+ 0 33 006   Code_table   0        0   3    Internal measurement status information (AWS)
+ 0 33 007   %            0        0   7    Per cent confidence
+ 0 33 015   Code_table   0        0   6    Data quality check indicator
+ 0 33 020   Code_table   0        0   3    Quality control indication of following value
+ 0 33 021   Code_table   0        0   2    Quality of following value
+ 0 33 022   Code_table   0        0   2    Quality of buoy satellite transmission
+ 0 33 023   Code_table   0        0   2    Quality of buoy location
+ 0 33 024   Code_table   0        0   4    Station elevation quality mark (for mobile stations)
+ 0 33 025   Code_table   0        0   3    ACARS interpolated values
+ 0 33 026   Code_table   0        0   6    Moisture quality
+ 0 33 027   Code_table   0        0   3    Location quality class (range of radius of 66 % confidence)
+ 0 33 030   Flag_table   0        0  24    Scan line status flags for ATOVS
+ 0 33 031   Flag_table   0        0  24    Scan line quality flags for ATOVS
+ 0 33 032   Flag_table   0        0  24    Channel quality flags for ATOVS
+ 0 33 033   Flag_table   0        0  24    Field of view quality flags for ATOVS
+ 0 33 035   Code_table   0        0   4    Manual/automatic quality control
+ 0 33 036   %            0        0   7    Nominal confidence threshold
+ 0 33 037   Flag_table   0        0  20    Wind correlation error
+ 0 33 038   Flag_table   0        0  10    Quality flags for ground-based GNSS data
+ 0 33 040   %            0        0   7    Confidence interval
+ 0 33 041   Code_table   0        0   2    Attribute of following value
+ 0 33 050   Code_table   0        0   4    Global GTSPP quality flag
+ 0 35 000   Code_table   0        0  10    FM and regional code number
+ 0 35 001   Code_table   0        0   3    Time-frame for monitoring
+ 0 35 011   Numeric      0        0  14    Number of reports actually received
+ 0 35 021   CCITT_IA5    0        0  48    Bulletin being monitored (TTAAii)
+ 0 35 022   CCITT_IA5    0        0  48    Bulletin being monitored (YYGGgg)
+ 0 35 023   CCITT_IA5    0        0  32    Bulletin being monitored (CCCC)
+ 0 35 024   CCITT_IA5    0        0  24    Bulletin being monitored (BBB)
+ 0 35 030   Code_table   0        0   4    Discrepancies in the availability of expected data
+ 0 35 031   Code_table   0        0   7    Qualifier on monitoring results
+ 0 35 032   Code_table   0        0   4    Cause of missing data
+ 0 35 033   Code_table   0        0   7    Observation and collection deficiencies
+ 0 35 034   Code_table   0        0   3    Statistical trends for availability of data (during the survey period(s))
+ 0 35 035   Code_table   0        0   5    Reason for termination
