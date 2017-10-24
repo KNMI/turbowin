@@ -1,0 +1,23 @@
+*** TurboWin V5.5 professional station settings, do not edit ***
+station type      : ship
+recruiting country: United Kingdom of Great Britain and Northern Ireland
+immt runningbackup: C:\Users\Martin\Downloads\diversen\test.txt
+system time       : UTC
+obs delimiter     : =
+ship's name       : Happy Martin
+height anemometer : 
+depth seaw. meas. : 
+national group 1  : 
+national group 2  : 
+national group 3  : 
+national group 4  : 
+national group 5  : 
+ASAP              : no
+SOOP              : no
+other project viz : no
+message form      : CLI
+IMO number        : 12345
+code form         : COMPRESSED
+method det. waves : wind sea and swell estimated
+barometer - sll   : 40
+keel - sll        : 9.1

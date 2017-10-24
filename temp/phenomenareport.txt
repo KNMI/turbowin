@@ -1,0 +1,24 @@
+PHENOMENA REPORT
+ 
+ship/rig/platform name__________________ : Happy Martin
+call sign/id____________________________ : TESTNL
+latest obs______________________________ : 25/08/2016 09.00 UTC
+voyage from_____________________________ : -
+voyage to_______________________________ : -
+phenomena category______________________ : assorted cetaceans
+phenomena latitude______________________ : 12-12.2 N
+phenomena longitude_____________________ : 12-12.2 E
+phenomena date__________________________ : 12/12/2017 UTC
+phenomena time__________________________ : 12 UTC
+phenomena observer 1____________________ : -
+phenomena observer 2____________________ : -
+phenomena observer 3____________________ : -
+master__________________________________ : KAPITEINTJE H
+phenomena photo_________________________ : no
+phenomena barogram______________________ : no
+phenomena sketch________________________ : no
+phenomena illustration__________________ : no
+written account_________________________ :
+   The author do not assign the copyrights in these works
+   to the relevant National Meteorological Service.
+   

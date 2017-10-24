@@ -1,0 +1,3 @@
+001	NL test	TEST2	-	a	b	assorted wildlife	12-12.6 N	003-12.6 W	12/12/2012	13	BROUWER B 2	-	-	KAPITEINTJE H	no	no	no	no	The author do not assign the copyrights in these works to the relevant National Meteorological Service. 
+002	Happy Martin	TEST2	24/10/2013 07.00 UTC	-	-	abnormal rainbow	12-12 N	122-34 W	12/12/2014	12:33	-	-	-	KAPITEINTJE H	no	no	no	no	The author do not assign the copyrights in these works to the relevant National Meteorological Service. test
+003	Happy Martin	TEST2	24/10/2013 07.00 UTC	-	-	dolphin	12-12 N	122-34 W	12/12/2014	12:33	-	-	-	KAPITEINTJE H	no	no	no	no	The author assigns the copyrights in these works to the relevant National Meteorological Service. test dolphin

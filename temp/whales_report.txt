@@ -1,0 +1,28 @@
+WDC SIGHTINGS REPORTING
+ 
+name____________________________________ : Martin Stam
+address_________________________________ : 
+country_________________________________ : Netherlands
+email___________________________________ : martin.stam@knmi.nl
+phone___________________________________ : 
+obs date________________________________ : 
+obs latitude____________________________ : 
+obs longitude___________________________ : 
+species seen____________________________ : Orca
+probability_____________________________ : Definite (100% sure)
+abundance adults________________________ : 34
+abundance juveniles______________________: 12
+abundance calves________________________ : 12
+behaviour_______________________________ : Spy-hopping (raising head vertically out water)
+direction of travel_____________________ : E
+wind force______________________________ : 1- Light air
+wind direction__________________________ : North
+cloud cover_____________________________ : 0/8
+sea state_______________________________ : 1 - Slight ripples, no whitecaps
+swell height____________________________ : Light (0-1 m)
+visibility______________________________ : Good (10-20 km)
+precipitation___________________________ : No precipitation
+associated wild life____________________ : Other cetaceans
+sighted using___________________________ : 2- Reticule binoculars
+notes___________________________________ :
+   attacking boas
