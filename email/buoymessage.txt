@@ -1,0 +1,24 @@
+BUOY/FLOAT DEPLOYMENT CONFIRMATION MESSAGE
+ 
+buoy/float ID number____________________ : q
+buoy/float type_________________________ : q
+deployment date_________________________ : q (DD/MM/YYYY)
+deployment time_________________________ : q UTC
+deployment latitude_____________________ : qq (deg - min)
+deployment longitude____________________ : q (deg - min)
+deployment height_______________________ : - metres
+deployment method_______________________ : -
+MSL pressure____________________________ : - hPa
+sea surface temp________________________ : - deg C
+air temp________________________________ : - deg C
+wind speed______________________________ : - knots
+wind direction__________________________ : - deg true
+wave height_____________________________ : - metres
+ship speed______________________________ : - knots
+condition of buoy/float after deployment : -
+buoy/float deployed on behalf of________ : -
+master__________________________________ : -
+ship____________________________________ : Super Happy Sailor IV
+buoy/float deployment recruiting country : Australia
+comments at launch______________________ :
+   dit is een test

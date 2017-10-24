@@ -1,0 +1,6 @@
+*** TurboWin station settings, do not edit ***
+United Kingdom of : obsmar@metoffice.gov.uk
+Netherlands       : pmo.office@knmi.nl
+Australia         : marine_obs@bom.gov.au
+Germany           : pmo@dwd.de
+Netherlands WMO   : pmo.office@knmi.nl

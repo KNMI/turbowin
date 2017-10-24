@@ -1,0 +1,9 @@
+*** TurboWin E-mail settings, do not edit ***
+ToAddress         : test-vos-hc@meteo.fr
+Subject           : VOS HC Obs
+Host              : mail.home.nl
+UserID            : martin.stam
+FromAddress       : martin.stam@home.nl
+FromName          : thuis
+Modem             : no
+AMOS mail         : no
