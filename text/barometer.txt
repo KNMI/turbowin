@@ -1,0 +1,2 @@
+*** TurboWin V5.5 professional station settings, do not edit ***
+barometer MSL     : no

@@ -1,0 +1,39 @@
+*** TurboWin settings, do not edit or reformat (IL 3.0) ***
+
+Aussaguel (121)              44   2    AOR_E     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Station 12 (112)             53   6    AOR_E     41   ALPHANUMERIC   -    -    -    -    y    y    n        -
+Goonhilly (102)              50   -5   AOR_E     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Southbury (104)              41   -73  AOR_E     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Aussaguel (121)              44   2    AOR_E     412  COMPRESSED     -    -    -    -    y    y    y    FRANCE
+Goonhilly (102)              50   -5   AOR_E     431  COMPRESSED     -    -    -    -    y    y    y    NETHER
+Goonhilly (102)              50   -5   AOR_E     444  COMPRESSED     -    -    -    -    y    y    y    UNITED
+Southbury (104)              41   -73  AOR_E     401  COMPRESSED     -    -    -    -    y    y    y    AMERIC
+
+Station 12 (012)             53   6    AOR_W     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Goonhilly (002)              50   -5   AOR_W     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Southbury (004)              41   -73  AOR_W     41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Aussaguel (021)              44   2    AOR_W     412  COMPRESSED     -    -    -    -    y    y    y    FRANCE
+Goonhilly (002)              50   -5   AOR_W     431  COMPRESSED     -    -    -    -    y    y    y    NETHER
+Goonhilly (002)              50   -5   AOR_W     444  COMPRESSED     -    -    -    -    y    y    y    UNITED
+Southbury (004)              41   -73  AOR_W     401  COMPRESSED     -    -    -    -    y    y    y    AMERIC
+
+Aussaguel (321)              44   2    IOR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Station 12 (312)             53   6    IOR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Station 12 Perth (312)       -32  116  IOR       1241 ALPHANUMERIC   -    -    -    -    y    y    n        -
+Goonhilly SI (302)           1    104  IOR       141  ALPHANUMERIC   -    -    -    -    y    y    y        -
+Yamaguchi (303)              34   131  IOR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Eik USA (304)                60   10   IOR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Yamaguchi (303)              34   131  IOR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Aussaguel (321)              44   2    IOR       412  COMPRESSED     -    -    -    -    y    y    y    FRANCE
+Goonhilly SI (302)           1    104  IOR       431  COMPRESSED     -    -    -    -    y    y    y    NETHER
+Goonhilly SI (302)           1    104  IOR       444  COMPRESSED     -    -    -    -    y    y    y    UNITED
+Eik USA (304)                60   10   IOR       401  COMPRESSED     -    -    -    -    y    y    y    AMERIC
+
+Station 12 Perth (212)       -32  116  POR       1241 ALPHANUMERIC   -    -    -    -    y    y    n        -
+Santa Paula (204)            34   -119 POR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Goonhilly SI (202)            1   104  POR       141  ALPHANUMERIC   -    -    -    -    y    y    y        -
+Yamaguchi (203)              34   131  POR       41   ALPHANUMERIC   -    -    -    -    y    y    y        -
+Aussaguel Aus (221)          -32  116  POR       412  COMPRESSED     -    -    -    -    y    y    y    FRANCE
+Goonhilly SI (202)           1    104  POR       431  COMPRESSED     -    -    -    -    y    y    y    NETHER
+Goonhilly SI (202)           1    104  POR       444  COMPRESSED     -    -    -    -    y    y    y    UNITED
+Eik USA (204)                60   10   POR       401  COMPRESSED     -    -    -    -    y    y    y    AMERIC

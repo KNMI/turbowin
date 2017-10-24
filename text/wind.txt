@@ -1,0 +1,5 @@
+*** TurboWin V5.5 professional station settings, do not edit ***
+wind source       : 5
+wind speed units  : 1
+height deck cargo : 13
+max summer line   : 2
