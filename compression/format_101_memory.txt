@@ -1,0 +1,57 @@
+ 0 1    101.000 format identifier
+ 1 1      1.000 call sign encryption indicator
+ 2 1      0.000 COG past 10 minutes [degrees]
+ 3 1      0.000 SOG past 10 minutes [m/s]
+ 4 0            heading [degrees]
+ 5 0            distance WL - SLL [metres]
+ 6 1   2017.000 year
+ 7 1      3.000 month
+ 8 1     20.000 day
+ 9 1     13.000 hour
+10 1      0.000 minute
+11 1     12.500 latitude [degrees]
+12 1    -13.667 longitude [degrees]
+13 1 100000.000 pressure at barometer height [Pa]
+14 1 100310.000 pressure at MSL [Pa]
+15 0            3 hour pressure change [Pa]
+16 0            characteristic of pressure change [code]
+17 0            true wind direction [degrees]
+18 0            true wind speed [m/s]
+19 0            relative wind direction [degrees]
+20 0            relative wind speed [m/s]
+21 0            maximum wind gust speed [m/s]
+22 0            maximum wind gust direction [degrees]
+23 0            air temperature [K]
+24 0            wet bulb temperature [K]
+25 0            dew point temperature [K]
+26 0            relative humidity [%]
+27 0            sea water temperature [K]
+28 1      1.000 visual obs. precense indicator
+29 0            visibility (VV) [code]
+30 0            present weather (ww) [code]
+31 0            past weather 1 (W1) [code]
+32 0            past weather 2 (W2) [code]
+33 0            total cloud cover [code]
+34 0            cloud amount (low) [code]
+35 0            cloud type low (Cl) [code]
+36 0            cloud type middle (Cm) [code]
+37 0            cloud type high (Ch) [code]
+38 0            height of base of lowest clouds [code]
+39 1      1.000 wave obs. presence indicator
+40 0            period of wind waves [seconds]
+41 0            height of wind waves [metres]
+42 0            direction of 1st swell [degrees])
+43 0            period of 1st swell [seconds]
+44 0            height of 1st swell [metres]
+45 0            direction of 2nd swell [degrees]
+46 0            period of 2nd swell [seconds]]
+47 0            height of 2nd swell [metres]
+48 1      0.000 ice obs. precence indicator
+49 0            ice deposit/thickness (EsEs) [metres]
+50 0            rate of ice accretion (Rs) [code]
+51 0            cause of ice accretion (Is) [code]
+52 0            sea ice concentration (ci) [code]
+53 0            amount and type of ice (bi) [code]
+54 0            ice situation (zi) [code]
+55 0            ice development (Si) code]
+56 0            bearing of ice edge (Di) [degrees]
