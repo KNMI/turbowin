@@ -1,0 +1,756 @@
+
+************************************************************************************************************************
+* VERSIE 3.0 [veranderingingen t.o.v. versie 2.12 / 2.12.1]                                                       *
+************************************************************************************************************************
+09-05-2001  - i.p.v. captaintransfer stond er transfercaptain (tmywindo.h en tmycaptain.cpp)
+              i.v.m. uniformiteit veranderd, werking was verder wel goed
+15-05-2001  - context help systeem geimplementeerd in classic form
+26-05-2001  - TMycall.cpp en tcall.cpp en tcall.h aangepast voor een efficientere
+              call sign behandeling (kan nu functies delen met classic form)
+06-06-2001  - In functions: CmMaintenanceRemoveLogFiles() en Check_A_drive
+              wordt niet meer gesproken over 'empty disk' maar 'blank disk'
+            - in resource workshop niet meer gesproken van 'next screen'
+              maar van 'next form'
+            - In function InitMainWindow() [file: TmyApp.cpp] de statusbar nu
+              met default font verwijzing (onder Windows 2000 anders hele kleine lettertjes)
+              tevens de scrollock etc. indicatoren in statusbar aangezet
+            - In TMywindow() [file TmyWindo.cpp] Filedata.Flags uigebreid met OFN_EXPLORER
+              voor 'new look' open/save dialog bij desktop en picture openen
+24-06-2001  - I.v.m. met weergeven van andere image formats dan alleen Windows bitmaps < 256
+              de listview aanroepen met type "LVBKIMAGE". Om in listviews plaatje te tonen
+              zijn in de header files commctr.h enkele nieuwe declaraties nodig.
+              (LET OP: deze header file komt 2x voor in include en in enclude\OWL !!)
+
+              in ...\BC5\include\OWL\commctrl.h (1997; revision 10.26) vervangen door
+                 ...\BC5\include\OWL\commctrl.h (1998; revision 1.6) met een aanpassing
+                 op "#include owl/pre.h en owl/post.h" (deze nieuwere komt uit C++ Builder 4)
+
+              in ...\BC5\include\commctrl.h (version 1.0; 1996) 3 nieuwe secties toegevoegd t.w."
+                 - _WIN32_IE sectie toegevoegd
+                 - CUSTOM DRAW sectie toegevoegd
+                 - LISTVIEW sectie vernieuwd
+              deze nieuwe secties komen uit commctrl.h van C++ Builder 4 (1998; version 1.2)
+
+              N.B. commctrl.h in de include directory kon niet helemaal vervangen worden
+              door de nieuwere versie omdat dan de tooltips (classic form) een runtime error geven
+
+              Om nu nieuwe plaatjes te tonen is nodig MS Windows Comctl32.dll (>= versie 4.71)
+              deze is standaard aanwezig in:
+              - Windows XP + geen extra aanvulling vereist
+              - Windows 2000 + geen extra aanvulling vereist
+              - Windows 98 + geen extra aanvulling vereist
+              - Windows 95 + IE 4.0 of hoger
+              - Windows NT 4.0 + IE 4.0 of hoger
+              - Windows Me + geen extra aanvulling vereist
+30-06-2001  - Alles wat met TDib te maken heeft verwijderd *fileDib, fLoaded etc.
+            - ook (bitmap)Stretch functies verwijderd
+            - ook Get_Device_Color() verwijderd
+            - CmDesktop() en Default_desktop() verder opgesplitst om ze ook vanuit
+              SetupWindow() en Paint() de onderdelen te kunnen aanroepen
+05-07-2001  I.v.m. kunnen gebruiken rechter muisknop in nieuwe desktop:
+            - function: PreProcessMsg(MSG& msg) [file tmywindo.cpp] toegevoegd
+            - Function: EvRButtonDown() [file tmywindo.cpp] gewijzigd
+06-07-2001  - Function: Check_Comctl32_Version() toegevoegd (voor checken op
+              kunnen tonen van images)
+23-08-2001  - Function: WavesDialogShip() [file TmyWaves.cpp] :
+              check: Method = estimated + 2nd swell dir = "no swell" (or 0) +
+                     1st swell dir not "no swell" (or 0), blank
+              verwijderd.
+23-08-2001    Function: WavesDialogShip() [file TmyWaves.cpp] :
+              indien second swell direction = "confused" dan wordt dit niet meer
+              // maar 99
+26-08-2001    probleem:
+              soms wordt in classic form bij uitklappen observers keurig
+              de 2 aanwezige namen getoond maar soms worden deze namen telkens
+              herhaald met telkens een paar extra herhalen na een messsage.
+              Dit gebeurd nooit de eerste keer maar pas nadat er een message
+              gegeven is.
+              oplossing:
+              In Function: SetupWindow() (file tclassicform.cpp)
+              weer ClearList uit-gecomment
+09-09-2001  - Function: CmPastWeather() [file: tmypastweat.cpp] een else tak
+              toegevoegd bij controle gedeelte en hierin o.a. pastweather_ok = TRUE
+              en form_mode = STANDARD
+23-11-2001  - Phenomena form toegevoegd
+              bij 3 buttons op 165 - 225 - 285 (form breedte 500; button breedte 50)
+              bij 4 bottons 135, 195, 255, 315 (form breedte 500; button breedte 50)
+07-12-2001  - In Function: Scrijven_IMMT_log() [file obs.cpp] werd na openen file os.open
+              deze gesloten als is.close() dit moet zijn os.close()
+15-12-2001  - * phenomena.log in directory log
+              * countryemail.txt in directory email (countryemail match op eerste 17 char of
+                minder als recrouting country < 17)
+              * phenomena.tab kan aangemaakt worden (dir. email)
+21-12-2001  - * Function: CreateListView() [tmydesktop.cpp] Achtergrondkleur desktop gezet
+              (nog goede kleur kiezen)
+16-01-2002  - * Function InitMainWindow() [file tmyapp.cpp) EnableBWCC(TRUE) verwijderd
+                ook alle styles in resource workshop op standaard gezet (geen borland look)
+                + alle input forms vergroot (nu minimum scherm resolutie: 600x800)
+13-02-2002  - Als bij classic form op OK en alles in orde dan observer menu item ook op gray
+19-02-2002  - In station data(ship) input form de texten "height of anemometer above sea level"
+              veranderd in "average height of anemometer above sea level" en
+              "depth of sst measurement below sea level" veranderd in
+              "average depth of sst measurement below sea level"
+            - in staion.log : *** TurboWin V3.0 station settings, do not edit *** i.p.v.
+                              *** TurboWin station settings, do not edit ***
+            - station data (ship) toegevoegd: messafe form (selected, supplementary etc.)
+25-02-2002  - Toegevoegd check: Als Twet > 0.0°C dan kan niet state of Twet frozen zijn
+26-02-2002  - Vs / dan num_Vs = MAXINT i.p.v. 888 (file: tmypos.cpp]
+            - in classic form als Ds niet ingevuld is wordt  char_Ds (de Ds zoals in de obs komt)
+              een 9 (en num_Ds = MAXINT voor checks)
+            - In classic form aanpassingen voor supplementarty and auxiliary ships gemaakt
+              (groepen gedisabled of mag alleen "/" invullen zoals 4PPP/)
+            - Cl(Cm) cloud cover en height lowest cloud(h) gedisabled in standard input form
+              als auxiliary ship reporting code
+06-03-2002  - I.vm. aangepaste input forms voor SUS, SUP en AUX de volgende files veranderd:
+                  - tmypres.cpp
+                  - tpressure.cpp
+                  - tpressure.h
+                  - tmycheig
+                  - tcheight.cpp
+                  - tcheight.h
+                  - tmytemp.cpp
+                  - ttemp.cpp
+                  - temp.h
+10-03-2002 - In een bijzondere gevallen kan het voorkomen dat in de obs en in IMMT log niet het 1000-tal van de code
+             verwijderd wordt (4PPPP = 410000 i.p.v. 40000). Dit gebeurd als de barometer reading (+ hoogte correcte
+             ligt) ligt tussen 999.95 en 999.99 hPa.
+             Dit kan gebeuren in function:
+                - MSL_Herleinding_Luchtdruk()  [module tmypress.cpp]
+                - CmShipAirpressure()  (kans alleen als hondersten of nog fijner ingevuld in "tienden" veld) [module
+                  tmypress.cpp]
+13-03-2002 - In de uiteindelijke obs (gecodeerd) wordt voor AUX de groep 8NhClCm niet verstuurd, voor SUS, SUP en AUX
+             de groepen 2PwPwHwHw, 3dw1dw1dw2dw2, 4Pw1Pw1Hw1hw1 5Pw2Pw2Hw2Hw2
+             NB voor een selected ship worden deze groepen altijd verstuurd eventueel als ////
+           - Meteo progress overzicht nu met ge-disable-de (gegrijsd) waarden voor groepen die ze niet rapporteren
+14-03-2002 - Geschikt gemaakt voor Windows XP visual styles ("themes")
+                  - nodig file: turbowin.exe.manifest in turbowin root dir !!!
+             (gebruikt dan commctl32 versie 6.0.0.0 dan i.p.v. de ook standaard aanwezige -default-versie 5.8
+             door microsoft "sidebyside" genoemd)
+15-03-2002 - "Notes input form" anders geiimplementeerd want onder Windows XP met .manifset file (visual styles aware)
+             werden alleen 2 characters gesaved en gerestored; heeft betrkking op de source code files:
+                 - tnotes.cpp
+                 - tnotes.h
+                 - tmynotes.cpp
+16-03-2002 - Nieuwe function: Check_A_drive_Op_Disk() [file: tmywindow.cpp] om te voorkomen dat als bij "Move log files
+             to A:" elke keer (bij elke log) een systeem melding (NO disk) gegeven wordt
+23-03-2002 - Alle message boxen van -standard- icons voorzien (
+                    - MB_ICONWARNING: TurboWin error meteo (b.v temp = 70.o gr C)
+                    - MB_ICONERROR: TurboWin error system: (b.v. een file niet te vinden)
+                    - MB_ICON_INFORMATION: TurboWin info (b.v. advies dichtbijzijnde LES)
+                    - MB_ICONQUESTION: TurboWin vraag (b.v. level 3 checks = must be confirmed)
+23-03-2002 - Function: checking_level_3() [file obs.cpp]. De waarschuwing op het laatst als er geen observer is geselecteerd
+             dan via "Retry" kan er alsnog eentje geselecteerd worden. Hierna werd echter deze function
+             (checking_level_3()) nogmaals aangeroepen, dit vanaf nu niet meer
+03-04-2002 - Function: IMMT_log() [file obs.cpp]
+                    - char number 1 (format/temp indicator) voor AUX op 5 gezet
+                    - char number 55 (wave indicator) blanco voor AUX, SUS en SUP
+                    - char number 71 (observation platform) uitgebreid voor SUS SUP en AUX
+---------------------------------- versie 3.0 ---------------------------------
+25-06-2002 - In classicform: - calculator ddff verwijded
+                             - additional data and WMO code sectie omgedraaid
+                             - aanvullende regel dat men moet controleren op keuze mogelijkheid observer
+
+            - Free text in phenomena form verhoogd van 2000 -> 5000
+            - notes van 3000 -> 10000
+26-06-2002  - Symbolysche aanduiding boven eerste national group stond niet goed uitgelijnd
+27-06-2002  - In air pressure input form de HOOGTE CORRECTIE waarschuwings regel veranderd
+            - tevens als reading reeds op sea level is dan is een berometer hoogte niet meer
+              nodig om in te vullem
+            - reading indication veranderd van text box naar combobox
+            - air pressure help file uitgebreid met een second example
+27-06-2002  - Verklarende regel over cloud height advice op inputform opgenomen
+              (bij AUX wordt deze regel niet getoond)
+            - Bij niet AUX ships werd voor h een / gecodeerd
+              dit moet zijn voor WEL AUX een /. Zie function: CmShipsCloudheigh()
+              [file: tmycheig.cpp]  (if (message_mode == "AUX") i.p.v. foute if (message_mode != "AUX")
+            - warning icons toegevoegd bij messages bij CmCaptainAdd() en CmObservAdd()
+            - bij captain and observers input form note van *Discharge book... verder uitgebried
+              op verzoek Met Office
+            - "note" toegtevoegd bij temperatures input form bij RH gedeelte
+01-07-2002  - Overal searchpath vervangen door (local_)turbowin_dir etc.
+02-07-2002  - vosclim logo waar je op kunt klikken voor meer info toegevoegd
+              bij station data ship form an bij wind main form (deze laatste
+              is aalleen zichtbaar als vosclim participant is aangezet)
+            - afstend tussen de icons van 'automatically next form' en van
+              tussen 'classic for' verkleind
+03-07-2002  - icon voor phenomena toegevoegd. tevens icons voor icing en netx screen verbeterd
+16-07-2002  - naar custom file aantal chr van 256 -> 512
+              char CustomEditResult[256] [dile: tcustom.h]
+
+01-08-2002  - In elke form nu een ingegraveerde TurboWin text in lijn
+14-08-2002  - Obs by E-mail(Turbo) aangepast omdat onder windows 2000 en xp
+              het niet goed wekte indien verbonden met het internet via modem
+              en telefoon lijn (met LAN naar internet ging het wel goed)
+                   - Check_Windows_Version()   [file obs.cpp]
+                   - Check_Modem_Phone_Line_Connection() [file obs.cpp]
+                   - nieuw: email.cmd 9 [in email dir van turbowin root]
+                   - CmMaintenanceEmailSettings() [file: tmyemailsettings.cpp]
+                   - diversen in file: temailsettings.cpp
+                   - diversen in file: temailsettings.h
+
+18-08-2002 - IMO number toegevoegd op Maintenance form van schepen                   
+21-08-2002 - Obs by E-mail(OLE) een message info gemaakt indien Windows 2000
+             of XP in combinatie met dal-up connection
+             function: CmObsEmail2() [file: obs.cpp]
+23-08-2002 - Obs by E-mail(Turbo) gaf een foutmelding met windows XP (buiten
+             de IDE) als de email.cmd aangeroepen werd.
+             daarom de WinExec oproep veranderd naar een ShellExecute aanroep 
+24-08-2002 - Als er nog geen recruiting country was ingevuld dan werd in
+             phenomena form toch de eerste E-mail gepakt uit emailcountry.txr
+             daarom function: Bepaal_Phenomena_Email_Address() [file: phenomena.cpp]
+             aangepast
+27-08-2002 - Bij visibility input page de koptekst stond vivibility
+             i.p.v. visibility
+
+************************************************************************************************************************
+* VERSIE 3.01 [veranderingingen t.o.v. versie 3.0]                                                                     *
+************************************************************************************************************************
+03-10-2002 - probleem:
+                  op sommige systemen zijn de Ch image files niet op te vragen
+             oplossing:
+                  'local_turbowin_dir = turbowin_dir' toegevoegd (was ik vergeten)
+                  in function: TCloudshighDialog::TCloudshighDialog() [file: tcloush.cpp]
+
+************************************************************************************************************************
+* VERSIE 3.02 [veranderingingen t.o.v. versie 3.01]                                                                    *
+************************************************************************************************************************
+10-10-2002 - probleem:
+                  in classicform: if (num_N == 0 && num_h != 0) -> foutmelding
+                  dit moet zijn   if (num_N == 0 && num_h != 9) -> foutmelding
+             NB omdat clssicform niet te openen is door VOSClim deelnemers en fixed sea stations
+             hebben deze er geen last van
+             oplossing:
+                  Function: Check_Cloud_Cover_Height() [file: tmyclassicform.cpp] aangepast
+
+           - AUX standard form :
+              Bij AUX ships ten onrechte checks voor Total cloud cover - low cover etc.
+             (zie file: tmycheigh.cpp)
+             deze checks niet meer aangeroepen indien AUX
+
+           - AUX classic form
+             Bij AUX ships ten onrechte checks voor Total cloud cover - low cover etc.
+             (zie file: tmyclassicform.cpp)
+             deze checks niet meer aangeroepen indien AUX
+
+           - AUX + standard en AUX + classic form:
+             Bij cloud cover - cloud types; Function: checking_level_2() [file obs.cpp]
+             Bij cloud type - cloud height; Function: checking_level_2() [file obs.cpp]
+             niet meer cheken indien AUX
+
+
+************************************************************************************************************************
+* VERSIE 3.03 [veranderingingen t.o.v. versie 3.02]                                                                    *
+************************************************************************************************************************
+08-01-2003 - probleem: Op de JCOMM vergadering van June 2001 in Iceland hebben ze
+                  in IMMT-2 VOSCLIM gedeelde nog een kleine wijziging aangebracht
+                  n.l. char 143 moet nu zijn "0" of "1" i.p.v. " " of "-"
+             oplossing:
+                  function: CmShipWind() [file: TMyWind.cpp] aangepast
+                  ook in function: IMMT_log() [file: obs.cpp] het comment ter hoogte
+                  van char 143 - 145 iets aangepast
+
+
+
+
+
+
+------------------------------------------------------------------------
+nog controleren:
+------------------------------------------------------------------------
+
+* bij sw = 5,6,7 hoe in obs (of wordt deze niet verstuurd) en in IMMT ??
+
+* als iw = / in classicform dat wordt dit vis obs.cpp file een 0 (omdat er
+  toch wat moet staan) klopt dit
+
+* Check_Comctl32_Version() op juiste moment aanroepen
+
+* TObservernameTransfer observernametransfer; staat in observ.h en tmywindo.h
+
+* in help files niet meer praten over screen of window maar over form
+
+* na create van een dialog eerst niet de xxxxx_dialog_invalid() function (initialisatie) aanroepen
+
+* MenuEmailLink2 = new THLinkMenu() [TmyWindow::TmyWindow - file TMyWindow]
+  kan niet ge-delete worden (tread error) in destructor (of waar dan ook) waarom niet ???
+
+  * bij wind speed >= 100 m/s komt alleen de laatse 2 char in IMMT-log
+  wellicht beter hier dan 99 vanmaken (indien b.v. 100 knopen dan schrijft IMMT
+  code voor omzetten naar m/s, echter als je al in m/s bezig bent wat dan ?,
+  er zijn maar 2 pos. beschikbaar in immt
+
+  -> checken in standard form en classic form
+    dat bij knopen ff <= 200
+    bij m/s        ff < 100
+
+*  Ds = / kan niet ? (omdat de code zegt Ds = 9 = no information)
+
+* Bij iw = / in classicform wordt in de obs een iw = 0 (willekeurige waarde)
+  is dit correct?
+
+* exposure (sling psychrometer of marine screen) springt op eerder ingelezen
+  waarde bij een error in input form, ondanks dat exposure wellicht net veranderd was
+
+* bij quality control doc versie 2.1 ook toeveoegen year = 2004 , 2008 ,
+  1012 en 1016 contr0le op leap year (ook in versie 2.1)
+
+* sw in IMMT log
+
+* Pw1Pw1 = 99 (en ook Pw2Pw2 = 99) kan dit ?
+
+
+* LAY OUT
+   - in air pressure standard input form a=1, a=1 etc. verwijderen ?
+
+* bij past weather input page: bij W = 1, 2,3
+  "> 0.5 of sky" i.pv. > 0.5 etc [dus of sky invoegen]
+
+* by tmyclassicform is de new van de dialog aanmaak binnen de do-while lus gezet
+  dit heeft als voordeel dat de veranderingen na een foutmelding toch gehandhaaft
+  blijven, dit wellicht ook bij andere forms toepassen ?
+
+* minimaal 3 characters voor callsign (zie manual on codes) ?
+
+* help file: station data ship help:
+  by inserting of the group names i.p.v. inserting these names
+
+* help file INFO E-mail aanpassen (Outlook express 6, Lotus Notes R5.0)
+  Netscape Messager 6.1 nog uitproberen
+
+* waarom is bij sluiten classic form de openstaande help file ook gelijk gesloten
+  en bij de standard forms niet
+
+* Checks op PwaPwa en HwaHwa conroleren (ook level2 en level3)
+
+* bij ice (ciSibiDizi) is codecard met ice concentration in 1/8 en de
+  invull schermen in 1/10 schaal, dit consistent maken
+
+* bij "obs to screen" komt door niet meer borland mode de obs nu in een lange
+  regel wellicht deze ook splitsen (net als to file etc.) ?* Input does not conform to picture
+  "@@@@@" etc. verder uiwerken (classic form)
+
+* level 3 check DsVs niet aanwezig maar wel nodig i.v.m. appp ice of icing ?
+
+* nog maar 1 default dektop file gebruiken. B.v. die van de GPS golven. Wordt toch "ge-tiled"
+
+* System timer - all parameters	If time difference between sending obs + present system time > 1.0 hour then all inserted parameters are set invalid (but still present; must be confirmed again)
+  Geld dit ook voor classic form ???
+
+* Set icon by meteorological report progres
+
+* Als je een obs naar clpboard schrijft en je doet een past in "written account" deel van phenomena dan
+  gaat het bij weer ophalen phenomena fout, de | ("\n" = new line) wordt dan niet voor carriage return aangezien
+  hier ook op testen ??  Dit zal onder normale omstandigheden niet door een gebruiker gegeven worden daarom
+  maar niets doen
+
+* WindowBlinds skin engine gaat niet goed (TurboWin neemt ongelimiteerd geheugen, light aan OLE)
+  N.B. ook versie 2.12 gaat met Windows XP + WindowBlinds niet goed
+
+* E-mail ook nnar clipboard i.v.m. paste bij hotmail ?
+
+* E-mail attachment (bij phenomena) automatiseren ?
+
+* regel 214 tmyphenomena.cpp '\n' ?
+
+* Help file bij Notes (National i.p.v. national) en wellicht historisch plaatje er bij
+
+
+
+------------------------------------------------------------------------
+TESTEN
+------------------------------------------------------------------------
+* testen of TurbWin als restricted user (Windows 2000 en XP) gebruikt kan worden
+
+* diverse message vormen SEL, SUS (supplementary + sst), SUP (supplementary - sst) en AUX
+  (denk vooral aan afronden voor AUX)
+         - meteo progress
+         - immt log
+         - gecodeerde obs (output by E-mail etc.)
+         - checks (kevel1, level2 en level3)
+
+* luchtdruk herleiding
+         - speciale aandacht voor AUX ship i.v.m. afronden
+
+* worden alle log files (6 stuks) goed naar A:\ gecopieerd
+
+* icons (error, warning, ! en ?) onder XP
+
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 3.5 beta [veranderingingen t.o.v. versie 3.0x]                                                               *
+************************************************************************************************************************
+18-09-2002 Aantal phenomena categorieeen toegevoegd (en het was corposant en
+           niet corponant) [file: tphenomena.cpp]
+02-10-2002 Info About menu transparant gemaakt (alleen onder W2k en XP)
+16-01-2003 Uitlijning (lay-out) classic form iets verbeterd
+20-02-2003 - VOS-brochure toegevoegd (Info | VOS brochure)
+           - VOS-CLIM brochure opnieuw ingelezen vauit pdf file (met de graphic tool van acrobat reader)
+05-03-2003 cloud classification game toegevoegd (Games | Cloud classification)
+           NB - hiervoor de foto Ch3_1.bmp opnieuw ingescant (dit dus ook in ch helpfile doorvoeren)
+              - Ch6_1.bmp een geheel nieuwe foto, omdat de Ch5_1 en Ch6_1 het zelfde waren.
+                (dit dus ook in ch helpfile doorvoeren)
+
+           - bij phenomena lijstje ('observing category') seaquake toegevoegd
+
+08-03-2003 - foto Bf4.bmp uit dir ~games\seasate 10% meer contrast gegeven
+             dit ook naar help file doen ?
+           - foto ch7_2.bmp venieuwd nu van Aalders (zie KNMI wolkenatlas plaat 37)(ook helpfile doorvoeren)
+19-03-2003 - foto floes small vernieuwd ook in help file doorvoeren
+           - toegevoegd in helpfile foto met beschrijving "floeberg"
+           - Cm5_3.bmp vervangen (zie KNMI wolkenatlas plaat )(ook helpfile doorvoeren)
+           - Cm6_4 opnieuw ingescanned
+           - en nog veel meer fotos
+09-05-2003 - diverse help files aangepast (observer.hlp, waves, visibility etc.)
+           - probleem als de progress screen was geopend en je sloot dit weer via de OK button
+             dan bleef er een vinkje staan bij de uitklap menu (via Cancel niet)
+             in progress screen de OK-button en HELP button verwijderd tevens de bijhorende
+             code in de files tprodi.cpp en tprodi.h aangepast
+             NB file: PROGRESS.HLP is dus nu niet meer nodig !!!!!
+15-05-2003 - global var "code_mode" geintroduceerd moet echter nog wel ergens GEINITIALISEERD WORDEN !!!
+11-05-2003 - via maintenance station data ship de var code_mode (ALPHANUMERIC, BUFR) gezet
+             sie files: tmystat.cpp, stat_ty.cpp, stat_ty.h
+11-05-2003 - was ik vergeten: IMOResult[0] = '\0'; in TShipTransfer() [file stat_ty.cpp]
+18-06-2003 - Function: Inmarsat_LES_Advies() [obs.cpp] aangepast voor BUFR ontvangst stations
+             (ook tw_17.h aangepast voor file namen)
+           - SHIP.HLP aangepast voor BUFR
+
+           - probleem: bij sommige positie lengten werd geen LES code 41 advies gegeven
+                      in Function: Inmarsat_LES_Advies() werd de variable "obs_LongitudeTenths" door 10
+                      gedeeld en bij de hele graden opgeteld, echter deze variable bevat het aantal minuten van de
+                      positie lengte. Dus 176 lengte + 56 minuten werd opgeteld 176 + 5.6 dit is groter dan 180
+                      dus geen Inmarsat-C code 41 les advies.
+             oplossing alleen de hele graden worden gebruikt (dus geen tienden of minuten er meer bij)
+
+13-08-2003 - Na "add"(button) van een nieuwe observer wordt eerst nog om een bevestiging gevraagd.
+             Function: CmObservernameAdd() [file: tobserverv.cpp]
+20-08-2003 - Na "add"(button) van een nieuwe captain wordt eerst nog om een bevestiging gevraagd.
+             Function: CmCaptainAdd() [file: tcaptain.cpp]
+           - Bij Maintenance E-mail settings input form de OK knop als eerste in tab volgorde (resource work shop)
+           - na selectie van een observer wordt bij weer openen van deze observer input form de selectie balk
+             op de geselecteerde naam gezet, dit was namelijk hiervoor niet het geval; Function setupwindow()
+             [file tobserv.cpp]
+29-08-2003 - Statistics observers ge-updated hiervoor:
+               Function: Draw_Observer_Statistics()    -> afgesplitst van Paint() + aangepast [file tmywindow.cpp]
+                         CmOptionsStatisticsObserver() -> aangepast  (i.vm. bar kleuren) [file tmywindow.cpp]
+                     	 GetClassName()                -> was verdwenen vanaf TurboWin versie 2 [file tmywindow.cpp]
+	                      GetWindowClass()              -> was verdwenen vanaf TurboWin versie 2 [file tmywindow.cpp]
+           - Bij verandering reading aanduiding (al of niet MSL) wordt nu bij elke selectie van YES/NO
+             een message getoond (Function: Ev_listbox_Reading_SelChange [tpressur.cpp])
+           - Tevens in dit pressure input form overal "sea level" vervangen door "mean sea level"
+           - Ook de help file pressure.hlp nu overal "mean sea level" i.p.v. "sea level" of "(mean) sea level"
+03-09-2003 - In Function: Check_A_drive_Op_Disk() A:\ veranderd in A:
+
+06-09-2003 - Nu mogelijkheid op via maintenance de log files naar USB disk te verplaatsen. betrokken functions:
+                    Check_USB_drive() [tmywindow.cpp]
+                    Check_USB_drive_Op_Disk() [tmywindow.cpp]
+                    Veplaats_Log_Files [tmywindow.cpp]
+                    CmMaintenanceRemoveLogsUSB() [tmywindow.cpp]
+                    CmMaintenanceRemoveLogFiles() [tmywindow.cpp]
+                    Kopieeren_Waarnemers_En_Aantallen() [tmywindow.cpp]
+                    en ook nieuwe help file toegevoegd: USBDISK.HLP
+07-09-2003 - In TPressur.cpp na geven 'yes' of 'no' (baroneter indicates pressure at MSL wordt nu direct een
+             reminder message gegeven "You selected 'YES' that means .... etc.
+             TEXT NOG LATEN CONTROLEREN
+             Ook wordt bij YES de text "barometer height above MSL" en edit veld gedisabled
+           - In Function CeShipPosition() [tmypos.cpp] behoeven num_Ds en num-vs niet meer != MAXINT (unknown) te
+             zijn omdat toch het icon (passertje) permanent ingedrukt wordt (aangevende afgehandeld)
+09-09-2003 - Ondanks aangekondigd bij versie 3.0x toch de directory manifest met file turbowin.exe.manifest vergeten
+17-09-2003 - Captain en observername input page beter uitgelijnd
+24-09-2003 - Back en Stop button bij sequential dialogs
+28-09-2003 - Obs to Printer start nu met 5 lege regels + Arial font -> NOG VERDER UITWERKEN
+             0.a de tussen melding messagebox printing %1 etc. nog verbeteren [KAN NIET ZIT STANDAARD IN OWL !]
+01-20-2003 - in Print as plain text de texten zoals identification : de spaties tussen woord en : verwijderd
+             + font nu arial [file print2.cpp]
+
+
+             Testen sequence dialogs:
+
+             type  |   system time | message node  |  vos clim | waves measured | passed
+             ---------------------------------------------------------------------------
+             ship         ja             SEL            ja              nee         ok
+             ship         nee            SEL            ja              nee         ok
+             ship         ja             SEL            ja              ja
+             ship         nee            SEL            ja              ja
+             ship         ja             SEL            nee             nee
+             ship         nee            SEL            nee             nee
+             ship         ja             SEL            nee             ja
+             ship         nee            SEL            nee             ja
+             ship         ja             SUS            -               -           ok
+             ship         nee            SUS            -               -           ok
+             ship         ja             SUP            -               -           ok
+             ship         nee            SUP            -               -           ok
+             ship         ja             AUX            -               -           ok
+             ship         nee            AUX            -               -           ok
+             plat         ja              -             -               nee
+             plat         nee             -             -               nee
+             plat         ja              -             -               ja
+             plat         nee             -             -               ja
+
+
+08-10-2003 - Soms kon in de classicform mode de help file (F1 of ?) niet gevonden worden:
+             "Cannot find .\help\codecard.hlp" daarom
+             			 : TDialog(parent, resId), THelpFileManager(".\\help\\codecard.hlp")
+                         veranderd in
+          		   	 : TDialog(parent, resId), THelpFileManager(turbowin_dir + weather_code_help_file)
+               [file tclassicform.cpp]
+
+              echter hier komt het niet vandaan er wordt gekeken naar:
+                 TMyApp(const char* name, const char* helpFileName): TApplication(name), THelpFileManager(helpFileName){}
+               [file tmyapp.cpp en tmyapp.h]
+10-10-2003 - Help file "code 41 Inmarcat-C Les| ge-updated en tevens de files aor-e.txt. aor-w.txt. ior en por geupdated
+             (o.a. Jeddah toegevoegd en Raisting verwijderd)
+14-10-2003 - I.v.m. toevoegen mogelijkheid gemeten golven voor schepen de volgende Functions aangepast:
+                    - Ship_dialog() [file: tmystat.cpp]                            ok
+                    - Get_station_data() [file: tmystat.cpp]                       ok
+                    - samenstellen_te_verzenden_obs() [file: obs.cpp]              ok
+                    - CmOptionsShowProgress() [file tmywindow.cpp]                 ok
+                    - CmShipWaves() [file tmywaves.cpp]                            ok
+                    - CeClassicForm [file tmyclassicform.cpp]                      ok
+                    - IMMT_Log() [file obs.cpp] (let ook op char 55 indicator)     ok
+                    - fixed en ship dialog (resource workshop)                     ok
+                    - TShiptransfer() [file stat_ty.cpp]                           ok
+                    - TFixedTransfer() [file stat_ty.cpp]                          ok
+                    - PrintPage() [file: print2.cpp]                               ok
+                    - meteoprogres
+14-10-2003 - In Function WavesDialogFixed() [file tmywaves] limiet nu: <= 48.9 meter i.p.v 50.9 meter
+             (b.v. 50.5 werd dan by 1PwaPwaHwaHwa 1//102 (6cijfers i.pv. 5 cijfers)
+           - In Function: checking_level_3() nu warnings bij measured wave height (ook in QC doc doorgevoerd)
+17-10-2003 - fixed.hlp, ship.hlp en wavesfix.hlp aangepast i.v.m. gemeten golven
+21-10-2003 - Bij phenomena input form in links boven text de "The Marine Observer" geschrapt
+27-10-2003 - GTS header (via Maintennce en output possibilities) --> 12-10-2003 WEER VERWIJDERD
+28-10-2003 - memo tabelletje Bf-sea height op waves input page gezet
+08-11-2003 - KNMI serie sea state fotos toegevoegd (wind help file)
+26-11-2003 - Diverse PDF's toegevoegd (VOS, VOSCLIM, PMO, Wave Guide, Code Table
+30-11-2003 - Function: CmObsClipboard() aangepast zodat als ook het clipboard gepaste wordt naar kladblok (not formatted)
+             de regelovergangen er in staan
+01-12-2003 - GTS header EKMI (deense Meteo)
+             voor - Obs to A:\
+                  - Obs to Clipboard
+                  etc.
+03-12-3003 - Indy_smtp (CBuilder) aangepast voor meer regels mogelijkheid in body (dk header) verder de buttons
+             "send" en "cancel" licht aangepast + icon gewijzigd
+04-12-2004 - BUFR in maintenance menu (maintenance | station data | ship) gedisabled
+           - jaar moet in range 2004 - 2014 zijn (tmydate en tdate)
+07-01-2004 - In Info | About specifiek contect menu op te roepen door klikken rechtermuisknop op link
+             (gedeeltelijk uitgeschakeld) gaf geen mooie overbkijfselen
+             zie EV_WM_CONTEXTMENU in DEFINE_RESPONSE_TABLE1(THLinkCtrl, TEdit) [file: hlinkctl.cpp]
+
+
+
+************************************************************************************************************************
+* VERSIE 3.5 beta-2 [veranderingingen t.o.v. versie 3.5 beta]                                                               *
+************************************************************************************************************************
+
+16-01-2004 - tussen to field in E-mail the developers (Info | About) een ";" i.p.v. "',"
+18-01-2004 - Maintenance | Station data | Ship | Help uitgebreid met:
+             "add GTS header for DMI (Danmarks Meteorologiske Institut)"
+23-01-2004 - Jaar in classic form moet nu zijn in range 2004-2014 [file: tclassicform.cpp en tmyclassicform.cpp]
+           - in classicform werd Qc te vroeg omgezet naar :obs_North_or_South = "N"; etc.
+             daarom na eerste keer OK buttom de positie check en dmi gts header nog niet geinitialiseerd
+             deze omzetting nu pas als alles goed is in classic form [file: tmyclassicform.cpp]
+           - Function: Maak_GTS_Header_DMI() [file: obs.cpp]
+             In classic form werd de GTS header (DMI) niet goed vertaald naar A2 (geografische posite)
+             opgelost door bij classic form uit te gaan van num_LaLaLa, num_LoLoLoLo, obs_North_or_South en
+             obs_West_or_East (indien classic form)
+             verder in deze function bij een positie precies op de grens (b.v. 30 gr) kwam hij in het
+             default gebied X terecht daarom nu alle grensen <= etc i.p.v. <
+           - ook de omzetting van num_Qc naar obs_North_or South en obs_West_or_North pas doen nadat alles ok in
+             classic form (was anders na eerste OK op classic form de var. obs_South_or_North en obs_West_or_East
+             niet gevuld)
+             [file: tmyclassicform]
+05-02-2004 - Text correcties Bert de Vries phenomena help file doorgevoerd
+           - Bij Obs by E-mail(OLE) kan het fout gaan bij MS Outlook als er geen onderwerp is gedefinieerd
+             daarom wanneer in deze output mode geen onderwerp dan wordt het onderwerp "obs"
+             Function: CmObsEmail2() [file: obs.cpp]
+07-02-2003 - Bij USB disk niet meer praten over directory maar over folder (USBCustom dialog in rc workshop)
+             en Function: CmMaintenanceRemoveLogsUSB() [file: tmywindow.cpp] . Ook de help files custom.hlp en
+             usbdisk.hlp hiervoor aangepast
+18-02-2004 - In Function: Ev_Listbox_Reading_SelChange() [file: tpressur.cpp] de text bij yes/no height
+             correction lichtjes veranderd (NO in hoofdletters en (metres) weggelaten)             
+           - Op present weather input pagina het woordje PRECIPITATION in blokletters boven general weather condition
+           - In IMMT log nu callsign altijd in hoodletters
+19-02-2004 - Wind reduction fot ships geschrapt
+                      * wind2.hlp
+                      * wind main input form (rcwork shop)
+                      *
+27-02-2004 - thumbnail Cm7c op nieuw aangemaakt om de altucumulus wolken in de horizon beter uit te laten komen
+10-03-2004 - E-mail adres Australia: marine_obs@bom.gov.au (countyemail.txt)
+19-03-2004 - var string phenomena_rec = "" nu geinitialiseerd op "" Function cmPhenomena() [file: TMyphenomena.cpp]
+24-03-2004 - in Function Bepaal_Phenomena_Email_Address() [file tphenomena.cpp] na match recruiting country
+             een break in de do-while lus
+07-04-2004 - In function: Uitlezen_Captain_File [tmycaptain.cpp] werd nog gebruikt gemaakt van searchpath i.p.v.
+             turbowin_dir dit nu rechtgezet
+           - MAX_OBSERVER_INITIALS_LENGTH en MAX_CAPTAIN_INITIALS_LENGTH teruggebracht van 15 naar 10 i.v.m.
+             tonen in listbox (als iemand ies absurds zou invullen)
+01-02-2004 - Denen alleen op verzoek legen observer.log en captain.log
+21-04-2004 - Function: Veplaats_Log_Files() [file tmywindow.cpp] voor create een (sub)folder op USB disk
+             indien deze (sub) folder niet bestond
+28-04-2004 - Bij observers and captains input page:
+                      * intitials nu in 5 aparte invul velden
+                      * layout wat vergroot
+                      * alle ingetikte letters worden als hoofdletters opgeslagen
+29-04-2005 - bij maintenance ship data special projects participant uitgebreid met SOOP, ASAP en other
+             (VOS-CLIM click logo verwijderd)
+11-05-2004 - code log (soort papieren met office logbook) wordt automatisch aangemaakt bij alle output opties
+                - CmMaintenaceRemoveCodeLog() [file tmywindow.cpp]
+                - Kopieeren_code_log() [file tmywindow.cpp]
+                - Bepaal_COde_Log_Grootte() [file tmywindow.cpp]
+                - Legen_Source_COde_log() [file tmywindow.cpp]
+                - Check_Shop_Code_log() [file tmywindow.cpp]
+                - Message Box als meer dan 1024 Kb in ship code log file zit (bij opstarten TurboWin)
+21-05-2004 - In function: Test_IMMT_grootte() verwijzingen naar "Maintenance | Move log files to USB disk toegevoed
+12-06-2004 - Alle logfiles nu met uitgang txt (dus bvstation.txt i.p.v. station.log) dit vooral voor snellere/gemakkelere
+             Excel inlezen
+27-06-2004 - Tijd en afstand check tot vorige opgeslagen waarneming opgenomen
+                 - Function: Bepaal_afstand_huidige_obs_pos_tot_vorige_obs_pos() [file obs.cpp]
+                 - Function: Read_IMMT_Log_For_Afstand_En_DatumTijd_Check() [file obs.cpp]
+28-07-2004 - Voor recruiting country = Nederland en Duitsland is nu de barometer aflezing = MSL pressure
+             deze kan niet veranderd worden door de waarnemer
+           - Ocean Wave Atlas en MeteoClassify nu als Utility in TurboWin geintergreerd/toegevoegd
+30-07-2004 - probleem: na wegschrijven log files naar A: of USB disk konden de utilities OWA en MeteoClassify
+                       hun (sub-directory) files niet meer vinden
+             oplossing: Functions Check_A_Drive_Op_disk() en Check_USB_Drive_Op_Disk() voorzien
+                        van getcwd(save_cwd, 512) en chdir (save_cwd)
+25-08-2004 - Omdat er nu op tijd en positie t.o.v. de vorige waarneming wordt gecontroleerd is de IMMT Quality
+             control indicator (char nummer 82) veranderd van 2 (automated Qc , no time-sequence checks) naar
+             3 (automated Qc inc. time-sequence checks)                        
+22-09-2004 - Twee WMO brochures (Worls Water Day, World Meteorological Day) toegevoegd (zie info menu)
+
+
+
+
+************************************************************************************************************************
+* VERSIE 3.5 [veranderingingen t.o.v. versie 3.5 beta 2]                                                               *
+************************************************************************************************************************
+
+15-09-2004 - Voor nauwkeurigere berekeningen voor position checks "(float)" toegevoegd in
+               Function: Read_IMMT_Log_For_Afstand_En_DatumTijd_Check(): num (float)num_latitude en (float)num_longitude
+               Function: Bepaal_afstand_huidige_obs_pos_tot_vorige_obs_pos(): (float)num_LaLaLa / 10;
+                         en (float)num_LoLoLoLo  / 10
+29-09-2004 - Eerste keer via Menu Maintenance | Station data | ship | staat "other projects " aangevinkt
+             dit verholpen in Function: TShipDialog::SetupWindow() [file stat_ty.cpp] (nu ook testen op lege string naast
+             "no")
+06-10-2004 - Eik geschrapt als Inmarsat-C obs ontvangsstation (file: LES_C_41.HLP en AOR_E.TXT en AOR_W.TXT)
+14-10-2004 - In classic form nu automatisch verder springen naar volgende invul veld
+           - BUOY.HLP vernieuwd
+           - TwTwTw werd niet (indien aanwezig) in de LOGBOOK.TXT geschreven
+20-10-2004 - Als pdf files er niet zijn dan is de menuitem (via info menu) gedisabled
+           - imo nummer en naam toegevoegd bij maintenace | station data | fixed sea station
+27-10-2004 - format check [DD/MM/YYYY] op date of joining bij captain input form
+           - pressure.hlp vernieuwd
+           - callsign.hlp vernieuwd
+           - codecard.hlp vernieuwd
+           - email
+           - extra reminder voor plain text als output "Obs by E-mail(OLE)
+28-10-2004 - icon volgorde nu ship icon als eerste (komt dan altijd ook in reminder messages als eerste)
+03-11-2004 - temp directory toegevoegd (voor buoymessage.txt en phenomenareport.txt)
+           - print abaort dialog aangepast (geen printing %d od %d meer)
+05-11-2004 - probleem; bij 2x achterelkaar met zelfde positie Obs to screen een acos domain error
+             oplossing: in afstand berekenings function nu eerst testen dat argument van acos > -1 en < 1 is
+07-11-2004 - nieuwe uitvoer mogelijkheid: Obs to text Editor
+09-11-2004 - Cm7 eerste thumbnail nu met onderschrift Altocumulus/Altostratus
+10-11-2004 - extra checks in buoy deployment input form voor date en position (Function CmBuoy() [file: tmybouy.cpp]
+11-11-2004 - Ondanks recruiting country = Netherlands of Germany als het geen ship is niet standard op
+             "yess" zetten voor reading = MSL indicating
+
+
+
+
+
+
+
+
+
+           
+
+----- > uit do lus halen ?  TPreswDialog* dlg = new TPreswDialog(this, IDD_PRESENTWEATHER, preswtransfer, turbowin_dir); etc.
+----- > testen in netwerk omgeving
+------> Inmarsat-C stations in plaatje (help file) en in *.txt files
+
+
+
+
+------------------------------------------------------------------------
+REMINDER
+------------------------------------------------------------------------
+globale var's
+
+form_mode = STANDARD / CLASSIC
+message_mode = SEL / SUS / SUP / AUX
+station_type = fixed / ship
+
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 3.6 beta [veranderingingen t.o.v. versie 3.5]                                                                 *
+************************************************************************************************************************
+- 24-11-2004 - Phenomena help file uitgebreid met fotos uit WMO cloud album 1987 (glory, corona, lightning, crespuscular rays)
+- 01-01-2005 - Obs nu in status bar in code. Function: Update_StatusBar_Obs() [file: obs.cpp]
+- 16-02-2005 - Function: CmShipPresentWeather() i.p.v. MB_ICONEXCALMATION nu MB_ICONWARNING [file: tmypresw.cpp]
+
+- 22-02-2005 - Aanvullende manier om log files te verplaatsen  in TurboWin: "Maintenance | Move log files by E-mail"
+               zie o.a. - Function: Veplaats_Log_Files() [file: TmyWindo.cpp]
+                        - Function: Test_IMMT_grootte() [file:TmyWindo.cpp]
+                        - help file Info | return logs
+- 23-02-2005 - Diverse output mogelijkheden (b.v. Obs to Screen) gedisabled ald code mode BUFR is
+- 24-02-2005 - Bufr module toegevoegd (bufr3.exe in turbowin root dir)
+             - TurboWin main maakt aan : turbowin_root\temp\bufrin.txt
+             - Bufr3.exe zet dit om - 'Obs to A:\Obs.txt'    -> A:\Obs.txt ?????????
+                                    - 'Obs to Custom file'   -> alles mogelijk
+                                    - 'Obs by E-mail(Turbo)' -> turbowin_root\temp\obs.bin -> E-mail programma
+                                    - 'Obs by E-mail(OLE)'   -> turbowin_root\temp\obs.bin -> E-mail programma
+
+- 02-03-3005 - file bufr_email.cmd in TurboWin root dir
+             - file indy_bufr_smtp.exe in Turbowin\mail dir
+             - indy_smtp.exe en indy_bufr_smtp.exe nu Windows XP theme aware (o.a. indy_smtp.exe.manifest en
+             - indy_bufr_smtp.exe.manifest toegevoegd)
+
+- 13-04-2005 - Er worden nu bij "Move log files" automatisch backups gemaakt en gezet in de TurboWin backup folder
+               (b.v backup\IMMT_BACKUP 13 April, 2005.TXT)
+
+- 27-04-2005 - Globale var. OwlMain_start_option toegevoegd [file tmyapp.cpp en TmyWindow.cpp] voor opstart opties
+               (bv om land-sea mask warnings te kunnen onderdrukken)
+
+             - code mode: voor deze versie (net als versie 3.5) "bufr" gedisabled
+
+
+
+
+
+
+
+
+             
+nog doen:
+ - OK manifest files voor indy_smtp.exe en indy_bufr_smtp.exe toevoegen
+ -    zorgen dat GTS niet gekozen kan worden in bufr mode
+ -    zorgen dat nationale groepen niet in bufr gekozen kunnen worden
+ -    in netwerk omgeving testen op diverse log files (b.v. moven)
+ -    in BUFR mode output 'Obs to Obs.txt' wellicht wijzigen in 'Obs to obs.bin' ???
+ -    proccing gauge net voordat E-mail program bij BUFR mode wordt geopend springt van 5/0 % gelijk naar verdwijnen
+ -    controleren wat bit no 1 is (zie b.v. descriptor: 0 02 002 = flag tabel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----- > uit do lus halen ?  TPreswDialog* dlg = new TPreswDialog(this, IDD_PRESENTWEATHER, preswtransfer, turbowin_dir); etc.
+----- > testen in netwerk omgeving
+------> Inmarsat-C stations in plaatje (help file) en in *.txt files

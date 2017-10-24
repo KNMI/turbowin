@@ -1,0 +1,19 @@
+#define IDD_HLINKTEST_DIALOG                      10102
+#define IDR_HLINK_POPUP                           10103
+#define IDS_HLINK_PROPERTIES                      10104
+#define IDD_HLINK_PROPERTIES                      10105
+#define IDC_HLINK                                 10106
+#define IDI_HLINK_URL                             10107
+#define IDC_NAME                                  10108
+#define IDC_URL_PROMPT                            10109
+#define IDC_URL                                   10110
+#define ID_POPUP_COPYSHORTCUT                     10111
+#define ID_POPUP_PROPERTIES                       10112
+#define ID_POPUP_ADDTOFAVORITES                   10113
+#define ID_POPUP_ADDTODESKTOP                     10114
+#define ID_POPUP_OPEN                             10115
+
+#define IDC_MAIL                                  10116
+#define IDC_WEB                                   10117
+#define IDC_PHENOMENA_WEB                         10118
+#define IDC_VOSCLIM_WEB                           10119

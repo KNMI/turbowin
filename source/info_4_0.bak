@@ -1,0 +1,525 @@
+------------------------------------------------------------------------------------------------------------------------
+REMINDER
+------------------------------------------------------------------------------------------------------------------------
+Belangrijke globale (binnen tmywindow) var's
+
+form_mode        = STANDARD / CLASSIC
+message_mode     = SEL / SUS / SUP / AUX
+code_mode        = BUFR_OBS ("BUFR") / ALPHANUMERIC_OBS ("ALPHANUMERIC") / COMPRESSED_OBS ("COMPRESSED")
+station_type     = "fixed" / "ship"  of FIXED_STATION ("fixed") / SHIP_STATION ("ship")
+
+in_next_sequence      = true / false
+back_in_next_sequence = true / false
+stop_in_next_sequence = true / false
+
+let op: in tw_17.h het versie nummer in "do not edit regel" zetten !!
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 4.0 beta [veranderingingen t.o.v. versie 3.6]                                                                 *
+************************************************************************************************************************
+- NB versie 3.6 is beperkt verspreid daarom bij uitgifte versie 4.0 ook de
+  verschillen met versie 3.5 vermelden
+
+- 29-07-2005 De volgende help files ge-updated:
+                - wind2.hlp
+                - phenomena.hlp
+                - callsign.hlp
+                - pressure.hlp
+- 25-11-2005 OWLNExt geschikt gemaakt (i.v.m. DEP -Data Execution Prevention-)
+                - OWL620F.DLL toevoegen
+                - Show() -> ShowWindow() [diversen]
+                - HWindow -> GetHandle() [trodi.cpp; hlinkmenu.cpp; hlinkctl.cpp]
+                - dos.h [tmybufr.cpp; tmywindow]
+                - GetClassName [tmywindow.cpp; tmywindow.h]
+                - GetParent() -> (HWND__*)GetParent() [hlinkmenu.cpp; hlinkctl.cpp]
+                - GetApllicationObject() -> GetApplication() [hlinkmenu.cpp; hlinkctl.cpp]
+                - classlib/date.h -> owl/date.h
+                - classlib/time.h -> owl/time.h
+                - getInstance() -> getHandle() [tmydesktop.cpp]
+                - argc [tmyapp.cpp]
+                - NB moet er ook nog ergens staan #define BI_NOTHUNK ?????
+- 08-12-2005    - in OWLNext blijkt een fout te zitten in GetStrings() bij TListbox
+                  dit komt voor in Tmycaptain.cpp en Tmyobser.cpp
+                  om hierom heen te werken ook veranderd:
+                      - tobserv.cpp + tobserv.h
+                      - tcaptain.cpp + tcaptain.h
+                  tevens zijn de functions:
+                      - Uitlezen_Captains_File() [vanaf nu file TmyWindow.cpp]
+                      - Uitlezen_Observers_File() [vanaf nu file TmyWindow.cpp]
+                  nu alleen voor gebruik buiten tobserv.cpp en tcaptain.h (bv voor download en tbuoy) deze hebben nu
+                  hun eigen locale versie:
+                      - Uitlezen_Local_Captains_File()
+                      - Uitlezen_Local_Observers_File()
+- 13-12-2005 - Function: MSL_Herleiding_Luchtdruk() [file: tmypres.cpp] iets aangepast: Als nu niet de default temp
+               gebruikt moet worden dan wordt er ook nog wel gecontroleerd of de air temp wel beschikbaar is
+               (num_TTT != MAXINT)
+- 20-12-2005 - redesign air pressure invoer pagina
+               nu een aparte barometer en barograph pagina
+                  - ook Function: CmNext() [file tmywindow.cpp] aangepast i.v.m. iets andere automatische next sequence
+- 21-12-2005 - Nieuw Zeeland an Australia nu automatisch "does the reading indicate MSL pressure = no, Nederland en
+               Duitsland = yes (via Maintenance -> recruiting country)
+- 06-01-2006 - Function UpdateBarographMeteoProgressDialog [file tprodi.cpp] aangepast zodat nu tussen haakjes de
+               a komt te staan bv (a = 0)
+- 12-01-2006 - In Function Veplaats_Log_Files() controleren of de observer log file weggeschreven kan worden uitgezet
+               (omdat dan observer.txt automatisch werd aangemaakt, en vanaf deze versie moet dat bv zijn observer_2006.txt etc)
+- 13-01-2006 - Function: Check_A_drive_Op_Disk_Voor_Obs_Output() [file obs.cpp] toegevoegd bij CmObsa() [obs.cpp]
+                    zonder deze check, kwam het soms voor dat hij bij de eerste keer bij floppy er in doen
+                    (floppy was verder helemaal goed) een foutmelding gaf, na nog een keer proberen ging het dan wel goed
+                    op de een of andere manier gaat het m.b.v. deze check nu wel altijd goed de eerste keer (als alles in orde is)
+                    (het Operating System heeft dan al een of ander contact gemaakt?)
+- 14-01-2006 - Onder Utilities Menu Item kan MetPub47 module opgestart worden
+- 09-03-2006 - pressure.hlp niet meer nodig
+             - baro.hlp + barog.hlp zijn de vervangers
+- 31-03-2006 - Ifo | About iets aangepast (endorsed by the WMO etc er bij gezet)
+- 07-04-2006 - Op additional observation report (phenomenom) input form nu extra checkbox voor permission granted
+- 13-04-2005 - In function: CmShipTemperatures() [file: tmytemp.cpp] na MSL_Herleiding_luchtdruk() een aanroep
+               naar Update_StatusBar_Obs. Dit om de nieuw berekende MSLP in de statusbar te zetten
+             - In function: CmShipBarometer() [file: TMyBaro.cpp] ook MSL berekening als de temp er nog niet is (2x)
+               (else if ((barometer_MSL_yes_no.compare("no") == 0) && (num_TTT == MAXINT) && (num_PPPP != MAXINT)))
+             - In function: checking_level_3() [file: obs.cpp] na MSL_Herleiding_luchtdruk() een aanroep
+               naar Update_StatusBar_Obs. Dit om de nieuw berekende MSLP in de statusbar te zetten
+- 13-04-2006 - var. "observation_complete_message_gepasseerd" geintroduceerd om te voorkomen dat TurboWin wordt afgesloten
+               zonder dat de data is gesaved, functions Observation_Complete_Message() [obs.cpp] en CanClose() [tmywindow.cpp]
+               (soms werd de status bar uitgelezen en dan geen "Obs to Screen" of andere output option geselecteerd)
+- 18-04-2006 - probleem: na klikken van een url/mail link werd de link niet van kleur veranderd (een visited link
+                         behoort een andere kleur te krijgen dan een nog niet aangeklike link)
+               oplossing: na veel proberen in diverse functies van file hlinkctl.cpp de Function: THLinkCtrl::EvOpen()
+                          uitgebreid met de volgende 2 statements:  - m_bUseShadow = false;
+                                                                    - m_HighlightColor = RGB(128, 0, 128);
+- 19-04-2006 - observer.hlp en captain.hlp ge-updated
+             - info about window ge-updated
+             - TPhenomenaDialog* dlg = new TPhenomenaDialog(this, IDD_PHENOMENA,  etc. uit do-while lus gehaald
+               [file: tmyphenomena.cpp]
+             - phenomena input form ge-updated; o.a. met internet link naar wikipedia (marine observers log)
+- 24-04-2006 - Phenom.hlp uitgebreid met verslag tsunami christmas 2004
+             - bijna alle wolken help files ge-updated (CL_1_IMA.HLP etc.) Grijze rond om veel fotos eraf gehaald
+- 28-04-2006 - menu item naam "utilities" verandert in "add-ons"
+             - Pilot Charts South Pacific, North Atlantic and Indian Oceaan toegevoegd (add-ons menu)
+             - in de buoy input form gebeurde niets als je de "Log" button aanklikte daarom het volgende
+               void TBuoyDialog::CmLog()
+               {
+                   TBuoyDialog::CmOk();
+               }
+               opgenomen in tbuoy.cpp. NB in TurboWin 3.6 deed de Log button het wel goed !
+             - In phenomena input form format van latest obs veranderd van 12-04-2006 in 12/04/2006 dit voor uniformiteit
+               met andere datum formats in TurboWin (veranderd in Function Read_IMMT_log() [file tmyphenomena.cpp])
+- 01-05-2006 - Toegevoegd iceberg fact sheet (info menu)
+             - "E-mail the TurboWin developers" in Info | About menu verwijderd  (file: TInfo_About.cpp)
+- 02-05-2006 - help files icing en visibility ge-updated
+- 08-05-2006 - in phenom.hlp info over locusts (van the Met Office en internet fotos) toegevoegd
+- 09-05-2006 - logs.hlp ge-updated
+             - extra warning message voordat log files ge-moved worden (bv Move log file to A:)
+             - bij Maintenance | 'Ship data' het kopje "message form" verandert in "message form (type reporting ship)"
+- 12-05-2006 - bij Maintenance | 'Ship data' extra Print button
+             - bij Maintenance | 'fixed sea station data' extra Print button
+             - bij Maintenance | 'E-mail settings' extra Print button
+- 24-05-2006 - Turbowin website link veranderd in Info | About menu [nu: http://www.knmi.nl/turbowin] (file: TInfo_About.cpp)
+- 25-05-2006 - define ALPHANUMERIC_OBS, BUFR_OBS en COMPRESSED_OBS toegevoegd [file tw_17.h, tmystat.cpp, obs.cpp]
+- 28-05-2006 - meteo-france compressie 1.0 toevoegen
+                   - compression.h in zijn geheel ongewijzigd toevoegen
+                   - alle function declaratie van compression.c zetten in tmywindow.h
+                   - alle functions copieren naar tmycompression.cpp
+                             - bij alle functions TMyWindow:: er voor zetten
+                               en de volgende functions tevens aanpassen:
+                             - get_specif() i.v.m. goede melding als pilote file niet gevonden/geopend kan worden
+                                       if((fp = fopen(PILOTE,"r")) == NULL)
+                                       {
+                                       // martin org: fprintf(stderr,"VOSBIN : Erreur 254 ouverture fichier pilote :          %s\n",PILOTE);
+                                       // martin org: exit(254);
+
+                                       // martin toevoeging begin
+                                       string info = "";
+                                       info = "Compression configuration file open error (";
+                                       info += (string)PILOTE;
+                                       info += ")\n";
+                                       MessageBox(info.c_str(), "TurboWin error", MB_ICONERROR);
+                                       return -1;
+                                       // martin toevoeging eind
+                              - pak_n_seq() is niet aangepast, maar hier oppassen voor pow function, deze geeft een error
+                               als je een meteo parameter waarde als negatief definieert (zie hieronder)
+                   - toevoegen #define COMPRESSED_UNDEF_VALUE (1000000000) in file: tmycompression.cpp
+                     dit mag geen negatief getal zijn ! (zie hierboven)
+                   - toevoegen #define pilote_file  // voor meteo-france compression 1.2 in file tw_17.h
+
+- 29-05-2006 - obs.cpp hernoemd in tmyobs.cpp
+- 30-05-2006 - Info About box nu geheel wit, en niet meer transparant, met icons (die een witte achtergrond kleur hadden)
+             - Omdat voor een goede weergave van de icons de info about box nu wit is moest de link edit control
+               ook wit worden. Function EvEraseBk() file: hlinkctl.cpp verandert van
+               dc.FillRect(r, TBrush(GetSysColor(COLOR_3DFACE))); in
+               dc.FillRect(r, TBrush(GetSysColor(COLOR_WINDOW)));
+             - echter nu gaat de edit-link in phenomena form niet mooi daarom:
+               EV_WM_ERASEBKGND in RESPONSE_TABLE1(THLinkCtrl, TEdit) [file: hlinkctl.cpp] uitgeschakeld]
+- 08-06-2006 - Meteo-France half-compression versie 1.1 geimplementeerd
+- 14-06-2006 - Interne structuur Maintenance | Ship opnieuw opgezet [tmystat.cpp, stat_ty.cpp]
+- 04-07-2006 - Foutje in Function Get_station_data() [file'tmystat.cpp]
+               bij eventueel default aannemen system time stond  if (wind_units_output == "") i.p.v.
+               if (system_time == "")
+               i.v.m. loop programma had dit geen fataal effect (system_time bleeft dan "blanco i.p.v. "not UTC")
+
+             - Wind units output kan nu niet meer standaard op m/s gezet worden in maintenance
+               hievoor aangepast:
+                     - Function Initialisatie() [file: tmywindow.cpp] wind_units_output = "knots or m/s";
+                     - bij IDD_STATIONTYPE DIALOG [file tw_17.rh] control + boc verwijderd
+                     - in tw_17.h IDC_STATIONTYPECHECKBOX verwijderd en #define main_wind_units_output
+                     - in file stat_ty.h bij TStationTypetransfer "StationTypeCheckBoxResult"en  class "wind_units_output
+                       "en bij private "local_wind_units_output" en "checkbox" verwijderd
+                     - TStationTypeDialog() en SetupWindow() [file stat_ty.cpp] (local_)wind_units_ouput verwijderd 
+                     - in file tmystat.cpp: Functions CmMaintenanceStationType(), FixedDialog(), Ship_Dialog(),Get_station_data()
+                     - station.hlp aangepast
+- 05-07-2006 - ship.hlp vernieuwd (i.v.m. compressed)
+- 10-07-2006 - "Serbia and Montenegro" aangevuld in IMMT_log() [tmyobs.cpp] en TStationTransfer() [stat_ty.cpp]
+- 11-07-2006 - Meteo France comprression 1.2 geimplementeerd
+               in file: tmycompression.cpp diverse waarshuwingen uitgezet (rechter muisknop "edit local options")
+                - portability
+                - potential errors
+                - inefficient coding
+- 12-07-2006 - internet.txt en default.txt van Ocean Wave Atlas verandert wijzen nu naar nieuwe (TurboWin) wave pagina's
+               zie TurboWin sub directory settings
+- 18-07-2006 - ARVI Inmarsat LES alleeen geadviseerd als binnen grenzen 6 - 30 N en 68 - 95 E. Dit is ruim binnen
+               METAREA XIII Noord. METAREA XIII Noord is namelijk geen vierkant, daarom aan de heel veilige kant
+               (je zou het nu geadviseerde gebied kunnen aanduiden als: "Waters arround India")
+- 19-07-2006 - codetables (i.v.m. metpub47): table_2002.txt, table_2003.txt en table_2004.txt verwijderd nieuw zijn:
+               code_table_2001.txt, code_table_2002.txt en code_table_3.txt 
+- 24-07-2006 - Om er voor te zorgen dat als station type en/of recruiting country niet is ingevuld alleen bij opstarten
+               programma een bericht komt Get_station_data() aangepast nu: Get_station_data(programma_opstart_fase)
+             - voor duidelijkheid en betere checking:
+               functions: TStationTypeDialog::SetupWindow() [file stat_ty.cpp] en
+                          CmMaintenanceStationType() [file tmystat.cpp]
+             - obs date invoer aagepast aan range: 2006 - 2016
+               functions: CmShipDate() [file: tmystat.cpp]
+                          TDateTransfer() [file: tdate.cpp]
+             - globale var. observername_ok geschrapt [files: tmywindow.h + tmyobserver.cpp]
+                     
+- 25-07-2006 - i.v.m. verzoek copyright assignment the Met Office diverse verandereingen in files tobserver.cpp
+               en tmyobserver.cpp. Ook een extra tabstop in records van log file: observer.txt
+                vroeger:  STAM	M	1	-
+                nu:       STAM	M	1	-	N
+
+               Dit heeft als gevolg dat na downloaden van de log files het aantal waarnemingen wel als laatste in de
+               record staat maar wel staat er een tab extra + copyright notice (Y, N, -) in
+                vroeger:  STAM	M	3	-	2
+                          BROUER	D	w	-	1
+
+                nu        STAM	M	3	-	N	2
+                          BROUER	D	w	-	Y	1
+
+                Dit geld voor alle landen echter de copyright notice kan alleen voor UK een "Y" of "N" worden
+                (andere landen blijft het een "-")
+
+               - in immt log wordt in character 81 nu een spatie (alle landen behalve UK) of ("Y" / "N") (alleen UK)
+                 gezet tot deze versie zette TurboWin hier altijd een "Q". Function: IMMT_log() [file: tmyobs.cpp]
+
+- 26-07-2006 - na toevoegen waarnemer en captain wordt nog een bevestigings messagebox getoond de layout hiervan iets
+               veranderd (i.p.v. horizontaal record tonen nu verticaal met aanduidingen) [file tcaptain.cpp, tobserv.cpp]
+- 27-07-2007 - foutje in immt log opslag van windsnelheid > 99 m/s. B.v. 136 m/s werd opgeslagen als 36.
+               Omdat windsnelheid > 99 knopen al eerst omgezet werd naar m/s kwam dit foutje waarschijnlijk nooit voor
+               desalnietemin verbeterd (Function: IMMT_log() [file: tmyobs.cpp])
+- 31-07-2006 - Function: Update_StatusBar_Obs() [file: tmypaswea.cpp] iets verplaatst zodat in statusbar bij pastweater
+               1 vinkje gezet zowel W1 als W2 een cijfer krijgen (bv
+             - Ook zo iets bij ice gedaan
+- 01-08-2006 - compressed niet mogelijk i.c.m. gemeten golven (shipborne, buoy, other instrument)
+               zie Maintenance meny [file: tmystat.cpp]
+- 02-08-2006 - Function: WavesDialogShip()[file: tmywaves.cpp] als een buitem limiet waarde werd ingevuld (bv wind wave
+               height van 66 meter dan foutmelding als dan wind wave height op blank werd gezet dan blijf je in het
+               waves input scherm omdat de betreffende boolean (SeaWaveHeight_ok) niet op TRUE gezet werd
+             - In Function: Fixed_Dialog() [file tmystat.cpp] positie check gestroomlijnd
+             - station.hlp textueel lichtjes aangepast
+- 04-08-2006 - Function: WavesDialogShip() zo aangepast dat swell 1 direction en swell 2 direction geen 0 meer kan
+               worden ingevuld (moet invullen "no swell") ook als er ingevuld wordt 1,2,3,4 graden dan een afronding
+               naar 36 (werd foutief afgerond naar 00)
+
+---------------------------------------------------- beta 2/3 ------------------------------------------
+
+- 30-08-2006 - Als pilot charts niet aanwezig zijn (check op een file) dat moet menu item pilot charts disabled zijn
+               hier werd item 5 i.p.v. 6 disabled nu ok [file tmywindow.cpp]
+- 31-08-2006 - Bij minmal of custom install kunnen sommige onderdelen niet aanwezig zijn bij add-on betreffende menu item
+               moet dan gedisabled zijn. Dit gebeurde tot nu door testen op aanwezigheid van een help file
+               (b.v metpub47.hlp) echter bij install programma worden soms alle help files meegenenomen daarom teste
+               op exe file aanwezigheid (bv  #define METEOCLASSIFY_CHECK_FILE "\\meteoclassify.exe") [file: tw_17.h]
+- 01-09-2006 - MetPub47 moet een verplicht onderdeel worden (altijd aanwezig ook bij minimal install) daarom de
+               functie "TMyWindow::CeMetPub47()" verwijderd [file: tmywindow.cpp]
+             - bij baro input na refresh als er geen hoogte boven msl voor fixed sea station was ingevuld erd er in
+               de error message gesproken van : current deepest draft"i.p.v. "height above msl" Function: CmREfresh()
+               [file: tbaro.cpp]
+             - hoogte barometer wegschrijven naar file was niet meer nodig (wordt telekns opnieuw berekend
+               Functions: - CmShipBarometer() [file: tmybaro.cpp]
+                          - Read_Barometer_Data() [file: tmybaro.cpp]
+             - MSL_Herleiding_Luchtdruk was niet meer nodig bij Functions:
+                           - CmPlainText() [file: tmyobs.cpp]
+                           - Checking_Level_3() [file: tmyobs.cpp]
+               dit omdat er altijd al een msl waarde berekend wordt na invullen barometerstanden zie:
+               MSL_Herleiding_Luchtdruk() [file: tmybaro.cpp]
+- 04-09-2006 - Naar file schrijven van barometer data nu in aparte function Write_Barometer_Data() [tmybaro.cpp]
+             - printer abort dialog aangepast [file: tw_17.rc]
+- 06-09-2006 - compression.h en SHIPTW1_modl_pilote.csv updated (afkomstig van Meto-France)
+             - als bij barometerstand een waarde was ingevuld dan heb je barometer reading value en een barometer msl
+               value als je nu de barometer reading velden weer blank maakt en dan ok geef dan blijft alleen de
+               barometer msl value nog bestaan (in progress en obs zelf) door nu een extra aanroep direct na
+               "if ((result = dlg -> Execute()) == IDOK)" naar function:
+               Barometer_Dialog_Fields_Invalid() wordt alles wel allemaal leeg/ongeldig [file tmybaro.cpp]
+               Zou zoiets ook moeten bij de andere input schermen ?
+             - Na onmagelijke refresh van intermidiate pressure results alle velden van refresh schonen
+               Function: Clearing_Na_Onmogelijke_Refresh() [file: tbaro.cpp]
+- 07-09-2006 - In meteorological report progress een aantal parameters anders uitgelijnd (observer, visibility etc)
+             - Bij compressed bij message nearest LES ook bijgezet "- Send in 7 bits mode"
+- 11-09-2006 - in compressed mode kan bij de output opties alleen gekozen worden:
+                   - Obs to A:\obs.txt en
+                   - OBs to Custom file
+               alle andere output modes staan gedisabled    
+- 12-09-2006 - Bij download log files worden de pub47 log files ook gedownload (gecopieerd) indien aanwezig
+             - MetClassify 2.1 bijleveren deze is DEP aware (en 22 extra nieuwe bmp files bij seastate games)
+- 14-09-2006 - pop-up warning bericht als call sign wordt veranderd, alleen niet de allereerste keer (call sign nog blank)
+               Functions: CmClassicform() [file: tmyclassicform.cpp]
+                          CmShipCallsign() [file: tmycall.cpp]
+               NB MB_SYSTEMMODAL gebruikt zodat pop-up niet weggekilkt kan worden
+             - pop-up warning bericht als vosclim checkbox veranderd
+               Function: Ev_Checkbox_Vosclim_Indication_SelChange() [file: stat_ty.cpp]
+               NB MB_SYSTEMMODAL gebruikt zodat pop-up niet weggekilkt kan worden
+- 15-09-2006 - ook pop-ups als SOOP en ASAP check veranderd
+- 22-09-2006 - IMMT-3 opslag:
+                    - aanpassen IMMT_POSITION_OBSERVER [tw_17.h) deze macro komt voor in:
+                         - Functions: Kopieeren_Waarnemers_En_Aantallen() [tmywindow.cpp]
+                         - Uitlezen_Waarnmers_File() [tmywindow.cpp]
+                    - diverse aanpassingen in Function: IMMT_log() [tmyobs.cpp]
+               LET OP de naam van de observer staat nu dus 8 characters verder !!!!!
+- 04-10-2006 - LOGS.HLP ge-updated
+- 06-10-2006 - nieuwe semi-compression pilot file (SHIPTW1_modl_pilote.csv) nu versie van 5-10-2006
+- 12-10-2006 - Ocean Wave Atlas versie 2.1 (met 3 extra nieuwe charts/bmp files erbij)
+               ook cc3250mt.dll, vcl50.bpl, vclx50.bpl zijn niet meer nodig nu worden de zelfde
+               als bij metpub47 gebruikt (cc3260mt.dll, rtl60.bpl, stlpmt45.dll, vcl60.bpl)
+               NB ook default.txt en internet.txt (folder: settings) aangepast aan nieuwe (TurboWIn)website
+- 18-10-2006 - Voor fixed sea stations the height of the barometer above MSL komt nu weer terug als default
+              (zoals in eerdere versies ook al was, maar in deze versie was veranderd i.v.m. andere methode voor ships
+             - Bij barometer aflezen intermediate results: "Refresh" button heet nu "Show" button 
+- 20-10-2006 - velden e-mailsettings stuk breeder gemaakt
+             - N.a.v. opmerking Ian Henry (Lotus Notes werd niet geactiveerd bij Move log files by Email maar wel bij
+               Obs by E-mail. Dit komt omdat er 2 verschillende methoden achterzitten
+               daarom nu bij Move lof files by E-mail:
+                          MenuEmailLink2 -> Open(link);                          // aanroepen standaard E-mail programma
+                  i.p.v.  WRETURN = ShellExecute(0, NULL, link.c_str(), NULL, NULL, SW_SHOW);
+               zie Function: Verplaats_Log_Files [file: tmywindo.cpp]
+- 23-10-2006 - nieuwe indy_smtp.exe [23-10-2006]  (met bijhorende bpl's en dll's) In de oude versie kwamen de email
+               meldingen niet in de status bar van deze email module
+             - Global Climate Atlas (met charts, help, dll's bpl's etc.)
+- 07-11-2006 - Extra option om bij downlowd log files via E-mail dit eerst te zippen; Function: Veplaats_Log_Files()
+               [file: tmywindo.cpp]
+             - ook verbeterd als bij download de captain log file leeg blijk te zijn (retry) dan eerst naar captain
+               input page en hierna weer terug naar Function: Veplaats_Log_Files() [file: tmywindo.cpp]
+             - course, speed, position input page gepimped
+- 29-11-2006 - AMOS MAIL new line aware (menu: Maintenance -> download log files by E-mail and Output -> Obs by E-mail(OLE))
+               Function: Veplaats_Log_Files() [file tmywindow.cpp]
+               Function: CmObsEmail2() [file tmyobs.cpp]
+               Function: CmMaintenanceEmailSettings() [file: tmyemailsettings]
+               en files: temailsettings.cpp; temailsettings.h; tw17.rc; tw17.h
+             - Option to zip and attach log files (menu: Maintenance -> download log files by E-mail)
+               Function: Veplaats_Log_Files() [file tmywindow.cpp]
+             - vernieuwde help files - email.hlp
+                                     - emailset.hlp
+- 05-12-2006 - invoering VOS-identifier:
+                      - tmystat.cpp   (o.a. voor resetten vos id in fixed sea station mode)
+                      - tmycall.cpp
+                      - tcall.cpp
+                      - tcall.h
+                      - tprodi.cpp    (i.v.m. progres overzicht)
+                      - tprodi.h      (i.v.m. progres overzicht)
+                      - tmywindow.cpp (i.v.m. progres overzicht)
+                      - tmycompression.cpp (ook compressed messages VOS ID of call sign mogelijkheid)
+                - extra file vosid.txt in folder text
+                - callsign.hlp vernieuwd
+
+
+             - i.v.m. benadrukken alles in 7 bit mode:
+                - les_c_41.hlp vernieuwd
+                - Function: Inmarsat_LES_Advies() [tmyobs.cpp]
+                - IOR.TXT en POR.TXT
+
+
+---------------------------------------------------- version 4.0 ------------------------------------------
+- 12-12-2006 - indy_smtp.exe nu met andere methode path bepalen voor emailsettings.txt en obs.txt
+             - countryemail.txt aangepast voor Germany (pmo@dwd.de)
+             - Function: ObsEmail1() aangepast + nieuw Function: Schrijven_Email_Cmd_File() dit alles voor aanroep met
+               parameter overdracht naar indy_smtp.exe
+             - Function: Check_Windows_version()
+               volgende regel aangepast
+                 if (/*(osvi.dwPlatformId == VER_PLATFORM_WIN32_NT) &&*/ (osvi.dwMajorVersion >= 5))  // NB Vista: dwMajorVersion = 6
+               omdat dwMajorVersion >= 5 voldoende is (dekt windows 2000, XP en Vista)
+             - Function checking_level_1() aangepast voor verschillende bewoordingen als call sign / wmo id missen
+             - als hiervoor met start_option == 2 compressed mode was ingesteld, maar daarna zonder start_option opgestart dan staat in de
+               station.txt de code mode nog steeds op compressed (en bv diverse output options gedisabled)
+               Komt nu een wrning direct na opstarten [file: tmywindow.cpp]
+
+
+
+
+
+resume: veranderde files t.o.v. beta 3:
+             - vernieuwd: indy_smtp.exe
+             - vernieuwd: turbowin.exe
+             - vernieuwd: metpub47.exe
+             - nieuw: routes.hlp (metpub47)
+             - vernieuwd: metpub47.hlp (metpub47) 
+             - vernieuwd: table_1802.txt (metpub47)
+             - vernieuwd: les_c_41.hlp
+             - vernieuwd: ior.txt (schrappen Jeddah)
+
+
+
+************************************************************************************************************************
+* VERSIE 4.1 beta [veranderingingen t.o.v. versie 4.0]                                                                 *
+************************************************************************************************************************
+
+
+
+
+
+
+             
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+Opmerkingen Meteo-France compression 1.2
+
+-------------------------------------------------------------------------------------
+      als wind speed > 127 dan blijft hij vast staan op 127 (physical value and code)
+
+     b.v. invoer wind speed 126 m/s -> vosbin_hc.exe: 126.00<--wind speed (m/s) en nddff 00fff = /2599 00126
+          invoer wind speed 136 m/s -> vosbin_hc.exe: 127.00<--wind speed (m/s) en nddff 00fff = /2599 00127
+          invoer wind speed 188 m/s -> vosbin_hc.exe: 127.00<--wind speed (m/s) en nddff 00fff = /2599 00127
+-----------------------------------------------------------
+     hoe moet westerlengte worden ingevoerd, een negatief getal wordt voor de lengte altijd 0
+     (de breedte gaat wel goed)
+-------------------------------------------------------------------------------------
+     niet mogelijk om een variable wind te melden (invoer 0 - 360) , dit is niet zo erg
+-------------------------------------------------------------------------------------
+     temperatuur (twet en tdew) in synop code zit er (soms en alleen bij negatieve temps?) 0.1 graad celcius naast
+     (physical value ok maar code not) b.v
+
+     invoer                               uitvoer
+     Tdry -7.0    -> vosbin_hc.exe ->      266.15 (-7.0 C)  = OK   code: 1snTTT    = 11070 (OK)
+     Twet -8.0    -> vosbin_hc.exe ->      265.15 (-8.0 C)  = OK   code: 8swTbTbTb = 81079 (not ok must be 81080)
+     Tdew -12.4   -> vosbin_hc.exe ->      260.75 (-12.4 C) = OK   code: 2snTdTdTd = 21123 (not ok must be 21124)
+-------------------------------------------------------------------------------------
+   zelfde verhaal (als air temp) voor dewpoint
+     268.65 (-4.5 C) komt in code als 21044
+-------------------------------------------------------------------------------
+    ALs a een waarde heeft en ppp niet dan wordt de hele groep 5appp weggelaten, dit is niet goed het moet b.v.
+    worden 50/// (fysieke waarde voor a wel ok)
+
+    Het zelfde geld als ppp wel aanwezig en a niet dan wordt de gehele groep niet gecodeerd door vosbin_hc.exe
+    bv in turbowin 5/062. Vooral dit laatste als ppp wel aanwezig en a niet zal weing voorkomen, maar in theorie
+    moet dit wel kunnen)
+------------------------------------------------------------------------------
+    soms foute afrondingen sst (alleen positieve temp. ?):
+  - NB indictor sst bufr 002038 -> gedeeltelijk bufr tabel gedeeltelijk zelf verzonnen door meteo-framce
+
+    - sst:    invoer 12.6 C (285.75 K) --> vosbin_hc.exe --> fysieke waarde 285.80 K (=fout) en code: 12.7 (is fout)
+              invoer -1.8   (271.35 K) --> vosbin_hc.exe --> fysieke waarde 271.30 K (=fout) en code: 07018 (gaat toevallig
+              goed omdat er ook verkeerd wordt afgerond)
+------------------------------------------------------------------------------
+   max waarde sst:
+
+   50 C invoer --> vosbin_hc.exe --> fysieke waarde 318.20 K (=fout) en code: 45.0 (is fout)
+
+ ------------------------------------------------------------------------------
+    fysieke uitgeschreven waarde code sst niet het zelfde als gecodeerde ss
+    bv hull contact sensor + 0.8 C
+    2.00 <----Csst: Method of sea surface measuremen (Code)
+    0ssTwTwTw 04019
+
+    NB Dit is geen fout wel om even te noteren
+------------------------------------------------------------------------------
+    Niet mogelijk om PwPw (periode wind waves) als confused (99) te melden
+ ------------------------------------------------------------------------------
+    Niet mogelijk om gemeten golven in te geven 1Pw1Pw1Hw1Hw1, 70HwaHwaHwa
+ ------------------------------------------------------------------------------
+    Geen deiningrichting wordt ten onrecte als 36 (deining uit het Noorden) gecodeerd:
+
+    dw1dw1 : invoer 0  --> vosbin_hc.exe --> fysieke waarde 0.00 (=ok) en code 36 (3dw1dw1dw2dw2 = 336//)
+    dw2dw2 : invoer 0  --> vosbin_hc.exe --> fysieke waarde 0.00 (=ok) en code 36
+ ------------------------------------------------------------------------------
+    deiningperiode > 30 sec worden weergegeven als 30
+
+    bv Pw1Pw1 = 33 --> vosbin_hc.exe --> fysieke waarde 30 sec (=fout) en code: 30 (is fout)
+       Pw1Pw1 = 34 --> vosbin_hc.exe --> fysieke waarde 30 sec (=fout) en code: 30 (is fout)
+
+ ------------------------------------------------------------------------------
+   natte bol alleen rapporteren als hij gebruikt is om Tdew te berekenen
+   (regulation 12.3.6; WMO No. 306, Manual on Codes volume 1:
+   "When he wet bulb is used to derive dew-point value in a SHIP report, the group 8swTbTbTb shall be included
+   to report the wet-bulb temperature")
+
+   (dus als het volgens de bufr table 002039 code = 2 of 3 zou moeten zijn niet raporteren in SHIP)
+ ------------------------------------------------------------------------------
+
+
+
+               - wat is relay-station van Aussaguel i.v.m. positie in compressed_por.txt zetten
+                 (Aussaguel positie zelf gaat niet i.v.m. > 180 grens passage)
+                 Waarschijnlijk Perth voor POR dus in compressed_POR.txt bij Aussaguel de positie van Perth gezet
+                 Voor AOR-W is dit gewoon Aussaguel of hebben ze hier ook een relay station ?
+ ------------------------------------------------------------------------------
+   compressed via email ?
+ ------------------------------------------------------------------------------
+
+   
+
+   limits
+
+
+                                          TurboWin                    compressed
+
+   wind snelheid                          200 (kts of m/s)
+
+   luchtdruk aflezing                     860.0 - 1070.0 hPa
+   luchtdrukverandering (ppp)             50.0 hPa
+
+   lucht temp                             -50.0 - +60.0 C
+   natte bol                              -50.0 - +50.0 C
+   dauwpunt
+   sst                                    -2.0 - +50.0 C
+
+   wind waves period                      50 sec
+   wind waves height                      48.9 m
+   swell 1 period                         50 sec
+   swell 1 height                         49.0 m
+   swell 2 period                         50 sec
+   swell 2 height                         49.0 m
+
+   ijs aanzetting                         99 cm
+
+
+
+
+
+
+
+
+
+
+VVVVVV  nationale groepen niet i.c.m. compressed
+VVVVVV- AUX kan i.c.m. compressed (i.v.m. afronden tienden luchtdruk en temperatuur)
+VVVVVV- GTS DMI header kan niet i.c.m. compressed
+VVVVVV- gemeten golven kunnen niet i.c.m. compressed
+------- sst = bufr 0 22 043 SST of 0 22 042
+------ IMMT aanpassen van IMMT-2 naar IMMT-3
+------ testen op wat er gebeurd als ff >= 100 units
+VVVVVV ARVI metarea
+------ immt versie nummer met checks
+------ import en export maitenance data
+------ barometer help pagina
+------ barograaf help pagina
+------ barometer reading en barograaf reading testen op na een half uur en na een uur
+VVVVVV MeteoClassify compileren met OWLNExt
+
+
+               
+
+
+----- > uit do lus halen ?  TPreswDialog* dlg = new TPreswDialog(this, IDD_PRESENTWEATHER, preswtransfer, turbowin_dir); etc.
+----- > testen in netwerk omgeving
+------> Inmarsat-C stations in plaatje (help file) en in *.txt files

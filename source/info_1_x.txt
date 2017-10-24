@@ -1,0 +1,571 @@
+/* versie 1.0 (toevoegingen/veranderingen t.o.v. versie 1.0 beta) */
+
+3 - 9 - 1996   probleem :
+					Bij openen bitmap van meer dan 256 kleuren wordt door Windows
+					een GDI error gegeven.
+					oplossing :
+					Na 'Open' en 'Desktop' van het 'Picture' menu wordt een
+					waarschuwing gegeven als het plaatje meer dan 256 kleuren bevat
+4 - 9 - 1996   probleem :
+					Op het KNMI worden binnenkomende obs'en die langer zijn dan 80
+					characters afgebroken en op een nieuwe regel gezet. Dit
+					is dan soms precies in een groep, gevolg: obs rejected
+					oplossing :
+					Bij alle uitput vormen (behalve naar screen) wordt een
+					regelovergang gegeven. De maximale regellengte is nu 69
+					characters, net zo veel als maximaal binnen het GTS als telex
+					verkeer mogelijk is.
+12- 9 - 1996	Statistics observers optie toegevoegd (selecteer 'Statistics
+					observers' van het 'Options' menu).
+16- 9 - 1996	Helpfile: les_c_41.hlp (VH: code 41 Inmarsat C) aangepast
+					(Southburry i.p.v. Soutburry als je er op klikt)
+16- 9 - 1996   'About' dialog box aangepast, de bijhorende wolken bitmap was
+					n.l. niet scalable en het programma wordt nu toegeschreven aan
+					WM i.p.v. OW
+18- 9 - 1996	Na 'move log files to A:' wordt de file met waarnemers aangevuld
+					met het aantal gemaakte waarnemingen (uit IMMT.LOG)
+? - ? - ????   Foto's Bf3 en Bf4 een tikje donkerder en wolken foto's beter ?
+19- 9 - 1996   Golven checks aangepast + bij deining het richting invul vak
+					boven aan gezet
+27 -9 - 1996	Lay-out temperaturen invulscherm veranderd
+7  -10- 1996	probleem:
+					Bij invullen box'en/lijsten van 'stage of ice development',
+					'ice of land origin' en 'bearing of principal ice edge'
+					van het 'ice' invulscherm kan na het kiezen van een situatie
+					geen 'blanco'/'reset' meer geselecteerd worden.
+					oplossing:
+					Kan nu ook een 'blanco' string gekozen worden als een soort reset
+7 -10- 1996		In meteo progress scherm ook opgenomen 'ice yes/no' en
+					'icing yes/no', bijhorende help(file) ook aangepast
+7 -10- 1996		'Progress report' default scherm positie gewijzigd
+					(bij 800 * 600 onder	Windows 95 viel 'x'(=cancel) rechtsboven
+					weg)
+7 -10- 1996    probleem:
+					Als Nh '8/8' was dan werd dit in de 'progress report' als
+					'completely overcast' gerapporteerd i.p.v. '8/8'
+					oplossing:
+					Nu weer '8/8'
+8 -10- 1996		'course made good' keuzes alleen in hele graden i.p.v. ook halve
+8 -10- 1996		Beginspaties in 'present weather' en 'past weather' verwijderd
+8 -10- 1996		Van LES Raisting in IOR ID nummer veranderd in 333 (i.p.v. 341).
+					Verder toegevoegd de LESs Sentosa en Kumsan in IOR (file IOR.TXT)
+10-10- 1996		Bij controle wind <-> zeeganghoogte de level-2 meldingen niet
+					alleen m/s maar ook knopen geschreven
+					(b.v. "If wind speed > 5 m/s (10 kts) then ... " etc.)
+11-10- 1996    LESs Sentosa en Kumsan in POR toegevoegd (file POR.TXT)
+28-10- 1996		Mogelijkheid om direct de PC systeem tijd (moet dan UTC/GMT zijn)
+					en datum te gebruiken als observation time (automatische
+					invulling).	Bijhorende help-files uitgebreid.
+29-10- 1996		Kaartje met alle Inmarsat-C stations die via code 41 obs'en
+					willen ontvangen uitgebreid met Kumsan en Sentosa. Selectie:
+					'Code 41 Inmarsat-C LES' uit 'Info' menu
+1 -11- 1996		Tab-toets-doorloop-volgorde in golven invulscherm aangepast
+4 -11- 1996    probleem:
+					Bij positie/koers/vaart invulscherm kwam na tegenstrijdig
+					invullen	van Ds en vs (b.v. stationary en 6 kts) na 'OK' geven
+					van de (error)mededeling en 'Cancel' van het invulscherm de
+					'foute' waarden toch in de 'show progress' overzicht.
+					oplossing:
+					Bij elke foutmelding in dit invulscherm wordt alles gereset
+4 -11- 1996    Focus diverse invulschermen bijgesteld, d.w.z. : bij openen van
+					een invulscherm staat de cursor direct in het eerste in te
+					vullen veld (te knipperen).
+6 -11- 1996    Lay-out Visibility invulscherm gewijzigd; OK-CANCEL-HELP knoppen
+					nu onderaan (i.p.v. zijkant) het scherm voor meer uniformiteit.
+6 -11- 1996    Output mogelijkheden verruimd met mogelijkheid om een klare taal
+					print te maken van de belangrijkste ingevoerde parameters. Te
+					selecteren met de selectie 'print as plain text' van het
+					'output' menu.
+7 -11- 1996    Overal de Borland radiobuttons, i.v.m. duidelijkheid, vervangen
+					door een ander standaard soort (i.p.v. wiebertjes nu witte
+					rondjes)
+7 -11- 1996    Lay-out 'pressure the same as 3 hours ago', subinvulscherm
+					van het pressure invulscherm, gewijzigd; OK-CANCEL-HELP knoppen
+					nu onderaan (i.p.v. zijkant) het scherm voor meer uniformiteit
+7 -11- 1996    Wind invulscherm uitgebreid met een Bf-knots memo lijstje
+11-11- 1996		Wanneer er geen desktop bepaald is dan de bijhorende message
+					uitgebreid met de menu verwijzing hoe een desktop te kiezen
+11-11- 1996		Aanroepen nieuw modem link programma (WFCRUN.EXE) en aanmaken
+					specifieke obs platform file (OBS*****.DAT; waarbij de sterretjes
+					staan voor het WMO identificatie nummer) er in gezet.
+					Directory waar dit allemaal gebeurd: 'C:\WFC'.
+12-11- 1996    probleem:
+					Bij windinvulscherm, na aangeven van 'measured; apparent speed
+					and apparent direction' invullen diverse waarden en OK geven
+					kom je in het scherm waar de koers en vaart ingevuld moet worden
+					Na invullen en OK geven zijn dit de obs waarden. Wanneer je nu
+					echter dit invulscherm weer opent en je geeft in het scherm waar
+					de koers en vaart ingevuld moet worden CANCEL dan wordt alles
+					wat met de wind te maken heeft gerest/gewist
+					oplossing:
+					Na CANCEL in (wind)koers/vaart scherm blijven de eerste
+					(originele) waarden behouden, dit is uniform met de overige
+					invulschermen.
+12-11- 1996    probleem:
+					Wanneer je bij het invullen van de lucht temperatuur of de natte
+					bol temperatuur -1 graad selecteert en je geef OK dan wordt
+					dit goed verwerkt. Als je echter het betreffende temperaturen
+					invulscherm weer opent dan staat op de plaats waar je -1 invulde
+					nu -10. Dit komt omdat het 'mechanisme' zoekt naar een 'match'
+					voor -1 nu vuldoet ook -10 hieraan.
+					oplossing:
+					-10 verwijderd uit de betreffende uit te klappen comboboxen
+13-11 -1996    Bij de diverse invoerschermen een extra (= lay-out kwestie)
+					aanduiding van	invul boxen die bij elkaar horen (b.v. breedte
+					graden en breedte	minuten)
+13-11- 1996    probleem:
+					Bij 'Maintenance - Station data' bij fixed sea station minuten
+					van lengte en breedte worden bij rechtstreeks invullen 1 - 9
+					(i.p.v. 01 - 09 bij keuze uit combo(list)box) -> foute inter-
+					pretatie	b.v. 3 wordt dan 30 minuten (tevens een niet altijd
+					correcte	relatie met 'Position, course and speed' invulscherm).
+					oplossing:
+					In 'Station data' de positie invul boxen van het type 'drop down
+					list'	gemaakt, d.w.z. ze zijn alleen in te vullen m.b.v. het uit
+					te	klappen lijstje (niet meer rechtstreeks). Verder de minuten
+					positie invul boxen in het	'Position, course and speed'
+					invulscherm zo gemaakt dat alleen een range van 00 - 59
+					geaccepteerd wordt, anders foutmelding
+13-11- 1996    probleem:
+					Na 'Obs to A:\OBS.TXT' of 'OBS to Custom' of 'Obs to Printer' of
+					'Obs to Modem' wordt bij goed gevolg een message gegeven met
+					'Observation completed etc..' en alles wordt gereset (blanco
+					gemaakt)	Het is dan niet meer mogelijk om 'Print plain text'
+					te doen (de eerder ingevulde waarden zijn er niet meer).
+					oplossing:
+					Reset verwijderd en de afsluitende 'Observation completed...'
+					message uitgebreid met een	reminder die herinnert aan de
+					'Print as plain text' output mogelijkheid.
+18-11- 1996    probleem:
+					Bij printen van 'Print as plain text' wordt de laatste regel
+					'present weather' maar half (letterlijk alleen de bovenste
+					helft) afgedrukt.
+					oplossing:
+					Ik weet nu niet waar dit van komt, dit ging eerder wel prima.
+					Door 'present weather' te verwijderen in deze tekst afdruk
+					geen probleem meer (wel een paardemiddel)
+18-11- 1996		KNMI icon in about box gezet ('About..' van "Info' menu)
+25-11- 1996		Veel radio-buttons als default op 'not determined' gezet. Dus
+					nu goed met TAB-toets door te lopen
+26-11- 1996		Aan het 'Info' menu een item toegevoegd n.l. 'Tips' (hierin
+					help voor key-board control, mouse control, progress en
+					automatische datum en tijd(UTC) invulling)
+26-11- 1996		De Zeewater temperatuur methode wordt nu automatisch ingevuld
+27-11- 1996		probleem:
+					Bij invullen positie van de fixed sea station data
+					('Maintenance'	menu), wordt bij vergeten van de lengte of
+					breedte de 'Output' mogelijkheden niet gedisabled.
+					oplossing:
+					Nu ook checking op Qc i.v.m. enabling/disabling 'Output' opties
+27-11- 1996		Enkele menu separatoren toegevoegd
+27-11- 1996		Toestand natte bol werd(al of niet bevroren) niet altijd goed
+					afgevangen, dit vooral na eerst en foutmelding en deze hierna
+					verbeteren dan geen goede initialisatie hierop
+28-11- 1996		In de combobox van de windrichting 10-tallen graden gezet i.p.v.
+					de per 1 graad oplopende verdeling.
+28-11- 1996		Bij de 'state of wet-bulb' = 'wet not frozen' als default
+					genomen i.p.v. not determined als default. De bijhorende HELP
+               file ook aangepast (state of wet-bulb).
+28-11- 1996		probleem:
+					Bij invullen lucht temp. en natte bol werd het dauwpunt keurig
+					berekend. Als je na eerst OK het scherm weer opend en je zet
+					b.v. denatte bol op blanco's dan blijft de oude eerder berende
+					dauwpuntpuntstemperatuur gewoon staan
+					oplossing:
+					Bij binnenkomst temperaturen invoerscherm wordt alles van het
+					dauwpunt direct geinitiliseerd op blanco's.
+03-12- 1996    probleem:
+					De searchpath bij 'Move log files to A:\' bij verplaatsen
+					'OBSCNAME.LOG'gaf problemen onder Windows 3.11 + WIN32
+					oplossing:
+					Geen searchpath gebruikt
+04-12- 1996		Binnen de 'Info' menu nu een extra selectie mogelijkheid n.l.
+					'Modem connection' (alleen te benaderen als je ingelogd ben
+					als een fixed sea station)
+
+
+
+
+
+
+
+
+
+
+
+
+/* versie 1.1 (verbeteringingen t.o.v. versie 1.0) */
+
+30-12-1996    probleem
+				  Bij Cl, Cm en Ch bij geven not determined en dan OK wordt er
+				  not determined in meteo progress gezet hier is echter te weinig
+				  ruimte
+				  oplossing:
+				  'not determined' wordt in het meteo progress scherm omgezet in
+				  'not det.'
+30-12-1996    probleem:
+				  Bij Cl wordt de geselecteerde waarde (b.v. 9) niet goed uit-
+				  gelijnd weergegeven in 'meteo progress'
+				  oplossing:
+              uitlijning verbeterd.
+31-12-1996    Uitlijning elementen uit 'About dialog' verbeterd
+20-01-1997	  Bij invullen platform data: hoogte barometer en hoogte windmeter
+              was weggevAllen van de begeleidende text dat het in meters
+              ingevuld moest worden; nu weer ok.
+10-02-1997	  probleem:
+				  Bij printen als plain text komt bij de swell height en swell
+				  period (eerste en tweede systeem)het graden tekentje te staan
+				  oplossing:
+				  Swell hoogte krijgt achtervoegsel metres en de periode seconds
+              (eerste en tweede systeem)
+
+
+
+/* veranderingingen t.o.v. versie 1.1 */
+
+
+10-02-1997	  probleem:
+				  In sommige (afrondings) gevallen wordt de barometer waarde na
+				  hoogte omrekening (dus alleen bij boor eilanden) 1 hPa te laag in
+				  progress en 'plain text' gezet. (in obs wel correct)
+				  oplossing:
+				  Nu verholpen (was afrondings kwestie)
+02-04-1997    probleem:
+				  Bij het overnememen van de computertijd als UTC waarnemingstijd
+				  komt de jaartal (b.v. 97) op de maand posities in de IMMT log
+              oplossing: nu verholpen
+
+
+
+
+/* veranderingingen t.o.v. versie 1.2 */
+
+
+**********************************************************************************
+VERSIE 1.5
+**********************************************************************************
+
+01-05-1998    probleem:
+              Vanaf het jaar 2000 wordt er een fout waarneemtijdstip gegenereerd
+              als je de computer(systeem) tijd als waarneemtijd insteld hebt
+              (menu: 'Maintenance' -> 'Station data'). N.b. de
+              datum op zich is na 2000 wel goed het gaat echt om de tijd.
+              oplossing:
+              De Borland C++ function/object TTime met andere
+              argumenten gebruikt en nu opgelost.
+              
+              ******* DUS NU YEAR 2000 COMPLIANT ! *******
+
+09-11-1998    probleem:
+              bij invullen tienden veld bij air pressure kan het fout gaan;
+              70 wordt dan 7 hPa i.p.v. 0.7 hPa; als er meer dan 1 cijfer
+              ingevuld wordt (ze vullen dan b.v. 2 cijfers(= hondersten) in).
+              oplossing:
+              nu de inhoud van "tienden" veld delen door 10 tot de macht
+              aantal cijfers. N.B. de laatste 5 in hondersten (of duizendsten)
+              wordt wel naar beneden afgerond
+              (998,75 -> 998,7 maar 998,76 wordt 998,8)
+              *  Ook bij tienden veld bij 'amount of pressure tendency
+                 during the last 3 hours' wordt nu na invullen hondersten dit
+                 correct afgehandeld (zie air pressure).
+              *  Ook bij air temp tienden kan nu hondersten ingevuld worden
+                 (en wordt dan correct verwerkt)
+				  *  Ook bij wet bulb tienden kan nu hondersten ingevuld worden
+					  (en wordt dan correct verwerkt)
+              *  Ook bij zeewater temp tienden kan nu hondersten ingevuld worden
+                 (en wordt dan correct verwerkt)
+              ** bij tienden veld bij 'ship's ground speed' in 'apparent wind'
+                 wordt al een foutmelding gegeven als het niet in de range
+                 0 - 9 zit (hondersten kan dus al niet)
+
+              ******** ZIJN ER OOK NOG ANDERE TIENDEN VELDEN ??? ********
+
+10-11-1998    Dialogs gecentreerd; nu dus onafhankelijk van scherm resolutie
+              komen de diverse invul formulieren/dialogs en mededelingen altijd
+              in het midden van het scherm (ligt ook aan Microsoft Windows
+              instelling ?)
+10-11-1998    Jaartal in 'year'-combobox van 'Date and Time' invulscherm
+              loopt nu van 1999 - 2010.
+10-11-1998    In het "Ice" invul scherm de "concentration or arrangement of
+              sea ice " en "ice situation and trend of conditions over
+              preceding hours" radio buttons default op 'not determined' gezet
+16-11-1998    About box aangepast (versie 1.5; E-mail naar: rozeboom@knmi.nl)
+16-11-1998    Bij openklapbare 'hour(UTC)' combobox in invulscherm
+              'Date and time' nu mogelijk alle uren tussen 0 - 23
+              (i.p.v. alleen 0, 6, 12 en 18) via deze combobox te kiezen
+19-11-1998    KNMI(new) icon transparant gemaakt (zie verschil als snelkoppeling)
+              + icon van een schip toegevoegd (zie bij 'properties' ->
+              'shortcut' -> 'change icon')
+07-01-1999    Nieuwe help file "Tips.hlp" aangemaakt dus DEZE BIJ DE NIEUWE VERSIE
+              MEELEVEREN. In deze nieuwe help file zijn de opmerkingen betreffende
+				  Keyboard control gedaan door Ian Hendry verwerkt
+18-01-1999    Recruiting country code voor IMMT (char 79-80) aangepast
+              (nu volgens de ISO Alpha-2 code)
+21-01-1999    "Obs to Internet" output mogelijkheid toegevoegd (moet dan een internet
+              directory + ftp software aanwezig zijn)
+21-01-1999    Verwijzingen naar de lage resolutie meteo bitmap files (Bf, Cl, Cm, Ch en Ice)
+              verwijderd. Deze files (tussenvoegsel "_v_") behoeven dus niet meer mee-
+              geleverd te worden
+21-01-1999    About box uitgebreid met een "build" datum
+24-01-1999    Menu item "Info" -> "Internet connection" opgenomen (hier moet de betreffende
+              help file "internet.hlp" achter komen)
+24-01-1999    Klopt de Inmarsat-C LES stations (.TXT files; b.v. ior.txt) en de Inmarsat_C LES
+              (file: les_c_41.hlp) overzicht/informatie nog ??????????
+26-01-1999    "Obs to Modem" en "Obs to Internet" enable/disable schema van R.J. Rozeboom
+              geiimplementeerd (n.b. er wordt alleen gecheckt op aanwezigheid executable(s))
+01-03-1999    probleem:
+              Bij "Wind measured; apparent speed and apparent dxirection" invulscherm kan je in
+              invulveld: hele knopen en bij het bijhorende tienden knopen veld ook 02, 07 e.d.
+              invullen
+              oplossing:
+              Als er meer 1 karakter in een van beide velden wordt ingevuld dan foutmelding
+01-03-1999    help file "MODEM.HLP" ge-updated en een nieuwe helpfile "INTERNET.HLP" toegevoegd
+07-04-1999    probleem:
+              Op notebooks kwam met deze nieuwe versie overal na proberen dialog box te openen:
+              "OWL Execute fail for window etc."
+              oplossing:
+				  gecompileerd op die betreffende notebook.
+				  probleem: dit ging dan goed op de betreffende notebook maar de exe
+				  op een andere notebook gezet dan weer fout
+16-04-1999    oplosing: Borland C++ 4.51 compiler gebruikt met bijhorende
+				  dll's (zoals owl250f.dll); in de .rc file moest wel de
+				  "centreer dialogs optie" verwijderd worden (die kende deze compiler toen nog niet)
+				  nu versie 1.5 build 16041999
+              [note 07-11-2001 -> probleem werd in werkelijkheid veroorzaakt doordat
+               in Borland C++ 5.02 uint16 op de juiste plaatsen gebruikt worden i.p.v. uint!]
+
+**********************************************************************************
+VERSIE 1.51
+**********************************************************************************
+21-06-1999    probleem:
+				  Bij invullen vaart in "Wind measured, apparent speed and apparent dir" wordt
+				  er soms een TurboWin melding gegeven van > 40 knopen dit kan niet.
+				  oplossing:
+				  in het hele knopen veld werd ten onrechte gecontroleerd dat hier maar 1 positie
+				  mocht staan (dus boven bij 10 of meer hele kts ging het fout) Deze fout werd
+				  geiintroduceerd vanaf versie 1.5. Nu versie 1.51 (dit is in about box ook aangepast
+				  met build date: 21061999)
+
+
+
+
+
+
+/* veranderingingen t.o.v. versie 1.51 */
+
+
+**********************************************************************************
+VERSIE 1.6 beta 1
+**********************************************************************************
+01-02-2000  Borland C++ 5.02 compiler gebruikt; volgende dll's moeten met de
+            executable meegeleverd worden:
+            - bds52f.dll
+            - bocof.dll
+            - cw3230.dll
+            - owl52f.dll
+            - bwcc32.dll (omdat borland look controls voorkomen)
+01-02-2000  in tmyWindow.cpp
+            #include <c:\bc5\include\classlib\date.h> kan vervangen worden door
+            #include <date.h> omdat path naar classlib in de IDE
+            options -> projects -> directories hier naar toe gezet is
+04-02-2000  - in tw_17.rc gelinkte *.rc en *.rh naar BC45 verwijderd
+            - in resource workshop notes dialog aangemaakt
+07-02-2000  - type UINT in uint16 veranderd (anders run-time error)
+              in: - stat_ty.h
+                  - tcheight.h
+                  - ticing.h
+                  - tice.h
+                  - twind.h
+                  - tpositio.h
+                  - tpastwea.h
+                  - tpreswea.h
+                  - tpressur.h
+                  - temp.h
+                  - tcloudsh.h
+                  - tcloudsm.h
+                  - tcloudsl.h
+                  - tvis.h
+             - in tcustom.h van de variable CustomEditresult char lengte verhoogd naar 256
+             - in "position course and speed" dialog bij "course made good during last 3 hrs"
+               alle koersen nu met 3 cijfers (bv. 067 i.p.v. 67)
+14-02-2000   - bij meteoprogress dialog maximum box optie verwijderd
+             - macro IDHELP in verwijderd (had geen nut, gaf ook redefinition warning)
+             - toegevoegd notebook (eenvoudige editor). Wordt geschreven naar file notes.log in
+               de directory $\log. Als de file notes.log nog niet bestaat wordt hij aangemaakt
+               na het geven van menu commando: "save". Als de directory er niet is of fout is
+               dan een foutmelding.
+             - Alle dialog boxes centreer flag aangezet (alle boxen nu in het midden op scherm)
+13-03-2000   - Function: CmMaintenanceRemoveLogFiles() aangepast om de file "notes.log" te
+               kopieeren indien aanwezig.
+             - i.v.m. mogelijk hyperlink verwijzingen aangepast:
+                   # function: ~TMyWindow()
+                   # function: InitMainWindow()
+14-03-2000   - Toegevoegd mogelijk van hyperlinks vanuit About box
+             - Functie CmObsInternet() nu gewijzigd in CmObsFTP() geld ook voor CeObsInternet etc.
+               Obs to FTP nog wel testen !!!
+15-03-2000   - In function: ~TMyWindow() aanroep 'Destroy()' verwijderd
+16-03-2000   - File-Exit menu toegevoegd
+             - TurboWin E-mail settings dialog opgenomen. Moet wel een email subdirectory zijn!
+               Ook wordt hier file emailsettings.txt uitgelezen als hij er is. Is hij er niet
+               komt er geen melding en wordt bij saven gewoon een nieuwe aangemaakt.
+21-03-2000   - "Obs by E-mail(OLE)", "Obs by E-mail(Turbo)" en "Obs to clipboard" opgenomen
+               voor "Obs by E-mail(Turbo)" is nodig
+                   - EmailTurboWin.exe
+                   - borlndmm.dll
+                   - vcl40.bpl
+                   - nmfast40.bpl
+                   - vclx40.bpl
+                   - cp3245mt.dll
+23-03-2000   - Function: Test_IMMT_grootte() herschreven omdat deze functie altijd na function
+               IMMT_log() komt en beide testen op immt file aanwezig. Indien deze file niet
+               aanwezig was dan kwam een dubbele mededeling van niet aanwezig. Function
+               Test_IMMT_grootte() test nu alleen op grootte als de immt file fysiek aanwezig is.
+             - Function IMMT_log() aangepast: append nu pas na een echte nieuwe waarneming als deze
+               nog niet in de log staat (worden nu geen dubbelen meer weggeschreven)
+27-03-2000   - Function: CmShipPosition nu: ...int(num_LongitudeTenths / 6)... i.p.v.
+               ...floor(num_LongitudeTenths / 6)...; zelfde geld voor LatitudeTenths
+             - Menu item disablers (grayed) verwijderd voor
+                      - Obs to A:\obs.txt
+                      - Obs to Custom file
+                      - Obs to Printer
+                      - Obs to Clipboard
+                      - Obs by E-mail(Turbo)
+                      - Obs by E-mail(OLE)
+               De menu item disablers van 'obs by ftp' en 'obs by modem' opgeschoond als er geen
+               modem programma is dan deze grayed en als er geen ftp programma is deze grayed
+               (geen afhankelijk-heid van elkaar meer)
+               Alle andere output options (b.v. 'Obs to A:\') nu nooit meer ge-grayed, geven gewoon
+               een melding als datum+tijd en/of positie+koers+speed niet goed is ingevuld
+             - Van dialog Station data(fixed sea station) de edit box method for determining waves
+               vergroot (in de hoogte)
+28-03-200    - In verschillende dialog boxen de uitlijning van knopen e.d. iets veranderd
+               zodat het ook bij 1028 * 768 (small font) nog goed overkomt
+29-03-2000   - verwijderen : - internet.hlp
+               toevoegen:    - ftp.hlp
+                             - email.hlp
+                             - emailset.hlp
+31-03-2000   - Meteo progress dialog en notes dialog voorzien van een minimize (system-box)button
+
+
+
+
+
+
+
+
+**********************************************************************************
+VERSIE 1.7    /* veranderingingen t.o.v. versie 1.6 beta 1 */
+**********************************************************************************
+10-04-2000   - fotos in help files 400 * maintain aspect regio
+             - fotos glyphs als 150 * 100
+             - vernieuwd: - alle help files
+             - nieuw: ch_1_ima.hlp t/m ch_9_ims.hlp (totaal 27 files)
+14-04-2000   - Nieuw: function: DefaultDesktop(). Als er er niets in de desktopverwijsfile
+               staat (b.v. na neen eerste installatie) wordt de standaard desktop file
+               genomen (afhangkelijk van scherm resolutie)
+             - Function: CmPictureDesktop() aangepast i.v.m. de lange pathname in messagebox
+               die vraagt om bevestiging die gekozen file als desktop op te slaan.
+21-04-2000   - Functions: Fixed_Dialog()
+                          Ship_Dialog()
+               schrijven nu op eerste regel in station.log een "do not edit regel"
+               n.b. Function: Get_station_data() ook herschreven
+             - Function: Read_fixed_station_data():
+                       float(int(num_LatitudeTenths / 6)) / 10.0 i.p.v.
+                       float(floor(num_LatitudeTenths / 6)) / 10.0
+11-05-2000   - Functions: CmObsEmail2()
+                          TEmailTurboWin::OnCreate(TObject *Sender) uit CBuilder 4 aangepast
+                   voor ddhhmm substitutie in subject field
+15-05-2000   - Function: CmObsEmail2() [OLE] nu voor CRLF %0A ("\n" gaf problemen met outlook 98)
+18-05-2000   - Functions: CmMaintenaceStationdata()
+                          Get_Station_Data()
+               ge-updated voor obs delimiter
+19-05-2000   - Help files: code.hlp
+                           station.hlp
+                           datetime.hlp
+               updated
+22-05-2000   - Functions: - Check_level_3()
+                          - Bepaal_Datum_en_Tijd()
+                          - CmShipDatetime()
+               aangevuld voor controle op niet te late verzendtijd (max 1 uur tussen laatse update
+               datum-tijd en verzenden obs)
+23-05-2000   - Function: Check_Land_Sea_Mask() toegevoegd. Hier hoort ook bij
+               sub directory: mask met files zdf_sam en zdf_lkw.
+29-05-2000   - Air pressure input page uitgebreid met non-editable yes/no reading sea level
+               en hoogte barometer.
+               De volgende functies i.v.m. berekenen sea level druk ge-updated:
+               - Checking_level_3()
+               - CmShipAirPressure()
+               - Airpressure_Dialog_Fields_Invalid()
+               - CmShipTemperatures()
+               nieuwe functie: MSL_Herleiding_Luchtdruk()
+               functie: Corrigeer_luchtdruk() verwijderd
+30-05-2000   - Moet als default een lege file station.log meegeleverd worden
+             - defauly file barometer.txt in TEXT sub dir.
+
+31-05-2000   - i.v.m. pressure reading en pressure MSL de o.a. volgende functies aangepast:
+               Functions: - CmShipTemperatures()
+                          - CmShipAirpressure()
+                          - MSL_Herleiding_Luchtdruk()
+                          - Read_Barometer_Data()
+                          - UpdateAirpressureMeteoProgressDialog()
+               ook diverse functies uit: - tpressure.cpp
+                                         - tpressure.h
+               ook de volgende stations weer wat aagepast i.v.m. nu 2 luchtdrukken
+                   Get_station_data()
+                   Fixed_Dialog()
+                   Ship_Dialog()
+31-05-2000   - Functions: CmShipTemperatures()
+                          read_seawatermethod()
+               veranderd voor iets andere manier lezen en
+               schrijven zeewater methods (o.a. met do not edit regel)
+06-06-2000   - Functions: getClassName() en
+                          getWindowClass() verwijderd
+08-06-2000   - Automatic Next screen optie ingebouwd
+13-06-2000   - Stringtable uitgebreid (strings in statusbalk asl je met de muis over menuitems gaat)
+15-06-2000   - * lengte observer name bij observername input pagina vergroot van 44 naar 100
+					(MAXOBSERVERNAMELENGTH). Hierom ook in Function: IMMT_log() char variable immt_rec
+               vergroot van 136 -> 256.
+               * Heeft ook invloed op obsvname.log (records veel langer, nu 44 -> 100 voor namen)
+               * Redisign of observer input page
+16-06-2000   - Waarschuwing wordt nu gegeven als het aantal char. in notebook groter is dan
+               er kan worden opgeslagen
+
+
+
+**********************************************************************************
+VERSIE 1.71     /* veranderingingen t.o.v. versie 1.7 */
+**********************************************************************************
+20-06-2000   - Accelarator bij Output | Obs by E-mail(Turbo) en Output | Obs by E-mail(OLE)
+               toegevoegd (nu ALT-T resp. Alt-O)
+				 - Wind2.hlp updated voor Note toevoeging in wind general
+             - email.hlp updated voor verwijzing naar Microsoft Outlook Express 5
+22-06-2000   - position.hlp en waves.hlp updated
+26-06-2000   - probleem:
+               bij fixed sea station station data de positie kan ingevuled worden met het
+               pull-down menu (combo type: dropdown list) zodat er geen fouten
+               gemaakt kunnen worden i.v.m. zelf invullen als edit box. Echter als je met TAB-toetsen
+               hier toch komt kan je wel wat invullen is echter niet het zelfde als wat je intikt
+               oplossing:
+               combo type: nu dropdown i.p.v. dropdown list. Verder worden nu de ingevulde positie
+               velden (eenvoudig) gecontroleerd
+
+**********************************************************************************
+VERSIE 1.72b     /* veranderingingen t.o.v. versie 1.71 */
+                 /* n.b. versie 1.72b is nooit op internet gezet */
+**********************************************************************************
+08-08-2000   - probleem: Op sommige printers (waarschijnlijk HP) geeft de printer een error
+                         obs kan niet worden geprint
+               oplossing: In function: CmFilePrint() en CmPlainText()
+               printout.SetBanding(false) i.p.v. printout.SetBanding(true)
+28-08-2000   - probleem: Bij fixed sea station (NIET bij ship) wordt de positie check m.b.v.
+                         land-sea mask niet goed uitgevoerd.
+               oplossing: Dit komt omdat bij checken 10 graads vak bepaald wordt en breedte lengte vergeleken
+                          wordt met "N" i.p.v. "North" etc.
+                          Functions: TFixedDialog::SetupWindow() [file: stat_ty.cpp]
+                                     Fixed_Dialog() [file: tmystat.cpp]
+                                     Read_fixed_station_data() [file: tmystat.cpp]
+                                     TPositionDialog::SetupWindow() [file: tpositio.cpp]
+                                veranderd van "North" -> "N" etc
+
+
+

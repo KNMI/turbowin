@@ -1,0 +1,60 @@
+------------------------------------------------------------------------------------------------------------------------
+REMINDER
+------------------------------------------------------------------------------------------------------------------------
+Belangrijke globale (binnen tmywindow) var's
+
+form_mode        = STANDARD / CLASSIC
+message_mode     = SEL / SUS / SUP / AUX
+code_mode        = BUFR_OBS ("BUFR") / ALPHANUMERIC_OBS ("ALPHANUMERIC") / COMPRESSED_OBS ("COMPRESSED")
+station_type     = "fixed" / "ship"  of FIXED_STATION ("fixed") / SHIP_STATION ("ship")
+
+in_next_sequence      = true / false
+back_in_next_sequence = true / false
+stop_in_next_sequence = true / false
+
+let op: in tw_17.h het versie nummer in "do not edit regel" zetten !!
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 4.1 beta [veranderingingen t.o.v. versie 4.0]                                                                 *
+************************************************************************************************************************
+- 14-02-2007 Message "Previous saved code mode: compressed, but the program was started without the compressed
+                     mode parameter"iets aangepast [file tmywindow.cpp]
+- 14-02-2007 - Obs by Email(Turbo) nu ook mogelijk met compressed code form
+             - Obs by Email(OLE) nu ook mogelijk met compressed code form
+             - test:
+                  text editor: [61 bytes]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@
+
+                  custom file: [61 bytes]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@
+
+                  clipboard: [64 bytes]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@}                  >w
+
+                  Email(OLE): [61 bytes (let op laatste spatie)]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@
+
+                  Email(Turbo): [63 bytes]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@,ï
+
+                  Email(Turbo): [61 bytes, CR/LF er af ?; strlen(obs)-2, dit niet doorgevoerd, dus alleen een experimentje]
+                    VOSIDSHIPTW1IR[Ex@E@Gq@c\@,
+
+
+                bij decomprimeren alle 4 geen probleem, de BBXX obs was na decompressie 5x het zelfde
+
+- 26-02-2007 - Fubction: Inmarsat_LES_Advies() aangepast voor Perth via Station 12 (SAC 1241) [file tmyobs.cpp]
+             - les_c_41.hlp    
+                     
+
+
+resume: veranderde files t.o.v. 4.0:
+             - vernieuwd: emailset.hlp (i.v.m. subject ddhhmm i.c.m. compressed)
+             - vernieuwd: turbowin.exe
+             - vernieuwd: PMO_CONTACTS.PDF (i.v.m. PMO Duitsland)
+             - vernieuwd: ior.txt en por.txt
+             - vernieuwd: les_c_41.hlp

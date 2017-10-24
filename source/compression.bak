@@ -1,0 +1,57 @@
+/* HISTORIQUE des MODIFS
+	juin 2006 : 	- LGNOM passe de 64 à 256
+			- Dans la structure spelem, degre, pente, origine, MNT_pente, MNT_biais
+			sont déclares double
+	aout 2006 :	- LGNOM passe de 256 a 1024
+*/
+
+#define MAXLINE 	512		/* nb de carateres max des lignes  du fichier PILOTE*/
+#define DEBUG		0		/* Mode debugage - impreesions de controle*/
+#define LGUNITE		32		/* Longueur max du nom de l'unite	*/
+#define LGNOM		1024		/* Longueur max du nom de l'element	*/
+#define NBMAXELEM	1024	/* Nombre max d'elements a transmettre	*/
+#define NBMETA		256		/* Nombre max de meta data	*/
+#define NBMAXSPEC	16		/* Nombre max de specifications par element*/
+#define NBMAXOCT	1024	/* Nb max d'octets d'un message compresse binaire */
+#define MAXID		7		/* Nb max de caracteres de l'indicatif navire */
+#define MAXIDENT    32      /* Nb max de caracteres du champ identificateur*/
+#define TABLEIND	"VOS_ident.txt"	/* table id emetteur-indicateur*/
+#define MAX_L_MES	69		/*Nb de carracteres max d'une ligne de message : 72 - 3 (\r\r\n) */
+
+char REPAUX[256];	/* Repertoire par defaut contenant les donnees auxiliaires */		
+struct spelem 	{		/* Struture fixant les specification d'un
+				   element a comprimer*/
+    char 	     BUFR[8]; 	/* Numero de descripteur code BUFR	*/
+    char        ident[MAXIDENT]; /* Identificateur capteur ou autre */
+    unsigned char 	nbit;	/* nb de bits de compression		*/
+    double		degre;	/* Degre (inverse) du polynome de codage*/
+    double		pente;	/* Coef multiplicateur a appliquer a la
+    				   valeur physique */
+    double		origine;/* Valeur de reference origine		*/
+    long	    codemax;/* Valeur max codee			*/
+    unsigned long	modeo;	/* Mode operatoire choisi		*/
+    char	unite[LGUNITE];	/* Chaine donnant l'unite		*/
+    double	      MNT_pente;/* Pente a appliquer en correction 	*/
+    double	      MNT_biais;/* Biais a appliquer en correction	*/
+    unsigned char	paraOK;	/* Flag parametre a transmette		*/
+    char	     nom[LGNOM];/* Nom du parametre			*/
+    		};
+struct spelem specel[NBMAXELEM];/* Tableau des specifications de tous 
+				   les elements a transmettre		*/
+int nbelem	;			/* Nb d'elements transmis	*/
+
+struct meta	{
+    	char 		BUFR[8]; 	/* Numero de descripteur code BUFR*/
+    	char    	ident[MAXIDENT];/* Identificateur capteur ou autre */
+	char 		valeur[32];	/* Valeur de la meta data a convertir
+					   eventuellement en numerique*/
+	char		nom[LGNOM];	/* Nom du parametre			*/
+	};
+struct meta meta_data[NBMETA];		/* Tableau des meta data */
+int nbmeta;				/* nombre de meta data */
+
+double ms2kt  ;				/* conversion M:s en Kt */
+
+	
+
+

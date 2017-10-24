@@ -1,0 +1,764 @@
+#include <owl\owlpch.h>
+#include <owl\listbox.h>
+#include <owl\combobox.h>
+#include <owl\edit.h>
+#include <owl\checkbox.h>
+#include <owl\radiobut.h>
+#include <owl\validate.h>
+#include <owl\groupbox.h>
+#include <owl\printer.h>
+#include <owl\hlpmanag.h>
+#include <owl\opensave.h>
+#include <owl\date.h>
+#include <owl\time.h>
+#pragma hdrstop
+
+#include "tbaro.h"
+
+#include <math.h>
+#include <stdio.h>
+#include <values.h>
+
+
+DEFINE_RESPONSE_TABLE1(TBarometerDialog, TDialog)
+   EV_CBN_SELCHANGE(IDC_BAROMETER_INDICATION_READING_COMBOBOX, Ev_listbox_Barometer_Indication_SelChange),
+	EV_COMMAND(IDHELP, CmHelp),
+   EV_COMMAND(IDBACK, CmBack),
+   EV_COMMAND(IDSTOP, CmStop),
+   EV_COMMAND(IDREFRESH, CmRefresh),
+END_RESPONSE_TABLE;
+
+
+
+
+TBarometerTransfer::TBarometerTransfer()
+{
+	// air pressure
+	BarometerResult.AddString("\0");
+	BarometerResult.AddString("975");
+	BarometerResult.AddString("976");
+	BarometerResult.AddString("977");
+	BarometerResult.AddString("978");
+	BarometerResult.AddString("979");
+	BarometerResult.AddString("980");
+	BarometerResult.AddString("981");
+	BarometerResult.AddString("982");
+	BarometerResult.AddString("983");
+	BarometerResult.AddString("984");
+	BarometerResult.AddString("985");
+	BarometerResult.AddString("986");
+	BarometerResult.AddString("987");
+	BarometerResult.AddString("988");
+	BarometerResult.AddString("989");
+	BarometerResult.AddString("990");
+	BarometerResult.AddString("991");
+	BarometerResult.AddString("992");
+	BarometerResult.AddString("993");
+	BarometerResult.AddString("994");
+	BarometerResult.AddString("995");
+	BarometerResult.AddString("996");
+	BarometerResult.AddString("997");
+	BarometerResult.AddString("998");
+	BarometerResult.AddString("999");
+	BarometerResult.AddString("1000");
+	BarometerResult.AddString("1001");
+	BarometerResult.AddString("1002");
+	BarometerResult.AddString("1003");
+	BarometerResult.AddString("1004");
+	BarometerResult.AddString("1005");
+	BarometerResult.AddString("1006");
+	BarometerResult.AddString("1007");
+	BarometerResult.AddString("1008");
+	BarometerResult.AddString("1009");
+	BarometerResult.AddString("1010");
+	BarometerResult.AddString("1011");
+	BarometerResult.AddString("1012");
+	BarometerResult.AddString("1013");
+	BarometerResult.AddString("1014");
+	BarometerResult.AddString("1015");
+	BarometerResult.AddString("1016");
+	BarometerResult.AddString("1017");
+	BarometerResult.AddString("1018");
+	BarometerResult.AddString("1019");
+	BarometerResult.AddString("1020");
+	BarometerResult.AddString("1021");
+	BarometerResult.AddString("1022");
+	BarometerResult.AddString("1023");
+	BarometerResult.AddString("1024");
+	BarometerResult.AddString("1025");
+	BarometerResult.AddString("1026");
+	BarometerResult.AddString("1027");
+	BarometerResult.AddString("1028");
+	BarometerResult.AddString("1029");
+	BarometerResult.AddString("1030");
+	BarometerResult.AddString("1031");
+	BarometerResult.AddString("1032");
+	BarometerResult.AddString("1033");
+	BarometerResult.AddString("1034");
+	BarometerResult.AddString("1035");
+	BarometerResult.AddString("1036");
+	BarometerResult.AddString("1037");
+	BarometerResult.AddString("1038");
+	BarometerResult.AddString("1039");
+	BarometerResult.AddString("1040");
+
+	// air pressure tienden
+	BarometertiendenResult.AddString("\0");
+	BarometertiendenResult.AddString("0");
+	BarometertiendenResult.AddString("1");
+	BarometertiendenResult.AddString("2");
+	BarometertiendenResult.AddString("3");
+	BarometertiendenResult.AddString("4");
+	BarometertiendenResult.AddString("5");
+	BarometertiendenResult.AddString("6");
+	BarometertiendenResult.AddString("7");
+	BarometertiendenResult.AddString("8");
+	BarometertiendenResult.AddString("9");
+
+   // reading indication (yes/no reading indicate MSL pressure)
+   BarometerReadingIndicationResult.AddString("\0");
+   BarometerReadingIndicationResult.AddString("yes");
+   BarometerReadingIndicationResult.AddString("no");
+
+   // current deepest draft
+   BarometerDraftResult[0] = '\0';
+
+   // pressure at MSL
+   BarometerMSLResult[0] = '\0';
+}
+
+
+
+
+TBarometerDialog::TBarometerDialog(TWindow* parent, TResId resId, TBarometerTransfer& barometertransfer,
+                                   string barometer_MSL_yes_no, string hoogte_barometer, string message_mode,
+                                   string turbowin_dir, bool in_next_sequence, string recruiting_country, string station_type,
+                                   string keel_sll, string barometer_sll, int num_TTT)
+              		: TDialog(parent, resId)
+{
+	comboboxairpressure           = new TComboBox(this, IDC_BAROMETER_HPA_COMBOBOX);
+	comboboxairpressuretienden    = new TComboBox(this, IDC_BAROMETER_HPA_TIENDEN_COMBOBOX);
+   reading_indication            = new TComboBox(this, IDC_BAROMETER_INDICATION_READING_COMBOBOX);
+   deepest_draft                 = new TEdit(this, IDC_BAROMETER_EDIT_DRAFT, sizeof(barometertransfer.BarometerDraftResult));
+   height_baro                   = new TEdit(this, IDC_BAROMETER_EDIT_HEIGHT_ABOVE_MSL, sizeof(barometertransfer.BarometerHeightResult));
+   supplied_observer             = new TEdit(this, IDC_BAROMETER_EDIT_SUPPLIED_OBSERVER, sizeof(barometertransfer.BarometerReadingObserverResult));
+   height_correction             = new TEdit(this, IDC_BAROMETER_EDIT_HEIGHT_CORRECTION, sizeof(barometertransfer.BarometerCorrectionResult));
+   pressure_msl                  = new TEdit(this, IDC_BAROMETER_EDIT_MSL, sizeof(barometertransfer.BarometerMSLResult));
+   text_barometer_tenths         = new TStatic(this, IDC_BAROMETER_TEXT_HPA_TENTHS);
+   text_draft                    = new TStatic(this, IDC_BAROMETER_TEXT_DRAFT);
+   text_fixed_sea_station        = new TStatic(this, IDC_BAROMETER_TEXT_FIXED_SEA_STATION);
+   text_height_barometer         = new TStatic(this, IDC_BAROMETER_TEXT_HEIGHT_BAROMETER);
+   text_height_correction        = new TStatic(this, IDC_BAROMETER_TEXT_HEIGHT_CORRECTION);
+
+
+   // ingegraveerde TurboWin
+   text_turbowin = new TStatic(this, IDC_TEXT_TURBOWIN);
+
+   back_button    = new TButton(this, IDBACK);
+   stop_button    = new TButton(this, IDSTOP);
+   refresh_button = new TButton(this, IDREFRESH);
+
+   local_barometer_MSL_yes_no  = barometer_MSL_yes_no;          // geld voor ship en fixed sea station
+   local_message_mode          = message_mode;                  // SEL, SUS, SUP, AUX
+   local_turbowin_dir          = turbowin_dir;
+   local_in_next_sequence      = in_next_sequence;
+   local_recruiting_country    = recruiting_country;
+   local_station_type          = station_type;                  // ship / fixed
+   local_keel_sll              = keel_sll;
+   local_barometer_sll         = barometer_sll;
+   local_hoogte_barometer      = hoogte_barometer;
+   local_num_TTT               = num_TTT;                       // voor show
+
+   /* validators */
+   // 0123456789 en . voor draft
+	deepest_draft   -> SetValidator(new TFilterValidator("0-9."));       // bld 390 - 392 Swan
+
+/////////////////
+   /* limit text */
+   //comboboxairpressuretienden  -> SetTextLimit(1);                // max 1 character  WERKT NIET !!!
+           // TComboBox
+   //char buffer[10];
+   //int hulp = comboboxairpressuretienden ->GetTextLimit();
+   //sprintf(buffer, "%d", hulp);
+   //MessageBox(buffer, "comboboxairpressuretienden ->GetTextLimit();", MB_OK);
+
+///////////////////////////
+
+   // initialisatie
+   back_button_pressed    = false;
+   stop_button_pressed    = false;
+   refresh_button_pressed = false;
+
+	SetTransferBuffer (&barometertransfer);
+
+   /* laden HTMLHelp OCX voor HTML (chm) help */
+   HTMLHelp = NULL;
+   hHelpOCX = NULL;
+   hHelpOCX = ::LoadLibrary("hhctrl.ocx");
+   if (hHelpOCX == NULL)
+      MessageBox("Cannot use the html help", "TurboWin Error", MB_OK | MB_ICONERROR);
+
+}
+
+
+TBarometerDialog::~TBarometerDialog()
+{
+	delete comboboxairpressure;
+	delete comboboxairpressuretienden;
+   delete reading_indication;
+   delete deepest_draft;
+   delete height_baro;
+   delete supplied_observer;
+   delete height_correction;
+   delete pressure_msl;
+   delete text_barometer_tenths;
+   delete text_draft;
+   delete text_fixed_sea_station;
+   delete text_turbowin;
+   delete back_button;
+   delete stop_button;
+
+   /* sluiten help file */
+   if (HTMLHelp != NULL)
+      HTMLHelp(NULL, NULL, HH_CLOSE_ALL, NULL);
+
+}
+
+
+void TBarometerDialog::Ev_listbox_Barometer_Indication_SelChange()
+{
+   char selectie[4];
+   selectie[0] = '\0';
+   string info = "";
+
+
+   // NB MB_TASKMODAL in ::MessageBox zorgt er voor dat eerst de ok button van de messagebox geklikt moeten worden
+   // (en niet automatisch wordt geminimaliseerd als ergens anders op de input form wordt geklikt)
+
+   // NB
+   //     height_baro (edit field)       : standaard op disabled (systeem kan wel invullen, user niet)
+   //     supplied_observer (edit field) : standaard op disabled (systeem kan wel invullen, user niet
+   //     height_correction (edit field) : standaard op disabled (systeem kan wel invullen, user niet)
+   //     pressure_msl (edit field)      : standaard op disabled (systeem kan wel invullen, user niet)
+   //
+
+   reading_indication -> GetSelString(selectie, 3);
+   if (string(selectie) == "yes")
+   {
+      // draft (ship) / height above MSL (fixed sea station)
+      if (local_station_type == "fixed")
+         text_fixed_sea_station -> EnableWindow(false);             // "barometer height above Mean Sea Level"
+      else
+         text_draft -> EnableWindow(false);
+
+      deepest_draft -> Clear();
+      deepest_draft -> EnableWindow(false);
+
+      // hoogte barometer above sea level
+      text_height_barometer -> EnableWindow(false);
+      height_baro -> Clear();
+
+      // height correction
+      height_correction -> Clear();
+
+      // MSL pressure
+      pressure_msl -> Clear();
+
+      info = "If 'yes' is selected the correction for the barometer height will not be automatically applied by TurboWin. Observers should therefore only apply the instrument error correction to the barometer reading";
+      ::MessageBox(0, info.c_str(), "TurboWin reminder \"does the reading indicate MSL pressure [yes/no]\"", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
+   } // if (string(selectie) == "yes")
+   else if (string(selectie) == "no")
+   {
+      // draft (ship) / height above MSL (fixed sea station)
+      if (local_station_type == "fixed")
+         text_fixed_sea_station -> EnableWindow(true);             // "barometer height above Mean Sea Level"
+      else
+         text_draft -> EnableWindow(true);
+
+      deepest_draft -> Clear();
+      deepest_draft -> EnableWindow(true);
+
+      // hoogte barometer above sea level
+      text_height_barometer -> EnableWindow(true);
+      height_baro -> Clear();
+
+      // height correction
+      height_correction -> Clear();
+
+      // MSL pressure
+      pressure_msl -> Clear();
+
+      info = "If 'no' is selected TurboWin will automatically apply the height correction to the barometer reading. Observers should therefore only apply the instrument error correction to the barometer reading";
+      ::MessageBox(0, info.c_str(), "TurboWin reminder \"does the reading indicate MSL pressure [yes/no]\"", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
+   } // else if (string(selectie) == "no")
+
+}
+
+
+
+void TBarometerDialog::SetupWindow()
+{
+   TDialog::SetupWindow();
+
+   char selectie[4];
+   selectie[0] = '\0';
+   string info = "";
+
+
+   // NB
+   //     height_baro (edit field)       : standaard op disabled (systeem kan wel invullen, user niet)
+   //     supplied_observer (edit field) : standaard op disabled (systeem kan wel invullen, user niet)
+   //     height_correction (edit field) : standaard op disabled (systeem kan wel invullen, user niet)
+   //     pressure_msl (edit field)      : standaard op disabled (systeem kan wel invullen, user niet)
+   //
+
+   /* TurboWin "ingegraveerde" line */
+   text_turbowin -> EnableWindow(false);
+
+   /* initialisatie (deze altijd met blanco beginnen als scherm wordt geopend */
+   //pressure_msl -> Clear(); ???
+
+   /* fixed sea stations geven barometer hoogte boven MSL, schepen geven de current deepest draft (van toepassing zijnde text disablen) */
+   if (local_station_type == "fixed")
+      text_draft  -> ShowWindow(SW_HIDE);                                // "current deepest draft"
+   else
+      text_fixed_sea_station -> ShowWindow(SW_HIDE);                     // "barometer height above Mean Sea Level"
+
+
+   /* Germany + Netherlands recruited ships hebben ALTIJD de lezing op MSL */
+   /* LET OP: Er is een "NETHERLANDS" en "NETHERLANDS_WMO" */
+   if ( (local_recruiting_country == GERMANY || local_recruiting_country == NETHERLANDS || local_recruiting_country == NOT_ASSIGNED) && (local_station_type == "ship") )
+   {
+      reading_indication -> SetSelString("yes", -1);
+      reading_indication -> EnableWindow(false);
+
+      // draft
+      text_draft -> EnableWindow(false);
+      deepest_draft -> Clear();
+      deepest_draft -> EnableWindow(false);
+
+      // hoogte barometer above sea level
+      text_height_barometer -> EnableWindow(false);
+      height_baro -> Clear();
+
+   } // if (local_recruiting_country == GERMANY etc.)
+   /* Australia + New Zealand + UK + NETHERLANDS_WMO recruited ships hebben NOOIT de lezing op MSL */
+   /* LET OP: Er is een "NETHERLANDS" en "NETHERLANDS_WMO" */
+   else if ( (local_recruiting_country == UNITED_KINGDOM || local_recruiting_country == AUSTRALIA || local_recruiting_country == NEW_ZEALAND || local_recruiting_country == NETHERLANDS_WMO) &&
+             (local_station_type == "ship") )
+   {
+      reading_indication -> SetSelString("no", -1);
+      reading_indication -> EnableWindow(false);
+
+      // draft
+      text_draft -> EnableWindow(true);
+      deepest_draft -> EnableWindow(true);
+
+      // hoogte barometer above sea level
+      text_height_barometer -> EnableWindow(true);
+
+   } // if (local_recruiting_country == UNITED_KINGDOM etc.)
+   else // not GERMANY/NETHERLANDS and not AUSTRALIA/NEW_SEALAND/UNITED_KINGDOM/NETHERLANDS_WMO or not a ship
+   {
+      reading_indication -> SetSelString(local_barometer_MSL_yes_no.c_str(), -1);
+
+      /* als aangegeven is dat lezing MSL is dan geen diepgang/height above msl(fixed sea station) + hoogte meer zetten + disablen */
+      if (local_barometer_MSL_yes_no == "yes")
+      {
+         // draft (ship) / height above msl (fixed sea station)
+         if (local_station_type == "fixed")
+            text_fixed_sea_station -> EnableWindow(false);             // "barometer height above Mean Sea Level"
+         else
+            text_draft -> EnableWindow(false);
+
+         deepest_draft -> Clear();
+         deepest_draft -> EnableWindow(false);
+
+         // hoogte barometer above sea level
+         text_height_barometer -> EnableWindow(false);
+         height_baro -> Clear();
+
+      } // if (local_barometer_MSL_yes_no == "yes")
+      else // barometer not MSL
+      {
+         // deepest draft (ships) / height above MSL (fixed sea stations) edit field   
+         deepest_draft -> EnableWindow(true);
+
+         // draft (ship) / height above msl (fixed sea station)
+         if (local_station_type == "fixed")
+         {
+            text_fixed_sea_station -> EnableWindow(true);            // "barometer height above Mean Sea Level"
+
+            deepest_draft -> Clear();                                // dus hier lezen als edit field van height above MSL
+            deepest_draft -> Insert(local_hoogte_barometer.c_str());
+         }
+         else
+            text_draft -> EnableWindow(true);
+
+         // hoogte barometer above sea level
+         text_height_barometer -> EnableWindow(true);
+
+      } // else (barometer not MSL)
+   } // else (not GEMANY/NETHERLANDS and not etc.)
+
+
+   /* afh. van message_mode sommige groupen disablen */
+   if (local_message_mode == "AUX")                          // dan in air pressure reading geen tienden
+   {
+      comboboxairpressuretienden -> EnableWindow(false);
+      text_barometer_tenths      -> EnableWindow(false);
+   } // if (local_message_mode == "AUX")
+
+   /* "back" en "stop" buttons */
+   if (local_in_next_sequence == false)                       // niet in automatically next input screen mode
+   {
+      // dan geen Back en Stop button tonen
+      back_button -> ShowWindow(SW_HIDE);
+      stop_button -> ShowWindow(SW_HIDE);
+   }
+
+   /* reminder voor height correction */
+   //reading_indication -> GetSelString(selectie, 3);
+   //if (string(selectie) == "yes")
+   //{
+   //   info = "If 'yes' is selected the correction for the barometer height will not be automatically applied by TurboWin. Observers should therefore only apply the instrument error correction to the barometer reading";
+   //   ::MessageBox(0, info.c_str(), "TurboWin reminder \"barometer reading indicates pressure at MSL [yes/no]\"", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
+   //}
+   //else if (string(selectie) == "no")
+   //{
+   //   info = "If 'no' is selected TurboWin will automatically apply the height correction to the barometer reading. Observers should therefore only apply the instrument error correction to the barometer reading";
+   //   ::MessageBox(0, info.c_str(), "TurboWin reminder \"barometer reading indicates pressure at MSL [yes/no]\"", MB_OK | MB_ICONINFORMATION | MB_TASKMODAL);
+   //} // else if (string(selectie) == "no")
+
+}
+
+
+void TBarometerDialog::CmHelp()
+{
+   string volledig_help_path = "";
+   volledig_help_path = local_turbowin_dir + barometer_help_file;
+   HTMLHelp = (HtmlHelpFunc)::GetProcAddress(hHelpOCX, ATOM_HTMLHELP_API_ANSI);
+   HTMLHelp(0, volledig_help_path.c_str(), HH_DISPLAY_TOPIC, 0);
+}
+
+
+void TBarometerDialog::CmBack()
+{
+   back_button_pressed = true;
+
+   TBarometerDialog::CmCancel();                             // voor IDCANCEL
+}
+
+
+void TBarometerDialog::CmStop()
+{
+   stop_button_pressed = true;
+
+   TBarometerDialog::CmCancel();
+}
+
+
+
+void TBarometerDialog::CmRefresh()
+{
+   char *endptr;
+   char *endptr2;
+   char hulp_reading_indication[10];
+   char hulp_air_pressure_hpa[10];
+   char hulp_air_pressure_tienden[10];
+   char hulp_deepest_draft[10];
+   bool doorgaan_ok;
+   int hulp_num_pressure;
+   int hulp_num_pressure_tienden;
+   float hulp_num_pressure_total;
+   string str_hulp_reading_indication;
+   string str_hulp_air_pressure_hpa;
+   string str_hulp_air_pressure_tienden;
+   string str_hulp_deepest_draft;
+   string str_hulp_pressure_msl;
+
+
+
+   /* data uitlezen */
+   reading_indication -> GetText(hulp_reading_indication, 10);    // TComboBox
+   str_hulp_reading_indication = (string)hulp_reading_indication;
+
+   comboboxairpressure -> GetText(hulp_air_pressure_hpa, 10);
+   str_hulp_air_pressure_hpa = (string)hulp_air_pressure_hpa;
+
+   comboboxairpressuretienden -> GetText(hulp_air_pressure_tienden, 10);
+   str_hulp_air_pressure_tienden = (string)hulp_air_pressure_tienden;
+
+   deepest_draft -> GetText(hulp_deepest_draft, 10);
+   str_hulp_deepest_draft = (string)hulp_deepest_draft;
+
+
+   /* checks */
+   if ( (str_hulp_reading_indication != "yes") && (str_hulp_reading_indication != "no") )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'does the reading indicate MSL pressure' must be 'yes' or 'no'", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (str_hulp_reading_indication == "no") && (local_station_type == "fixed") &&
+            ((str_hulp_deepest_draft == "") || (atof(str_hulp_deepest_draft.c_str()) < 0.0) || (atof(str_hulp_deepest_draft.c_str()) >= 500.0)) )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'barometer height above Mean Sea Level' must be in range 0.0 - 500.0", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (str_hulp_reading_indication == "no") && (local_station_type != "fixed") &&
+            ((str_hulp_deepest_draft == "") || (atof(str_hulp_deepest_draft.c_str()) < 0.0) || (atof(str_hulp_deepest_draft.c_str()) >= 50.0)) )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'current deepest draft' must be in range 0.0 - 50.0", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (local_keel_sll == "") && (str_hulp_reading_indication == "no") && (local_station_type != "fixed") )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'distance keel - summer load line' not available (select: Maintenance | station data | ship)", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (local_barometer_sll == "") && (str_hulp_reading_indication == "no") && (local_station_type != "fixed") )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'distance barometer - summer load line' not available (select: Maintenance | station data | ship)", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (str_hulp_reading_indication == "no") && (local_station_type != "fixed") &&
+             ((atof(local_keel_sll.c_str()) < 0.0) || (atof(local_keel_sll.c_str()) >= 50.0)) )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'distance keel - summer load line' must be in range 0.0 - 50.0 (select: Maintenance | station data | ship)", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else if ( (str_hulp_reading_indication == "no") && (local_station_type != "fixed") &&
+             ((atof(local_barometer_sll.c_str()) < 0.0) || (atof(local_barometer_sll.c_str()) >= 100.0)) )
+   {
+      Clearing_Na_Onmogelijke_Refresh();
+      MessageBox("'distance barometer - summer load line' must be in range 0.0 - 100.0 (select: Maintenance | station data | ship)", "TurboWin error", MB_OK | MB_ICONWARNING);
+      doorgaan_ok = false;
+   }
+   else
+      doorgaan_ok = true;
+
+
+   /* luchtdruk voor AUX (AUX geeft geen tienden bij luchtdruk rapportage) */
+   if ( (doorgaan_ok) && (local_message_mode == "AUX") )
+   {
+      if (str_hulp_air_pressure_hpa == "")
+      {
+         Clearing_Na_Onmogelijke_Refresh();
+         MessageBox("Barometer reading must be in range 860 - 1070", "TurboWin error", MB_OK | MB_ICONWARNING);
+         doorgaan_ok = false;
+      }
+      else // dus str_hulp_air_pressure_hpa != ""
+      {
+         hulp_num_pressure = int(strtol(str_hulp_air_pressure_hpa.c_str(), &endptr, 10));
+         if (*endptr == NULL)
+         {
+            hulp_num_pressure_total = hulp_num_pressure;
+
+            if (hulp_num_pressure_total < 860.0 || hulp_num_pressure_total > 1070)
+            {
+               Clearing_Na_Onmogelijke_Refresh();
+               MessageBox("Barometer reading must be in range 860 - 1070", "TurboWin error", MB_OK | MB_ICONWARNING);
+               doorgaan_ok = false;
+            } // if (hulp_num_pressure_total < 860.0 || hulp_num_pressure_total > 1070)
+            else // range ok
+            {
+               /* luchtdruk op MSL berekenen */
+               str_hulp_pressure_msl = Local_MSL_Herleiding_Luchtdruk(hulp_num_pressure_total, str_hulp_deepest_draft, str_hulp_reading_indication, local_station_type);
+
+            } // else (range ok)
+         } // if (*endptr == NULL)
+         else
+         {
+            Clearing_Na_Onmogelijke_Refresh();
+            MessageBox("Barometer reading must be in range 860 - 1070", "TurboWin error", MB_OK | MB_ICONWARNING);
+            doorgaan_ok = false;
+         } // else
+      } // else (dus dus str_hulp_air_pressure_hpa != "")
+   } // if ( (doorgaan_ok) && (local_message_mode == "AUX") )
+
+   
+   /* luchtdruk voor alle anderen (SEL, SUP, SUS, fixed) */
+   if ( (doorgaan_ok) && (local_message_mode != "AUX") )
+   {
+      //if ( (str_hulp_air_pressure_hpa == "") || (str_hulp_air_pressure_tienden == "") )
+      if ( (str_hulp_air_pressure_hpa == "") || (str_hulp_air_pressure_tienden.length() != 1) )
+      {
+         Clearing_Na_Onmogelijke_Refresh();
+         MessageBox("Barometer reading must be in range 860.0 - 1070.0", "TurboWin error", MB_OK | MB_ICONWARNING);
+         doorgaan_ok = false;
+      }
+      else // dus (str_hulp_air_pressure_hpa != "" && str_hulp_air_pressure_tienden != "")
+      {
+         hulp_num_pressure         = int(strtol(str_hulp_air_pressure_hpa.c_str(), &endptr, 10));
+         hulp_num_pressure_tienden = int(strtol(str_hulp_air_pressure_tienden.c_str(), &endptr2, 10));
+
+         if (*endptr == NULL && *endptr2 == NULL)
+         {
+            // NB num_pressure_tienden kan alleen tienden zijn (1 cijfer)
+
+            //hulp_num_pressure_total = hulp_num_pressure + float(hulp_num_pressure_tienden) / (pow(10.0, str_hulp_air_pressure_tienden.length()));
+            hulp_num_pressure_total = hulp_num_pressure + float(hulp_num_pressure_tienden) / 10;  // hulp_num_pressure_tienden kan maar 1 cijfer zijn !
+
+            if ((hulp_num_pressure_total < 860.0) && (hulp_num_pressure_total > 1070.0))
+            {
+               Clearing_Na_Onmogelijke_Refresh();
+               MessageBox("Barometer reading must be in range 860.0 - 1070.0", "TurboWin error", MB_OK | MB_ICONWARNING);
+               doorgaan_ok = false;
+            } // if (hulp_num_pressure_total < 860.0 || hulp_num_pressure_total > 1070)
+            else // range ok
+            {
+               /* luchtdruk op MSL berekenen */
+               str_hulp_pressure_msl = Local_MSL_Herleiding_Luchtdruk(hulp_num_pressure_total, str_hulp_deepest_draft, str_hulp_reading_indication, local_station_type);
+
+            } // else (range ok)
+
+         } // if (*endptr == NULL && *endptr2 == NULL)
+         else // *endptr != NULL || *endptr2 != NULL
+         {
+            Clearing_Na_Onmogelijke_Refresh();
+            MessageBox("Barometer reading must be in range 860.0 - 1070.0", "TurboWin error", MB_OK | MB_ICONWARNING);
+            doorgaan_ok = false;
+         } // else (*endptr != NULL || *endptr2 != NULL)
+
+
+      } // else dus (str_hulp_air_pressure_hpa != "" && str_hulp_air_pressure_tienden != "")
+   } // if ( (doorgaan_ok) && (local_message_mode != "AUX") )
+
+
+   if (doorgaan_ok)
+   {
+      /* insert pressure reading */
+      supplied_observer -> Clear();           //TEdit
+      if (local_message_mode == "AUX")
+         supplied_observer -> Insert(str_hulp_air_pressure_hpa.c_str());
+      else
+         supplied_observer -> Insert((str_hulp_air_pressure_hpa + "." + str_hulp_air_pressure_tienden).c_str());
+
+      /* insert pressure at MSL */
+      pressure_msl -> Clear();
+      pressure_msl -> Insert(str_hulp_pressure_msl.c_str());
+
+      /* insert height barometer above sea level (alleen in geval reading is not pressure at MSL)*/
+      if (str_hulp_reading_indication == "no")
+      {
+         height_baro -> Clear();
+         height_baro -> Insert(str_hulp_local_hoogte_barometer.c_str());
+      }
+
+      /* insert height correction */
+      height_correction -> Clear();
+      height_correction -> Insert(str_hulp_local_hoogte_corr.c_str());
+
+   } /* if (doorgaan_ok) */
+}
+
+
+
+
+string TBarometerDialog::Local_MSL_Herleiding_Luchtdruk(float hulp_num_pressure_total, string str_hulp_deepest_draft,
+                                                        string str_hulp_reading_indication, string local_station_type)
+{
+	float hoogte_corr;
+   float temp;
+   float term_1;
+   float term_2;
+   float num_MSL_pressure_total;
+   float hulp_float_hoogte_barometer;
+   char buffer[10];
+   string str_MSL_pressure_total;
+   
+
+   //  NB     hulp_float_hoogte_barometer in meters
+
+   if (str_hulp_reading_indication == "yes")
+   {
+      num_MSL_pressure_total = hulp_num_pressure_total;
+      hoogte_corr = 0.0;
+   }
+   else // dus (str_hulp_reading_indication != "yes")
+   {
+      if (local_station_type == "fixed")
+         hulp_float_hoogte_barometer = atof(str_hulp_deepest_draft.c_str());   // voor fixed sea sations, lees voor current deepst draft, de height barometer above MSL
+      else
+         hulp_float_hoogte_barometer = atof(local_keel_sll.c_str()) + atof(local_barometer_sll.c_str()) - atof(str_hulp_deepest_draft.c_str());
+         //sprintf(hulp_char_hoogte_barometer, "%f", hulp_float_hoogte_barometer);
+         //hoogte_barometer = (string)hulp_char_hoogte_barometer;
+
+      if (local_num_TTT == MAXINT)
+      {
+         temp = 15.0 + CELCIUS_TO_KELVIN_FACTOR;                  // hier wordt dus van standaard temp (15.0 C) uitgegaan !!!!
+      }
+      else
+      {
+         temp = (local_num_TTT / 10) + CELCIUS_TO_KELVIN_FACTOR;    // local_num_TTT in tienden (pos/neg)
+      }
+
+
+
+      term_1 = hulp_num_pressure_total * hulp_float_hoogte_barometer;
+      term_2 = 29.27 * temp;
+
+      if (term_2 != 0.0)                                       // exception voorkomen
+         hoogte_corr = term_1 / term_2;
+      else
+         hoogte_corr = 0.0;
+
+      num_MSL_pressure_total = hulp_num_pressure_total + hoogte_corr;
+
+   } // dus (str_hulp_reading_indication != "yes")
+
+   /* voor tussenresultaat in Refresh */
+   buffer[0] = '\0';
+   sprintf(buffer, "%.1f", hoogte_corr);
+   str_hulp_local_hoogte_corr = (string)buffer;
+
+   if (str_hulp_reading_indication == "no")
+   {
+      buffer[0] = '\0';
+      sprintf(buffer, "%.1f", hulp_float_hoogte_barometer);
+      str_hulp_local_hoogte_barometer = (string)buffer;
+   } // if (str_hulp_reading_indication == "no")
+
+   /* uitvoer formatteren */
+   if (local_message_mode == "AUX")
+   {
+      /* afronden (op hele hPa) */
+      buffer[0] = '\0';
+      sprintf(buffer, "%d", int(num_MSL_pressure_total + 0.5));
+      str_MSL_pressure_total = string(buffer);
+
+      return str_MSL_pressure_total;
+
+   } // if (local_message_mode == "AUX")
+   else // geen AUX
+   {
+      /* afronden op 1 cijfer achter de komma */
+      sprintf(buffer, "%.1f", num_MSL_pressure_total);    /* format .f: the last digit printed is rounded.*/
+      str_MSL_pressure_total = string(buffer);
+
+      return str_MSL_pressure_total;
+
+   } // else (geen AUX)
+
+}
+
+
+void TBarometerDialog::Clearing_Na_Onmogelijke_Refresh()
+{
+   supplied_observer -> Clear();
+   pressure_msl -> Clear();
+   height_baro -> Clear();
+   height_correction -> Clear();
+}
+
+
+
+
+
+

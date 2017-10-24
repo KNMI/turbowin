@@ -1,0 +1,17 @@
+
+////////////////////////////////// BCB methode //////////////////////////
+#include <mapi.h>
+
+//int EMailTo(HWND hWndParent,string strAddress, string StrName, string strAttachmentFileName,string strSubject, string strBody);
+////////////////////////////////// BCB methode //////////////////////////
+
+//int SendMeMail(LPCTSTR Subject, LPCTSTR MsgBody, LPCTSTR AttachFile);
+
+
+bool EMailMAPI(/*string strAddress,*/ string strName, string strSubject, string strAttachmentFileName, string strBody);
+
+
+
+
+
+

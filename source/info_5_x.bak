@@ -1,0 +1,512 @@
+------------------------------------------------------------------------------------------------------------------------
+REMINDER
+------------------------------------------------------------------------------------------------------------------------
+Belangrijke globale (binnen tmywindow) var's
+
+form_mode        = STANDARD / CLASSIC
+message_mode     = "SEL" / "SUS" / "SUP" / "AUX" / "CLI"
+code_mode        = BUFR_OBS ("BUFR") / ALPHANUMERIC_OBS ("ALPHANUMERIC") / COMPRESSED_OBS ("COMPRESSED")
+station_type     = "fixed" / "ship"  of FIXED_STATION ("fixed") / SHIP_STATION ("ship")
+
+in_next_sequence      = true / false
+back_in_next_sequence = true / false
+stop_in_next_sequence = true / false
+
+let op: in tw_17.h het versie nummer in "do not edit regel" zetten !!
+
+
+- PASSWORD METPUB47: _PMO!
+- PASSWORD voor VOS ID (MASKED CALLSIGN) en station data: _Turbo45
+
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 4.5.1 [veranderingen t.o.v. versie 4.5]                                                                       *
+*                 TUSSENVERSIE I.V.M. PROBLEMEN VOSID (EN/DECRYPTIE)                                                   *
+************************************************************************************************************************
+- 06-10-2010 - Encryptie/decryptie uitgeschakeld -file tmycall.cpp]
+                   - Function Read_VOSidentifier() verwijderd
+                   - Function Write_VOSidentifier() verwijderd
+
+                   - aanroep Write_VOSidentifier() [file tmystat.cpp] verwijderd
+                     aanroep Write_VOSidentifier() [file tmycall.cpp] verwijderd
+
+                   - aanroep Read_VOSidentifier() [file tmywindow.cpp] verwijderd
+                     aanroep Read_VOSidentifier() [file tmycall.cpp] verwijderd
+
+                   - in Function: samenstellen_te_verzenden_obs() de test of obs_vosid aanwezig is verwijderd
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 4.6 [veranderingen t.o.v. versie 4.5]  (dus niet t.o.v. 4.5.1 !!!!!!)                                         *
+************************************************************************************************************************
+- 21-07-2010 - Bij present weather invul scherm bij kopje precipitation -> (WET) toegevoegd
+                                                bij kopje no precipitation -> (DRY) toegevoegd
+               (verzoek Julie Fletcher)                                 
+             - encryptie/decryptie verwijderd [tmycall.cpp]. Bleek op enkele computers (niet bekend onder welke om-
+               standigheden) een vervormd VOS-ID te geven (soort binaire tekens in VOS-ID file)
+- 23-07-2010 - UTC-Zone check afgezet voor recruiting countries Australia en New Zealand (verzoek G.Ball en J. Fletcher)
+               Function: Bepaal_Datum_en_Tijd() [tmywindow.cpp]
+- 28-07-2010 - MetPub47 update (nu versie 1.4) according: Revision 3.4 of WMO-No. 47, Metadata Format Version 03
+               veranderingen versie 1.4 t.o.v. versie 1.3
+                   18-05-2010 - bij rode laptop (resolutie 1920 x 1080) wordt password scherm maar gedeeltelijk weergegeven
+                         password form: borderstyle -> "dialog" gemaakt
+                         Verder op password input form een quit button er bij gezet (en aanduiding Cancel is nu read-only)
+                       - nieuwe help file: type.chm
+                       - update help file: drawings.chm
+                       - update help file: images.chm
+                       - table file 0801 update [folder codetables]
+                       - table file 2202 update [folder codetables]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_XML_Thermometer_1_Exposure() [xml_inlezen.cpp]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_XML_Thermometer_2_Exposure() [xml_inlezen.cpp]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_Thermometer_1_Exposure_pub47_119() [delimited_119_inlezen.cpp]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_Thermometer_2_Exposure_pub47_119() [delimited_119_inlezen.cpp]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_Thermometer_1_Exposure() [delimited_109_inlezen.cpp]
+                       - update i.v.m. table 0801 (SL -> W): Function Set_Thermometer_2_Exposure() [delimited_109_inlezen.cpp]
+                    28-07-2010 - function: Set_XML_Logbook_Name_Version() [xml_inlezen.cpp] zo aangepast dat ondanks dat eventueel
+                         bij een geinporteerde metadata file de TurboWin version oud is, dat dan in het scherm weer de laatste TurboWin
+                         version staat (en indien nu weer gesaved dan worden zowel de xml als de delimited metadata files nu met de laatste
+                         TurboWin versie weggeschreven)
+             - codecard.chm update (uitleg YYGGiw was niet geheel correct, bij uitleg stond DD als kopje i.p.v. GG)
+             - note toegevoegd bij phenomena input page for observation position format
+- 18-08-2010 - Jaar moet nu liggen tussen 2010-2020 [tmydate.cpp en tdate.cpp]
+             - Leap check uitgebreid tot 2024 [tmydate.cpp]
+             - indien Recruiting country = "Netherlands" nu standaard compressed form. Een "Netherlands" recruited ship
+               kan als code form alphanumeric selecteren als de opstart optie "-4" wordt meegegeven [tstat.cpp en tmyapp.cpp]
+- 22-08-2010 - Bij testen compressie: NB IN DE IDE RUNNEN GAAT DIT na i1=8 FOUT, MAAR BUITEN IDE MODE GAAT HET WEL GOED
+               function pak_n_bit() [tmycompression.cpp]
+- 25-08-2010 - Update file inmarsat.les (dir text)
+
+
+               test1a 40N   (recruiting country != The Netherland -> dus niet automatisch compressed)  te 12 UTC
+                      10E --> AOR_W station 12 (012) [SAC 41]
+                          --> AOR_E Aussagual (121) [SAC 41]
+                          --> IOR   Aussagual (321) [SAC 41]
+
+               test1b 40N   (recruiting country != The Netherland -> dus niet automatisch compressed)  te 04 UTC
+                      10E --> AOR_W Goonhilly (002) [SAC 41]
+                          --> AOR_E Aussagual (121) [SAC 41]
+                          --> IOR   Aussagual (321) [SAC 41]
+
+               test2  10S
+                     140E --> IOR station 12 Perth (312) [SAC 1241]
+                          --> POR station 12 Perth (212) [SAC 41]
+
+               test3     10S --> IOR Sentosa (328) [SAC 41]
+               [00 UTC] 100E --> POR Sentosa (210) [SAC 41]
+
+               test3a    10S --> IOR Station12 Perth (312) [SAC 1241]
+               [03 UTC] 100E --> POR Station12 Perth (212) [SAC 41]
+ 
+               test4  20N --> AOR_E Southburry (104) [SAC 41]
+                     100W --> AOR_W Southburry (004) [SAC 41]
+                          --> POR   Santa Paula (204) [SAC 41]
+
+               test5  70N
+                       0W --> AOR_W station 12 (012) [SAC 41]
+                          --> AOR_E station 12 (112) [SAC 41]
+                          --> IOR Eik USA (304) [SAC 41]
+
+               test6  70N --> AOR_W Goonhilly (002) [SAC 41]
+                      40W --> AOR_E Goonhilly (1020 [SAC 41]
+
+               test7 (recruiting country = The Netherland -> dus automatisch compressed)
+                      10S --> IOR Goonhilly (302) [SAC 431]
+                     100E --> POR Goonhilly NZ (202) [SAC 431]
+
+               test8 (recruiting country = France + compressed aangezet mbv optie -2
+                     10S --> IOR Aussaguel (321) [SAC 412]
+                    100E --> POR Aussaguel Aus (221) [SAC 412]
+
+               test9 (recruiting country = The Netherland -> dus automatisch compressed)
+                      79S
+                     179W --> POR Goonhilly NZ (202) [SAC 431]
+               (nb test9 later toegevoegd zie commentaar van 20-10-2010)
+
+               test10 40N   (recruiting country = The Netherland -> dus automatisch compressed)
+                      10E  --> AOR_W Goonhilly (002) [SAC 431]
+                           --> AOR_E Goonhilly (102) [SAC 431]
+                           --> IOR   Goonhilly (302) [SAC 431]
+
+
+
+
+- 27-08-2010 - Adapted appropriate input screens for (Full)HD screen settings (1920 x 1080)
+- 22-09-2010 - Afstand sll - wl moet nu zijn -1 - 99 (was -99 - 99) dit overeenkomstig MQCS
+               [file: tmywind.cpp]
+             - afstand tussen sll - wl bij >= 13 meter --> level 3 waarschuwing
+               function checking_level_3() in file tmyobs.cpp
+             - in function: CmShipWind():
+                  if (iw_source == 1 && vos_clim_deelnemer == "yes")
+					      MessageBox("if VOS-Clim participant and (wind)'source' button 'estimated; true speed and true direction' is checked then 'wind speed' AND 'wind direction' must be present", "TurboWin error", MB_OK | MB_ICONWARNING);
+                  veranderd in:
+                  if (iw_source == 1 && vos_clim_deelnemer == "yes")
+					      MessageBox("if VOS-Clim participant and (wind)'source' button 'estimated; true speed and true direction' is checked then 'wind speed' AND 'wind direction' must be present", "TurboWin error", MB_OK | MB_ICONWARNING);
+                  dit omdat in geval apparent speed en vos-clim deelnemer de melding niet correct was
+- 29-10-2010 - Indien mode = compressed obs dan output mogelijkheden alleen nog "Obs to A:\" en "Obs to custom file"
+             - hoogte deklading > 32 meter --> level 3 waarschuwing in function checking_level_3() in file tmyobs.cpp
+             - nieuwe check: "If 'amount of Cl (or Cm if Cl is not present)' = 'obscured' then 'total cloud cover' must be 'obscured'" [file tmycheig.cpop]
+                
+- 14-10-2010 - probleem: op sommige systemen was de semi-compressed obs die geschreven werd naar file groter dan 60 bytes
+               (zie emails met Pierre Blouch, semi-compressed obsén moeten altijd 60 bytes zijn en laatste byte altijd een "@")
+               oplossing:
+                  Function: TMyWindow::Samenstellen_te_verzenden_COMPRESSED_obs(char* telex, int& nb_oct) [tmycompression.cpp]
+                      ipv   TMyWindow::Samenstellen_te_verzenden_COMPRESSED_obs(char* telex)
+
+                  en in file tmyobs.cpp:
+                  - obs naar text editor
+                  - obs email 1
+                  - obs naar A:\
+                  - obs naar custom file
+                  aangepast d.m.v.
+                        - if ((out = fopen(obs_custom_output_file.c_str(), "wb")) == NULL)
+                        - fwrite(char_telex, sizeof(char), nb_oct, out)
+                          i.p.v.
+                        - os.open(obs_custom_output_file.c_str(), ios::out);
+                        - os.write(char_telex, strlen(char_telex));
+                  dus zeg maar de C wijze ipv C++ wijze
+
+                  was niet mogelijk voor:
+                  - obs naar email 2 (OLE) [dus deze kunnen semi compressed obs geven langer dan 60 bytes]
+                  - obs naar clipboard     [dus deze kunnen semi compressed obs geven langer dan 60 bytes]
+                  maakt echter niets uit omdat via menu bij compressed berichten alleen nog maar gekozen kan worden voor
+                    - Obs to custom file
+                    - Obs to A:\
+
+- 20-10-2010 - In POR kwam bij advies voor dichtbijzijnde LES soms unknown te staan. (bv bij ship position 79 S en 179 W)
+               oplossing in function Bepaal_afstand_tot_les() [file tmyobs.cpp]:
+               i.p.v. if (les_inmarsat_region == INMARSAT_POR)
+               nu     if (les_inmarsat_region.find(INMARSAT_POR) != NPOS)
+
+
+
+************************************************************************************************************************
+* VERSIE 5.0 [veranderingen t.o.v. versie 4.6] (NB versie 4.6 is alleen intern KNMI uitgegeven voor testen compressed) *
+************************************************************************************************************************
+- 05-01-2011 - Inmarsat.les (turbowin text folder kleine aanpassingen (nu versie 2.1)
+             - PMO_CONTACTS.PDF vernieuwd (nu geen web site copy meer maar een pdf) (folder help)
+             - Nearest compressed obs supporting Inmarsat-C LES messagebox wat duidelijker gemaakt (o.a. STOP icon
+               i.p.v. information icon) [tmyobs.cpp]
+- 16-02-2011 - Voor recruiting country "Netherlands" compressed + vosclim type vastgezet [stat_ty.cpp]
+             - Indien compressed berichten dan wordt bij output option email geen compressed bericht aangemaakt
+               maar een alphanumeric [tmyobs.cpp]
+- 23-02-2011 - Door Nederland gerecruteerde schepen (automatisch dus code compressed) krijgen nu automatisch als de
+               pop-up van "Nearest compressed obs supporting Inmarsat-C LES messagebox" (zie 05-01-2011)verschijnt een
+               speciale rode compressed desktop. Function: Inmarsat_Les_Advies() [tmyobs.cpp]. Andere landen krijgen in
+               compressed mode: nog een extra messageBox gezet ("This compressed observation can only be handled by..etc")
+               toevoegen: compressed.png (turbowin dir compression)
+             - inmarsat.les (turbowin dir text) nu versie 2.3
+- 02-03-2011 - password nodig voor station data invoer scherm
+             - UK recruited VOS (dus niet fixed sea stations) krijgen nu een pop-up bericht elke maand (i.p.v. halfjaar)
+               om logfiles te downloaden
+- 09-03-2011 - VOSClim nu geen project meer maar een reporting type ship (dus nu VOSClim, selected, suppl. en aux.)
+               zie onder station data -> ship
+               files: stat_ty.cpp
+                      stat_ty.h
+                      tmystat.cpp
+                      tmywind.cpp
+                      twind.cpp
+                      twind.h
+                      tmyobs.cpp
+                      tmywindo.cpp
+             - update: station_ship.chm (ivm VOSClim class reporting ship)
+- 23-03-2011 - IMMT-4 opslag (ook relatieve vochtigheid)
+                     - tmyobs.cpp
+                     - tmywindo.cpp
+                     - tmywindo.h
+                     - tmytemp.cpp
+- 29-03-2011 - NB Nederlandse Marine opstarten met -4 parameter (om alphanumeriek te kunnen aanzetten)
+- 13-04-2011 - VOSClim kan nu ook wind source "measured, true speed and true direction" invullen (was gedisabled voor
+               VOSClim). Getest met TEST2 TURBOWIN WIND MODULE 
+- 27-07-2011 - metpub47.exe update nu versie 1.5 (o.a. met LET OP: table 1601.txt nieuw en table 2202.txt update)
+             - in barometer invoer pagina: aanduiding "barometer reading (instrument correction apllied)" veranderd in
+               "barometer reading". Dit op verzoek UK (instrument correction zou verkeerd geinterpreteerd worden)
+               Dit standaard veranderd (dus niet alleen voor UK)
+- 03-08-2011 - default E-mail adress voor UK nu: test.obs@metoffice.gov.uk; mss-support@metoffice.gov.uk
+               (Maintenance -> E-mail settings + recruiting country is UK)  
+             - Bij de wind speed and direction pagina was de link naar de ** weggevallen bij "measured true speed and
+               direction". Dit alleen bij VOSClim (zie function: SetupWindow()[twind.cpp])
+- 17-08-2011 - Toegevoegd recruiting country "Netherlands WMO" (i.v.m. koppeling naar luchtdruk op station level)
+                  - Function: TStationTypeTransfer() [stat_ty.cpp]
+                  - Function: IMMT_log() [tmyobs.cpp]
+                  - "NETHERLANDS_WMO" toegevoegd [tw_17.h]
+                  - Function: SetupWindow() [tbaro.cpp]
+                  - update file: countryemail.txt [dir email]
+- 07-09-2011 - nieuw VOSClim logo op wind invoer scherm
+             - PMO_CONTACTS.PDF (dir help) vernieuwd
+             - inmarsat.chm update
+             - buoy.chm update
+             - op de temperatuur invoer pagina: "exposure" veranderd in "method"
+             - boei invul pagina: toegevoegd mogelijkheid van organisatie bij "buoy/float deployment recruiting country
+               or organisation"
+             - nieuw vosclim logo in de "about" scherm
+             - op station data (ship) invier pagina een internet link toegevoegd bij message form vosclim ship
+- 14-09-2011 - waves.png (default desktop) vernieuwd
+- 28-09-2011 - TurboWin users guide vernieuwd {twguide.pdf  dir HELP]
+             - nu default obs email adres (dus niet voor log fiels or phenomena)
+               voor NETHERLANDS, NETHERLANDS_WMO, UK en GERMANY
+-----------------------------------------------------------------------------------------------------------------------
+- 05-10-2011 - inmarsat.chm aangepast
+             - turbowin.exe aangepast
+- 12-10-2011 - "Not Assigned" als recruiting country toegevoegd {TStationTypeTransfer() [stat_ty.cpp]}
+             - verder gekoppeld aan barometer reading = MSL pressure SetupWindow() [tbaro.cpp]
+- 20-10-2011 - computer system date/time (not taking account time zones) versus obs date/time
+
+
+************************************************************************************************************************
+* VERSIE 5.01 [veranderingen t.o.v. versie 5.0] (NB versie 5.0 is alleen door KNMI uitgegeven)                         *
+************************************************************************************************************************
+- 05-11-2011 - default desktop nu afhangkelijk van recruiting country (eumetnet, sot od anders)
+               Function Check_DefaultDesktop() [tmydesktop.cpp]
+- 09-11-2011 - in messagebox "Nearest Inmarsat-C LES for obs" toegevoegd: "- Turn off: request/delivery confirmation"
+               (NB alleen bij de alpanemurec(FM-13) mode)
+
+
+               NB
+               nieuw voor versie 5.01
+               - sot.png              dir desktop
+               - waves.png [update]   dir desktop
+               - eumetnet.png         dir desktop
+               - turbowin.exe [update]
+
+
+************************************************************************************************************************
+* VERSIE 5.1 [veranderingen t.o.v. versie 5.01]                                                                        *
+************************************************************************************************************************
+- 07-12-2011  - thumbnail bf wordt getoond gekoppeld aan de ingevulde windsnelheid (wind invoer scherm)
+
+
+
+************************************************************************************************************************
+* VERSIE 5.5 [veranderingen t.o.v. versie 5.1]                                                                        *
+************************************************************************************************************************
+- 07-02-2014 - whales and dolphins reporting form
+- 12-03-2014 - nieuwe module compressed format van Meteo France (format 101) Christophe Billon and Pierre Blouch
+                 - geconstateerd en doorgegeven: Cl, CM en CH komen niet in de gedecomprimeerde FM-13 SHIP obs
+                         antwoord Christophe: wordt gerepareerd als 101 format berichten gaan binnenkomen
+                 - Bearing ice edge komt niet als code maar als graden  in de gedecomprimeerde FM-13 SHIP obs
+                          antwoord Christophe: wordt gerepareerd als 101 format berichten gaan binnenkomen
+                 - call sign encrypter (0 of 1) 1 (encrypten) wordt niet door compressie routine meegenomen
+                      NB afgesproken nu: 0 = call sign ebcryptie gevraagd;
+                                         1 = geen call sign encryptie
+                 - iw wordt standaard op iw = 4 gezet [op zich geen probleem omdat alles in m/s is]
+                 - sst komt niet in de gedecomprimeerde FM-13 SHIP obs
+                      antwoord Christophe: wordt gerepareerd als 101 format berichten gaan binnenkomen
+
+- 27-03-2014 - bug fix: in IMMT4 werd de RV niet in tienden weggeschreven maar in hele % [char 160-163 van IMMT-4 en 5]
+- 02-04-2014 - IMMT-5
+- 04-04-2014 - password op email settings scherm
+- 16-04-2014 - UK recruited ships nu "max 3 maanden" check op laatste IMMT log download (was 1 maand)
+               Function: Check_Download_Datum() [tmywindow.cpp]
+- 08-10-2014 - format 101 (compressed) toegevoegd
+- 10-10-2014 - pilot charts voor South Atlantic en North Pacific toegevoegd
+- 17-02-2016 - Nu niet meer format101 optie standaard gedisabled in geval niet nederlands gerecruiteerd
+               Function: SetupWindow() [stat_ty.cpp] en geen waarschuwing meer TWindow() [tmywindow.cpp]
+             - Info -> About verwijst nu naar "http://projects.knmi.nl/turbowin/"
+             - format101 obs nooit meer uitgeschreven in body email programma. Omdat bij webmail de format101 obs
+               niet goed overkomt. Nu wordt eerst automatisch geprobeerd de format101 (HPK_format_101.txt) als attachment
+               mee te linken. Als dit mislukt dan een mededeling + path in de body van de email van de te "attachen"
+               format101 obs (HPK_format_101.txt)
+- 15-03-2016 - UK recruited schepen nu VOSClim by default. Function; SetupWindow() [stat_ty.cpp]
+- 18=04-2016 - Tdew berekening nu geheel compatible met: "Recommendend algoritms for the computation of marine
+               meteorological variables"(2015, JCOMM technical report No. 62) Zie tvocht.cpp
+- 03-05-2016 - Nieuwe format 101 stuur file (S-AWS_modl_pilote.csv (03-05-2016) ingevoegd
+               Voor nu 62 bytes berichten (ipv 63(zonder ICE en met SST weer ok)
+- 30-05-2016 - inmarsat.les (advies stations voor Inmarsat-C) aangepast voor laatste gegevens over compressed stations
+             - UK gerecruteerde schepen hebben default compressed form -> weer uitgezet omdat het nog wel een tijdje
+               lijkt te kunnen gaan duren voordat the Met Office deze standaard kunnen gaan vwerken
+- 31-05-2016 - PMO_CONTACTS.PDF vernieuwd (uit Mariners Weather Log van april)
+             - Waar bekend de email adressen voor compressed 9format 101) obs toegevoegd [temailsettings.cpp]
+- 20-02-2017 - URL verwijzing gewijzigd van http://www.bom.gov.au/jcomm/vos/vosclim.html naar http://sot.jcommops.org/vos/
+               TShipDialog::SetupWindow() [stat_ty.cpp]
+
+
+
+
+
+
+
+
+
+---- krijgen UK geregistreerde schepen die semi compressed sturen wel een Inmarsat LES advice?--------
+------ zie notitie van - 14-10-2010 voor grootte semi-compressed bericht en Obs via email etc. -------------
+------- Uk (en andere?) advies lijst waar gecomprimeerde berichten naar toe gestuurd moeten worden ------
+-------- help file call sign / encrypted updaten -----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- NOG NAKIJKEN OF DE NIEUWE BACKUP locatie de oude vevangt ofdat het een tweede optie is
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+Opmerkingen Meteo-France compression 1.2
+
+-------------------------------------------------------------------------------------
+      als wind speed > 127 dan blijft hij vast staan op 127 (physical value and code)
+
+     b.v. invoer wind speed 126 m/s -> vosbin_hc.exe: 126.00<--wind speed (m/s) en nddff 00fff = /2599 00126
+          invoer wind speed 136 m/s -> vosbin_hc.exe: 127.00<--wind speed (m/s) en nddff 00fff = /2599 00127
+          invoer wind speed 188 m/s -> vosbin_hc.exe: 127.00<--wind speed (m/s) en nddff 00fff = /2599 00127
+-----------------------------------------------------------
+     hoe moet westerlengte worden ingevoerd, een negatief getal wordt voor de lengte altijd 0
+     (de breedte gaat wel goed)
+-------------------------------------------------------------------------------------
+     niet mogelijk om een variable wind te melden (invoer 0 - 360) , dit is niet zo erg
+-------------------------------------------------------------------------------------
+     temperatuur (twet en tdew) in synop code zit er (soms en alleen bij negatieve temps?) 0.1 graad celcius naast
+     (physical value ok maar code not) b.v
+
+     invoer                               uitvoer
+     Tdry -7.0    -> vosbin_hc.exe ->      266.15 (-7.0 C)  = OK   code: 1snTTT    = 11070 (OK)
+     Twet -8.0    -> vosbin_hc.exe ->      265.15 (-8.0 C)  = OK   code: 8swTbTbTb = 81079 (not ok must be 81080)
+     Tdew -12.4   -> vosbin_hc.exe ->      260.75 (-12.4 C) = OK   code: 2snTdTdTd = 21123 (not ok must be 21124)
+-------------------------------------------------------------------------------------
+   zelfde verhaal (als air temp) voor dewpoint
+     268.65 (-4.5 C) komt in code als 21044
+-------------------------------------------------------------------------------
+    ALs a een waarde heeft en ppp niet dan wordt de hele groep 5appp weggelaten, dit is niet goed het moet b.v.
+    worden 50/// (fysieke waarde voor a wel ok)
+
+    Het zelfde geld als ppp wel aanwezig en a niet dan wordt de gehele groep niet gecodeerd door vosbin_hc.exe
+    bv in turbowin 5/062. Vooral dit laatste als ppp wel aanwezig en a niet zal weing voorkomen, maar in theorie
+    moet dit wel kunnen)
+------------------------------------------------------------------------------
+    soms foute afrondingen sst (alleen positieve temp. ?):
+  - NB indictor sst bufr 002038 -> gedeeltelijk bufr tabel gedeeltelijk zelf verzonnen door meteo-framce
+
+    - sst:    invoer 12.6 C (285.75 K) --> vosbin_hc.exe --> fysieke waarde 285.80 K (=fout) en code: 12.7 (is fout)
+              invoer -1.8   (271.35 K) --> vosbin_hc.exe --> fysieke waarde 271.30 K (=fout) en code: 07018 (gaat toevallig
+              goed omdat er ook verkeerd wordt afgerond)
+------------------------------------------------------------------------------
+   max waarde sst:
+
+   50 C invoer --> vosbin_hc.exe --> fysieke waarde 318.20 K (=fout) en code: 45.0 (is fout)
+
+ ------------------------------------------------------------------------------
+    fysieke uitgeschreven waarde code sst niet het zelfde als gecodeerde ss
+    bv hull contact sensor + 0.8 C
+    2.00 <----Csst: Method of sea surface measuremen (Code)
+    0ssTwTwTw 04019
+
+    NB Dit is geen fout wel om even te noteren
+------------------------------------------------------------------------------
+    Niet mogelijk om PwPw (periode wind waves) als confused (99) te melden
+ ------------------------------------------------------------------------------
+    Niet mogelijk om gemeten golven in te geven 1Pw1Pw1Hw1Hw1, 70HwaHwaHwa
+ ------------------------------------------------------------------------------
+    Geen deiningrichting wordt ten onrecte als 36 (deining uit het Noorden) gecodeerd:
+
+    dw1dw1 : invoer 0  --> vosbin_hc.exe --> fysieke waarde 0.00 (=ok) en code 36 (3dw1dw1dw2dw2 = 336//)
+    dw2dw2 : invoer 0  --> vosbin_hc.exe --> fysieke waarde 0.00 (=ok) en code 36
+ ------------------------------------------------------------------------------
+    deiningperiode > 30 sec worden weergegeven als 30
+
+    bv Pw1Pw1 = 33 --> vosbin_hc.exe --> fysieke waarde 30 sec (=fout) en code: 30 (is fout)
+       Pw1Pw1 = 34 --> vosbin_hc.exe --> fysieke waarde 30 sec (=fout) en code: 30 (is fout)
+
+ ------------------------------------------------------------------------------
+   natte bol alleen rapporteren als hij gebruikt is om Tdew te berekenen
+   (regulation 12.3.6; WMO No. 306, Manual on Codes volume 1:
+   "When he wet bulb is used to derive dew-point value in a SHIP report, the group 8swTbTbTb shall be included
+   to report the wet-bulb temperature")
+
+   (dus als het volgens de bufr table 002039 code = 2 of 3 zou moeten zijn niet raporteren in SHIP)
+ ------------------------------------------------------------------------------
+
+
+
+               - wat is relay-station van Aussaguel i.v.m. positie in compressed_por.txt zetten
+                 (Aussaguel positie zelf gaat niet i.v.m. > 180 grens passage)
+                 Waarschijnlijk Perth voor POR dus in compressed_POR.txt bij Aussaguel de positie van Perth gezet
+                 Voor AOR-W is dit gewoon Aussaguel of hebben ze hier ook een relay station ?
+ ------------------------------------------------------------------------------
+   compressed via email ?
+ ------------------------------------------------------------------------------
+
+   
+
+   limits
+
+
+                                          TurboWin                    compressed
+
+   wind snelheid                          200 (kts of m/s)
+
+   luchtdruk aflezing                     860.0 - 1070.0 hPa
+   luchtdrukverandering (ppp)             50.0 hPa
+
+   lucht temp                             -50.0 - +60.0 C
+   natte bol                              -50.0 - +50.0 C
+   dauwpunt
+   sst                                    -2.0 - +50.0 C
+
+   wind waves period                      50 sec
+   wind waves height                      48.9 m
+   swell 1 period                         50 sec
+   swell 1 height                         49.0 m
+   swell 2 period                         50 sec
+   swell 2 height                         49.0 m
+
+   ijs aanzetting                         99 cm
+
+
+
+
+
+
+
+
+
+
+VVVVVV  nationale groepen niet i.c.m. compressed
+VVVVVV- AUX kan i.c.m. compressed (i.v.m. afronden tienden luchtdruk en temperatuur)
+VVVVVV- GTS DMI header kan niet i.c.m. compressed
+VVVVVV- gemeten golven kunnen niet i.c.m. compressed
+------- sst = bufr 0 22 043 SST of 0 22 042
+------ IMMT aanpassen van IMMT-2 naar IMMT-3
+------ testen op wat er gebeurd als ff >= 100 units
+VVVVVV ARVI metarea
+------ immt versie nummer met checks
+------ import en export maitenance data
+------ barometer help pagina
+------ barograaf help pagina
+------ barometer reading en barograaf reading testen op na een half uur en na een uur
+VVVVVV MeteoClassify compileren met OWLNExt
+
+
+               
+
+
+----- > uit do lus halen ?  TPreswDialog* dlg = new TPreswDialog(this, IDD_PRESENTWEATHER, preswtransfer, turbowin_dir); etc.
+----- > testen in netwerk omgeving
+------> Inmarsat-C stations in plaatje (help file) en in *.txt files

@@ -1,0 +1,438 @@
+#include <owl\owlpch.h>
+#include <owl\listbox.h>
+#include <owl\combobox.h>
+#include <owl\edit.h>
+#include <owl\checkbox.h>
+#include <owl\radiobut.h>
+#include <owl\validate.h>
+#include <owl\groupbox.h>
+#include <owl\printer.h>
+#include <owl\hlpmanag.h>
+#include <owl\opensave.h>
+#include <owl\date.h>
+#include <owl\time.h>
+#pragma hdrstop
+
+#include "tbuoy.h"
+#include <stdio.h>
+
+
+
+DEFINE_RESPONSE_TABLE1(TBuoyDialog, TDialog)
+   EV_LBN_SELCHANGE(IDC_BUOYRECRUITING, Ev_listbox_recruiting_SelChange),
+	EV_COMMAND(IDHELP, CmHelp),
+   EV_COMMAND(IDEMAIL, CmEmail),
+   EV_COMMAND(IDPRINT, CmPrint),
+   EV_COMMAND(IDFLOPPY, CmFloppy),
+   EV_COMMAND(IDLOG, CmLog),
+END_RESPONSE_TABLE;
+
+
+TBuoyTransfer::TBuoyTransfer()
+{
+	// initialisatie
+   IDResult[0]          = '\0';
+   TypeResult[0]        = '\0';
+   DateResult[0]        = '\0';
+   TimeResult[0]        = '\0';
+   LatResult[0]         = '\0';
+   LongResult[0]        = '\0';
+   HeightResult[0]      = '\0';
+   MethodResult[0]      = '\0';
+   PressureResult[0]    = '\0';
+   SSTResult[0]         = '\0';
+   AirResult[0]         = '\0';
+   WindspeedResult[0]   = '\0';
+   WinddirResult[0]     = '\0';
+   WaveheightResult[0]  = '\0';
+   ShipspeedResult[0]   = '\0';
+   ConditionResult[0]   = '\0';
+   BehalfResult[0]      = '\0';
+   MasterResult[0]      = '\0';
+   ShipnameResult[0]    = '\0';
+   FreetextResult[0]    = '\0';
+
+	// komt in alfabetische volgorde op scherm (zie resource workshop)
+   RecruitingListboxResult.AddString(" ");
+	RecruitingListboxResult.AddString("Argentina");
+	RecruitingListboxResult.AddString("Australia");
+	RecruitingListboxResult.AddString("Belgium");
+	RecruitingListboxResult.AddString("Brazil");
+	RecruitingListboxResult.AddString("Canada");
+	RecruitingListboxResult.AddString("Chile");
+	RecruitingListboxResult.AddString("Denmark");
+	RecruitingListboxResult.AddString("Finland");
+	RecruitingListboxResult.AddString("France");
+	RecruitingListboxResult.AddString("French Polynesia");
+	RecruitingListboxResult.AddString("Democratic People's Republic of Korea");
+	RecruitingListboxResult.AddString("Germany");
+	RecruitingListboxResult.AddString("Greece");
+	RecruitingListboxResult.AddString("Hong Kong, China");
+	RecruitingListboxResult.AddString("Iceland");
+	RecruitingListboxResult.AddString("India");
+	RecruitingListboxResult.AddString("Ireland");
+	RecruitingListboxResult.AddString("Israel");
+	RecruitingListboxResult.AddString("Italy");
+	RecruitingListboxResult.AddString("Japan");
+	RecruitingListboxResult.AddString("Kenya");
+	RecruitingListboxResult.AddString("Republic of Korea");
+	RecruitingListboxResult.AddString("Netherlands");
+	RecruitingListboxResult.AddString("Croatia");
+	RecruitingListboxResult.AddString("New Zealand");
+	RecruitingListboxResult.AddString("Norway");
+	RecruitingListboxResult.AddString("Pakistan");
+	RecruitingListboxResult.AddString("Philippines");
+	RecruitingListboxResult.AddString("Poland");
+	RecruitingListboxResult.AddString("Portugal");
+	RecruitingListboxResult.AddString("St. Pierre and Miquelon");
+	RecruitingListboxResult.AddString("Singapore");
+	RecruitingListboxResult.AddString("South Africa");
+	RecruitingListboxResult.AddString("Spain");
+	RecruitingListboxResult.AddString("Sweden");
+	RecruitingListboxResult.AddString("Switzerland");
+	RecruitingListboxResult.AddString("Thailand");
+	RecruitingListboxResult.AddString("Russian Federation");
+	RecruitingListboxResult.AddString("United Kingdom of Great Britain and Northern Ireland");
+	RecruitingListboxResult.AddString("United States of America");
+	RecruitingListboxResult.AddString("Yugoslavia");
+	RecruitingListboxResult.AddString("Bulgaria");
+	RecruitingListboxResult.AddString("Bangladesh");
+	RecruitingListboxResult.AddString("Cuba");
+	RecruitingListboxResult.AddString("Jamaica");
+	RecruitingListboxResult.AddString("United Republic of Tanzania");
+	RecruitingListboxResult.AddString("Malaysia");
+	RecruitingListboxResult.AddString("China");
+	RecruitingListboxResult.AddString("Indonesia");
+	RecruitingListboxResult.AddString("Sri Lanka");
+	RecruitingListboxResult.AddString("Saudi Arabia");
+	RecruitingListboxResult.AddString("Ecuador");
+ 	RecruitingListboxResult.AddString("Lithuania");
+  	RecruitingListboxResult.AddString("Latvia");
+  	RecruitingListboxResult.AddString("Azerbaijan");
+   RecruitingListboxResult.AddString("E-SURFMAR");
+   RecruitingListboxResult.AddString("WMO");
+}
+
+
+TBuoyDialog::TBuoyDialog(TWindow* parent, TResId resId, TBuoyTransfer& buoytransfer, string scheepsnaam, string* buoy_array, string turbowin_dir, string* captain_array)
+                                   : TDialog(parent, resId)
+{
+
+   local_turbowin_dir = turbowin_dir;
+
+   /* scheepsnaam */
+   local_scheepsnaam = scheepsnaam;
+
+   /* buttons */
+   email_button_pressed = false;
+   floppy_button_pressed = false;
+   print_button_pressed = false;
+
+   /* array met alle deployments */
+	for (int i = 0; i < MAX_AANTAL_BUOYS; i++)
+		local_buoy_array[i] = buoy_array[i];
+
+   /* captains namen */
+ 	for (int k = 0; k < MAX_AANTAL_CAPTAINS; k++)
+		captain[k] = captain_array[k];
+
+
+	listbox               = new TListBox(this, IDC_BUOYLIST);
+   id_edit               = new TEdit(this, IDC_BUOYNUMBER, sizeof(buoytransfer.IDResult));
+   type_edit             = new TEdit(this, IDC_BUOYTYPE, sizeof(buoytransfer.TypeResult));
+   date_edit             = new TEdit(this, IDC_BUOYDATE, sizeof(buoytransfer.DateResult));
+   time_edit             = new TEdit(this, IDC_BUOYTIME, sizeof(buoytransfer.TimeResult));
+   lat_edit              = new TEdit(this, IDC_BUOYLAT, sizeof(buoytransfer.LatResult));
+   long_edit             = new TEdit(this, IDC_BUOYLONG, sizeof(buoytransfer.LongResult));
+   height_edit           = new TEdit(this, IDC_BUOYHEIGHT, sizeof(buoytransfer.HeightResult));
+   method_edit           = new TEdit(this, IDC_BUOYMETHOD, sizeof(buoytransfer.MethodResult));
+   pressure_edit         = new TEdit(this, IDC_BUOYPRESSURE, sizeof(buoytransfer.PressureResult));
+   sst_edit              = new TEdit(this, IDC_BUOYSST, sizeof(buoytransfer.SSTResult));
+   air_edit              = new TEdit(this, IDC_BUOYAIRTEMP, sizeof(buoytransfer.AirResult));
+   windspeed_edit        = new TEdit(this, IDC_BUOYWINDSPEED, sizeof(buoytransfer.WindspeedResult));
+   winddir_edit          = new TEdit(this, IDC_BUOYWINDDIR, sizeof(buoytransfer.WinddirResult));
+   waveheight_edit       = new TEdit(this, IDC_BUOYWAVEHEIGHT, sizeof(buoytransfer.WaveheightResult));
+   shipspeed_edit        = new TEdit(this, IDC_BUOYSHIPSPEED, sizeof(buoytransfer.ShipspeedResult));
+   condition_edit        = new TEdit(this, IDC_BUOYCONDITION, sizeof(buoytransfer.ConditionResult));
+   behalf_edit           = new TEdit(this, IDC_BUOYBEHALF, sizeof(buoytransfer.BehalfResult));
+   master_edit           = new TEdit(this, IDC_BUOYMASTER, sizeof(buoytransfer.MasterResult));
+   shipname_edit         = new TEdit(this, IDC_BUOYSHIPNAME, sizeof(buoytransfer.ShipnameResult));
+   recruiting_listbox    = new TListBox(this, IDC_BUOYRECRUITING);
+   freetext_edit         = new TEdit(this, IDC_BUOYCOMMENTS, sizeof(buoytransfer.FreetextResult));
+   text_turbowin         = new TStatic(this, IDC_TEXT_TURBOWIN);
+   email_button          = new TButton(this, IDEMAIL);
+   print_button          = new TButton(this, IDPRINT);
+   floppy_button         = new TButton(this, IDFLOPPY);
+
+   SetTransferBuffer (&buoytransfer);
+
+   /* laden HTMLHelp OCX voor HTML (chm) help */
+   HTMLHelp = NULL;
+   hHelpOCX = NULL;
+   hHelpOCX = ::LoadLibrary("hhctrl.ocx");
+   if (hHelpOCX == NULL)
+      MessageBox("Cannot use the html help", "TurboWin Error", MB_OK | MB_ICONERROR);
+}
+
+
+TBuoyDialog::~TBuoyDialog()
+{
+	delete listbox;
+   delete id_edit;
+   delete type_edit;
+   delete date_edit;
+   delete time_edit;
+   delete lat_edit;
+   delete long_edit;
+   delete height_edit;
+   delete method_edit;
+   delete pressure_edit;
+   delete sst_edit;
+   delete air_edit;
+   delete windspeed_edit;
+   delete winddir_edit;
+   delete waveheight_edit;
+   delete shipspeed_edit;
+   delete condition_edit;
+   delete behalf_edit;
+   delete master_edit;
+   delete shipname_edit;
+   delete recruiting_listbox;
+   delete freetext_edit;
+   delete text_turbowin;
+   delete email_button;
+   delete print_button;
+   delete floppy_button;
+
+   /* sluiten chm help file */
+   if (HTMLHelp != NULL)
+      HTMLHelp(NULL, NULL, HH_CLOSE_ALL, NULL);
+}
+
+
+
+void TBuoyDialog::SetupWindow()
+{
+   string hulp_captain;
+   int tab_no;
+   char hulp_captain_edit[255];
+
+   /* TDialog setup */
+	TDialog::SetupWindow();
+
+   text_turbowin -> EnableWindow(false);
+
+// WERKT WEL ECHTER NA EEN FOUTMELDING (BV GEEN BUOY ID INGEVULD) WORDEN ALLE VELDEN LEEGGEMAAKT
+//
+//   /* velden leegmaken */
+//   id_edit                   -> Clear(); //-> DeleteLine(0);
+//   type_edit                 -> Clear();
+//   date_edit                 -> Clear();
+//   time_edit                 -> Clear();
+//   lat_edit                  -> Clear();
+//   long_edit                 -> Clear();
+//   height_edit               -> Clear();
+//   method_edit               -> Clear();
+//   pressure_edit             -> Clear();
+//   sst_edit                  -> Clear();
+//   air_edit                  -> Clear();
+//   windspeed_edit            -> Clear();
+//   winddir_edit              -> Clear();
+//   waveheight_edit           -> Clear();
+//   shipspeed_edit            -> Clear();
+//   condition_edit            -> Clear();
+//   behalf_edit               -> Clear();
+//   master_edit               -> Clear();
+//   shipname_edit             -> Clear();
+//   //recruiting_listbox                   // deze kan wel blijven voor de volgende deployment
+//   freetext_edit             -> Clear();
+
+
+   /* scheepsnaam */
+   shipname_edit -> Clear();
+   shipname_edit -> SetText(local_scheepsnaam.c_str());
+
+   /* E-mail */
+   email_button -> EnableWindow(false);
+
+   /* omdat bij weer openen form de selectie op cluntry staat maar nooit de e-mail button geselecteerd is */
+   Ev_listbox_recruiting_SelChange();
+
+
+   /* listbox met overzicht laatste deployments */
+   listbox -> ClearList();
+
+   listbox -> SetHorizontalExtent(BUOY_LISTBOX_BREEDTE);
+   int tab_pos = (listbox -> GetHorizontalExtent()) / 6;
+   int tabStops[] = { 0,  tab_pos * 2, tab_pos * 3, tab_pos * 4, tab_pos * 5 };
+   listbox -> SetTabStops(5, tabStops);
+
+   //int aantal_buoys_in_listbox = 0;
+	for (int i = MAX_AANTAL_BUOYS -1; i >= 0; i--)
+   {
+		if (local_buoy_array[i] != "\0")
+		{
+         //aantal_buoys_in_listbox++;
+         //if (aantal_buoys_in_listbox <= MAX_AANTAL_BUOYS_IN_LISTBOX)   // kunnen maar een beperkt aantal getoond worden
+      	   listbox -> AddString(local_buoy_array[i].c_str());
+      }
+   } // for (int i = MAX_AANTAL_BUOYS -1; i >= 0; i--)
+
+   /* Kapitein */
+   master_edit -> GetText(hulp_captain_edit, 255);
+   if (hulp_captain_edit[0] == '\0')                             // er staat dus niets
+   {
+      for (int i = MAX_AANTAL_CAPTAINS - 1; i >= 0; i--)
+      {
+         if (captain[i] != "\0")
+         {
+            // tot de tweede tab anders in show progress of print plain text niet mooi
+            hulp_captain = "\0";
+            tab_no = 0;
+            for (int k = 0; k < (int)captain[i].length(); k++)
+            {
+               if (captain[i][k] != '\t')
+                  hulp_captain += captain[i][k];
+               else // tab
+               {
+                  tab_no++;
+                  if (tab_no == 2)
+                     break;
+                  else // eerste tab NB i.p.v. de tab hier nu een spatie toevoegen (tussen Surname an Full initials)
+                     hulp_captain += " ";
+               } // else (tab)
+            } // for (int k = 0; k < captain[i].length(); k++)
+            break;
+         } // if (captain[i] != "\0")
+      } // for (int i = MAX_AANTAL_CAPTAINS - 1; i >= 0; i--)
+      master_edit -> SetText(hulp_captain.c_str());         // uit de lijst
+   } // if (hulp_captain_edit == "")
+   else
+      master_edit -> SetText(hulp_captain_edit);    // zelf direct ingevoerde
+
+}
+
+
+
+void TBuoyDialog::Bepaal_Buoy_Recruiting_Country_Email_Address()
+{
+   /* NB */
+   /* de recruiting country for buoy development hoeft niet het zelfde land te zijn  */
+   /* als de meteo recruiting country                                                */
+
+	ifstream is;
+   string record;
+
+
+   /* initialisatie */
+   buoy_email_address = "";
+
+   if (buoy_recruiting_country != "")         // als er nog helemaal geen recruiting country is ingevuld dan blanco laten
+   {
+      is.open((local_turbowin_dir + countryemail_settings_file).c_str(), ios::in);
+      if (is)
+      {
+         do // while (!is.eof());
+         {
+            record.read_line(is);
+            if (record.length() > 20)
+            {
+               if (buoy_recruiting_country.length() > 17)
+               {
+                  if (record.substr(0, 17) == buoy_recruiting_country.substr(0, 17))
+                  {
+                     buoy_email_address = record.substr(20);
+                     email_button -> EnableWindow(true);
+                     break;
+                  }
+                  else
+                     email_button -> EnableWindow(false);
+               }
+               else // country string <= 17
+               {
+                  if (record.substr(0, buoy_recruiting_country.length()) == buoy_recruiting_country)
+                  {
+                     buoy_email_address = record.substr(20);
+                     email_button -> EnableWindow(true);
+                     break;
+                  }
+                  else
+                     email_button -> EnableWindow(false);
+               } // else (country string <= 17)
+
+            } // if (record.length() > 20)
+         } while (!is.eof());
+
+         is.close();
+      } // if (is)
+      else // file niet te openen
+      {
+          // message opbouwen
+          string info = "\0";
+          info = "Unable to open file: ";
+          info += local_turbowin_dir;
+          info += countryemail_settings_file;
+          info += ".\n";
+          info += "Not possible to send Buoy/float deployment confirmation message by E-mail";
+          MessageBox(info.c_str(), "TurboWin error", MB_OK | MB_ICONSTOP);
+      } // else (file niet te openen)
+   } // if (local_recruiting_country != "")
+}
+
+
+
+
+void TBuoyDialog::CmHelp()
+{
+   string volledig_help_path = "";
+   volledig_help_path = local_turbowin_dir + buoy_help_file;
+   HTMLHelp = (HtmlHelpFunc)::GetProcAddress(hHelpOCX, ATOM_HTMLHELP_API_ANSI);
+   HTMLHelp(0, volledig_help_path.c_str(), HH_DISPLAY_TOPIC, 0);
+}
+
+
+
+void TBuoyDialog::CmLog()
+{
+   TBuoyDialog::CmOk();                                // continue the OK process
+}
+
+
+
+void TBuoyDialog::CmFloppy()
+{
+	floppy_button_pressed = true;
+   TBuoyDialog::CmOk();                                // continue the OK process
+}
+
+
+void TBuoyDialog::CmEmail()
+{
+	email_button_pressed = true;
+   TBuoyDialog::CmOk();                                // continue the OK process
+}
+
+
+void TBuoyDialog::CmPrint()
+{
+	print_button_pressed = true;
+   TBuoyDialog::CmOk();                                // continue the OK process
+}
+
+
+void TBuoyDialog::Ev_listbox_recruiting_SelChange()
+{
+   /* initialisatie */
+   buoy_recruiting_country = "";
+
+   char local_buoy_recruiting_country[255];
+   if (recruiting_listbox -> GetSelString(local_buoy_recruiting_country, 255) > 1)    // dan een geldige selectie
+   {
+      buoy_recruiting_country = local_buoy_recruiting_country;
+      Bepaal_Buoy_Recruiting_Country_Email_Address();
+   }
+   else // geen geldige selectie
+      email_button -> EnableWindow(false);
+}
+
+

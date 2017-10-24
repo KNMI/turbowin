@@ -1,0 +1,447 @@
+
+************************************************************************************************************************
+VERSIE 2.0 beta  /* veranderingingen t.o.v. versie 1.71                       */
+                 /* N.B. HP printers print probleem en fixed sea stations     */
+                 /*      sea-mask probleem ook al als patch opgelost in 1.72b */
+************************************************************************************************************************
+31-07-2000   - LES-C help file updated voor ARVI
+             - notes.log meenemen bij inpakken anders error mellding bij
+               Maintenance | move log files to A:\
+31-07-2000   - * Diverse HELP files ge-updated (o.a. inmarsat-C code 41 kaartje)
+               * ook aangepast IOR.TXT i.v.m. Arvi
+               * n.b. niet vergeten een lege file notes.log mee in te pakken (anders error melding
+                 bij Maintenace | Move log files to A:\ als er nooit een note ge-saved is
+08-08-2000   - probleem: Op sommige printers (waarschijnlijk HP) geeft de printer een error
+                         obs kan niet worden geprint
+               oplossing: In function: CmFilePrint() en CmPlainText()
+               printout.SetBanding(false) i.p.v. printout.SetBanding(true)
+28-08-2000   - probleem: Bij fixed sea station (NIET bij ship) wordt de positie check m.b.v.
+                         land-sea mask niet goed uitgevoerd.
+               oplossing: Dit komt omdat bij checken 10 graads vak bepaald wordt en breedte lengte vergeleken
+                          wordt met "N" i.p.v. "North" etc.
+                          Functions: TFixedDialog::SetupWindow() [file: stat_ty.cpp]
+                                     Fixed_Dialog() [file: tmystat.cpp]
+                                     Read_fixed_station_data() [file: tmystat.cpp]
+                                     TPositionDialog::SetupWindow() [file: tpositio.cpp]
+                                veranderd van "North" -> "N" etc
+29-08-2000   - Wind2.hlp aangepast voor wind aanduiding in kts onder sea state fotos
+31-08-2000   - bij "Cloud cover and height of lowest cloud"input page de hoogte invulling lay out
+               veranderd nu radio button in het midden van hoogte in meter en feet
+07-09-2000   - verdere redesign van wolkenhoogte input page (en progress dialog)
+               * CmShipCloudsheight() [file: tmycheig.cpp] aangepast voor splitsing van
+                  ">2500 m (8000 ft) and no clouds" in twee aparte radiobuttons tevens wordt nu in
+                  progress dialog als station type = "fixed" de hoogte in ft gezet anders in meter.
+                  tevens enkele checks aangepast.
+               Volgende functions aangepast i.v.m. extra radio button cloud height
+               * TCloudsHeightCoverTransfer() [file: tcheight.cpp]
+               * TCloudsHeightCoverDialog    [file: tcheight.cpp]
+               * ~TCloudsHeightCoverDialog() [file: tcheight.cpp]
+               * zie ook struct + class in tcheight.h aangepast
+
+               * UpdateCloudsHeightCoverMeteoProgressDialog() [file tprodi.cpp] aangepast
+08-09-2000   - Na inlezen van de station data moet de positie data van een fixed ses station nog
+               verder verwerkt worden dit heette function: Read_fixed_sea_station_data() maar nu
+               hernoemd in Verwerk_sea_station_data() [file: Tmystat.cpp]
+               ook wordt deze functie bij starten TurboWin (Function TMyWindow()) nu alleen
+               aangeroepen als station type fixed is. (dus eenschip roept deze specifieke fixed sea
+               station function niet meer aan)
+             - Function: Check_level_3() [file: obs.cpp] de checks Cl <---> h en Ch <---> h  de
+               warning text iets aangepast (alleen textueel)
+             - file Email.hlp ge-updated
+18-09-2000   - waves en waves fixed input page de text metre veranderd in metres
+             - observername input page redesign (text boven edit field)
+20-09-2000   - Toegevoegd Captain input page.
+               Files: - TCaptain.cpp + TCaptain.h
+                      - TMyCaptain.cpp
+                      - resource file (bij listbox niet LBS_STANDARD maar los; zie Swam bld. 271)
+                        n.b. let ook op tabstops in resource via property inspector
+02-10-2000  - Alles van obs -> ftp en modem geschrapt (obs to modem etc. + help files en in obs.cpp)
+              ook modem.hlp en ftp.hlp
+              N.B. sub dir INTERNET is dus ook niet meer nodig !!!
+06-10-2000  - probleem: bij sommige Windows "schema"instellingen (b.v. "woestijn") werden in
+                        Info | About box de OLE links niet mooi het zelfde kleur als de achtergrond
+              oplossing: In Info | About box (rc workshop) de OLE links transparant gemaakt, dit bleek
+                         echter niet de oplossing (kan verder geen kwaad)
+                         In function EvEraseBkgnd() [file: hlinkctl.cpp] de
+                         dc.FillRect(r, TBrush(GetSysColor(COLOR_3DFACE))); verandert in
+                         dc.FillRect(r, TBrush(TColor::LtGray)); dit kan omdat de infobox altijd
+                         lichtgrijs (LtGray) is (zie resource workshop)
+            - Diverse help files ge-updated (waves, wind, cloud height+cover, ice etc.)
+            - capatain input page nu met tabs. let op in uiteindelijke captain.log staan nu
+              dus ook tabs
+13-10-2000  - probleem: Bij printen als plain text wordt achter Air pressure (MSL) altijd de
+                        afgelezen waarde gezet ongeacht of deze al of niet de MSL waarde is
+              oplossing: Bij printen als plain text worden nu gegeven Air pressure (read) EN
+                         Air pressure (MSL)
+                         Hiervoor aangepast: - print2.cpp + print2.h
+                                             - CmPlaintext() [file: obs.cpp] (let op de aanroep hier
+                                               naar MSL_Herleiding_luchtdruk())
+16-10-2000   - Ge-upated Observer input page i.v.m. in kolommen weergave.
+               Files: - TObserv.cpp + TObserv.h
+                      - TMyObserevr.cpp
+                      - resource file (tabstops via property inspector))
+               Echter ook rekening houden met weergave in
+               "meteo progress"
+               "print als plain text"
+               "statistics observer"
+               In de volgende functies wordt alleen van de observer de surname + spatie + initials
+               weergegeven daarom geen rank en discharge book number (worden tijdelijk er afgehaald)
+                  - Paint() [file: TmyWindow.cpp]
+                  - CmOptionsStatisticsObserver() [ file: TmyWindow.cpp]
+                  - CmShipObserver() [file: TMyObserver.cpp]
+                  - Kopieeren_Waarnemers_En_Aantallen() [file: TmyWindow.cpp]
+17-10-2000   - CmMaintenanceRemoveLogFiles() [file: TMyWindow.cpp] ge-updated voor o.a.
+                   nu ook captain.log moven naar A:\ en maar een foutmelding als er niet naar A:\
+                   geschreven kan worden (ongeacht of maar 1 file of meerdere niet naar A:\
+                   geschreven kunnen worden).
+                   N.B. let ook op verschilobs van SHIP of FIXED SEA STATION (b.v. bij fixed sea
+                   station mag de file captain.log leeg zijn, bij schip niet dan waarschuwing
+             - checking_level_3() [file obs.cpp] geeft nu ook warning als er geen observer is
+               geselecteerd (op speciaal verzoek van Met. Office UK) ook ABORT - RETRY - IGNORE
+             - Omdat format van de file met observers veranderd is ook de naam veranderd dus nu
+               vanaf versie 1.8 "observer.log"i.p.v. "obsvname.log"
+18-10-2000   - Function: Check_level_3() nu zo gewijzigd dat als een extremen check gegeven is
+               uit deze functie gesprongen wordt (dus altijd maar 1 warning tegelijk)
+             - EMailTurboWin.exe (C++Builder4) gewijzigd met als email verzonden geen
+               reminder print als plain text optie meer
+             - Function: Observation_Complete_Message() [obs.cpp] geen reminder print als
+               plain text meer
+             - void EvRButtonDown(uint, TPoint& point) i.p.v.
+               void EvRButtonDown(UINT, TPoint& point) [file TMyWindow.cpp]
+             - probleem: Als TurboWin niet afgesloten wordt blijven alle reeds ingevulde waarden
+                           geldig
+                 oplossing: Na een uur alle waarden gerest + tevens in Function: checking_level_3()
+                            een warning op date / time als > 0.5 uur en nog geentimer reset geweest
+                 N.B. Timer geintroduceerd:
+                     - EV_WM_TIMER
+                     - EvTimer
+                     - In SetupWindow (SetTimer)
+                     - in ~TMyWindow KillTimer (ook KillTimer in EvTimer)
+
+                 # 1] bij starten TurboWin
+                 #       a] tijd_notatie_start wordt gezet na
+                 #             - direct opstarten TurboWin als obs tijd = computertijd = UTC
+                 #             - of na OK button geactiveerd in date-time invul scherm
+                 #
+                 # 2] bij output obs (b.v. obs to screen)
+                 #       a] tijd_notatie_end wordt gezet
+                 #       b] als (tijd_notatie_end - tijd_notatie_start) > 0,5 uur en
+                 #          datum/tijd waarden zijn geldig (m.a.w. nog niet ge-default door timer)
+                 #          dan waarshuwing of ingevulde datum-tijd nog wel goed is
+                 #       c] tijd_notatie_start wordt weer opnieuw gezet
+                 #          timer wordt gezet om elke 10 minuten te controleren of
+                 #          (tijd_notatie_start - tijd_notatie_huidig) > 1 uur, als zo dan
+                 #          alle interne variabelen op default alleen in de input pages blijven
+                 #          de waarden wel zichtbaar
+                 #
+                 # 3] zie onder 2
+
+23-10-2000  - Ingevoegd menu optie: Return logs bij info
+            - Bij menu items in de menu balk (File, Input, Output etc.) nu correcte beschrijving
+              in status balk (STRINGTABLE b.v. CM_FILEEIT-1 etc.)
+27-10-2000  - Toegevoegd mogelijkheid van max. 5 nationale groepen toevoegen.
+              Hiervoor toegevoegd c.q. aangepast:
+                 * tnational.h
+                 * tnational.cpp
+                 * tmynational.cpp
+                 * stat_ty.h
+                 * stat_ty.cpp
+                 * tmystat.h
+                 * obs.h
+                 * tmywindow.cpp
+                 * tmywindow.h
+                #
+                # 1] Maintenance | station data | ship: de symbolische texten zetten v/d nat. groepn
+                # 2] dan zal input | National... niet meer ge-grayed zijn
+                #
+             - Function: Initialisatie() [file tmywindow.cpp]
+               char_obs, char_obs_1, char_obs_2 en char_3 nu ook geinitialiseerd hier
+31-10-2000   - Functions:
+                 * CmObsEmail2()
+                 * CmObsScreen()
+                 * samenstellen_te_verzenden_obs
+               alle aangepast voor nationale groepen kunnen versturen (char_obs_3)
+
+02-11-2000   - Function: CmShipWind()[file: Tmywind.cpp] uitgebreid met een check op anemomter
+               meta data aanwezig (n.b. alleen fixed sea station), indien niet dan fout melding
+             - probleem: in enkele bijzondere gevallen (b.v. apparent wind; wind speed 10 m/s;
+                         wind dir: 90; ground course 90; ground speed 10 komt een cos. error
+               oplossing: bij arg < -1 wordt arg -1 en bij > +1 => +1
+                         Function: Bereken_True_wind() [file twindcom.cpp]
+09-11-2000   - Apparent wind gemeten vanaf de boeg toegevoegd
+             - redesign wind input page (o.a. combobox wind direction en speed van positie gewisseld,
+               ook TAB volgorde gewijzigd)
+             - wind source (b.v. estimated) en wind speed units (b.v. knots) worden nu opgeslagen
+               als settings (bij opnieuw openen wind input screen worden dan de betreffende
+               radiobuttons ge-checked)
+10-11-2000  - TTemperaturesTransfer::TTemperaturesTransfer() [file ttemp.cpp] de radio buttons
+              unchecken weggehaald, gebeurd nu in SetupWindow()
+22-11-2000  - wolken hoogte advies
+27-11-2000  - Extra beveiliging voor desktops van > 256 kleuren
+               Functions: CmDesktop() en DefaultDesktop()
+30-11-2000  - Callsign in input menu en als icon (speed button) als eerste gezet
+07-12-2000  - air pressure characteristic nu met gescande barograaf papier + bijhorende texten
+              volgens de Met Office (falling i.p.v. decreasing etc.)
+18-12-2000  - psychrometer constanten aangepast Guide to MMeteorological Instruments and
+              Methods of Observation. Sixth edition WMO-No. 8
+22-12-2000  - Send en Cancel button van TurboWin E-mail module vergroot i.v.m. ook correcte weergave
+              als Beeldscherm instelling is kleine letters
+27-12-2000  - In de kleine letter mode bij 1024 * 768 bleek bij air pressure tienden en bij apparent wind,
+              de scheeps grond snelheid in tienden bij openklappen menu het laatste cijfertje (de '9')
+              er niet op te staan
+            - ook in deze mode bij cloud cover en height invoer page soms de ft niet correct en ook enkele
+              keren de m (meter) aanduiding afwezig
+03-01-2001  - Psychrometer formules als exposure is marine screen ingevoegd.
+05-01-2000   - probleem:
+               door check: By air temp > 0.0 C was Twet met ijs aan de natte bol melding niet mogelijk
+               nu wel mogelijk
+               mogelijk
+             - probleem: bij bereken Tdew uit air temp en rel voct wordt bij air temp 0.0 C en 100 %
+               en Tdew van 0.0 berekend maar een Sn (teken Tdew) gegevn van 1 (negatief)
+               oplossing:
+               bij ingevulde rel vocht van 100 % nu altijd Tdew = Tdry (dus dan Tdew = 0.0 i.p.v. b.v. -0.000000258)
+             - UK met. Office situatie geimplementeerd (verschil met Ned is naast de pdychrometer coeff
+               UK bij Twet < 0.0 C altijd gerekend wordt boven ijs KNMI berekend dan boven ijs of water
+               afh. van melding bevroren of niet bevroren natte bol
+
+
+************************************************************************************************************************
+VERSIE 2.0     /* veranderingingen t.o.v. versie 2.0 beta */
+************************************************************************************************************************
+17-01-2001   - TAB volgorde in temperatures invul pagina verbeterd (exposure kwam voor air temp combo's)
+             - i.p.v. aanduiding "method seawater measurement" nu "exposure" (temp page)
+18-01-2001   - op national invul pagina iets meer ruimte gereserveerd voor symbolische namen
+23-01-2001   - diverse fine tuningen o.a. in invul schermen (uitlijning ed.)
+09-02-2001   - icon epaulette observer veranderd 
+15-02-2001   - tw_17.def aangepast (geen heapsize en stacksize opgave hier meer)
+26-02-2001   - Onder: Info | Weather code form nu de help file "codecard.hlp" i.p.v. "code.hlp"
+28-02-2001   - Diverse HELP files vooral lay-out technisch verbeterd (b.v. Met Office i.p.v. The Met. Office)
+02-03-2001   - Observers dialog aanroep ook onder Maintenance gezet
+
+
+
+
+
+
+
+
+**********************************************************************************
+te doen:
+            *** output optie: custom application toevoegen
+            *** - obs_captain var. verwijderen ?
+                - help file bij captain input page
+            *** help file bij Maintenance aanpassen
+            *** move log files to A:\ ook captain.log verplaatsen
+            *** bij luchtdruk invulscherm reading indicates... niet alleen case sensitive op yes/no
+            *** bij notes de notes.log en notes sub dir met macro's uitvoeren
+            *** In position dialog als er wat fout ingevuld wordt dan wordt een gedeelte gereset
+                dit nakijken (helemaal niets resetten ???)
+            *** les_c_41.hlp updaten
+            *** ice.hlp staat bij index nog een loze "ice images" en title in
+                verschillende items aanpassen
+            *** weather2.hlp staat nog een loze "present weather" en titles na index
+                aanpassen
+            *** characteristic plaatjes bij cl, cm en ch aanpassen voor witte naar grijze
+                achtergrond
+            ///*** ior.txt, por.txt van rene overnemen. staan nu nog de oude !!!
+            *** uitleggen apparent wind direction t.o.v. ware noorden
+            *** seameth.txt en barometer.txt in log directory ???
+            *** TAB-stops bij temp invoer pagina bij wet bulb frozen en method seaw temp ??
+            *** met F1 in input screen HELP file activeren
+            *** text directory in code_41 o.i.d. veranderen
+
+
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 2.1 beta [veranderingingen t.o.v. versie 2.0]                                                                 *
+************************************************************************************************************************
+19-03-2001  - bij Maintenance | station data | ship mogelijkheid om VOS-Clim deelnemer aan te geven
+              * Function: Ship_Dialog() [file: tmystat.cpp]
+              * Function: Get_station_data(0 [file: tmystat.cpp]
+              * Function: TShipDialog() [file: stat_ty.cpp]
+              * Function: TShipTransfer() [file: stat_ty.cpp]
+              * Function: TShipDialog::SetupWindow() [file: stat_ty.cpp]
+              * in file: stat_ty.h sructure + class
+
+23-03-2001  - i.v.m. Vos-Clim wind vereisten de volgende files aangepast:
+              * twind.gh
+              * twind.cpp
+              * tmywind.cpp
+              * twindcom.cpp
+              * twindber.h
+23-03-2001  - Function: Initialisatie() [file: TMyWindow.cpp] en tmywindow.h uitgebreid net VOS-CLim groepen en MQCS
+23-03-2001  - Function: IMMT_log() [file obs.cpp] volgende aanpassingen:
+              * char number 111 (IMMT version) nu 2 (was 1)
+23-03-2001  - in Function: Initialisatie() [file: TMyWindow.cpp]
+                * file_wind_source;
+                * file_wind_speed_units;
+                * file_deck_cargo;
+                * file_summer_line;
+              alle op "\0" geinitialisserd (was niet zo, dus nog controleren)  
+26-03-2001  - Functions ShipDialog() en FixedDialog() [file: stat_ty.cpp] filter (mag alleen 0-9 zijn)
+              op anemometer hoogte en diepte zeewater sensor
+26-03-2001  - Functions TAirPressureDialog() [file: tpressure.cpp] filters op reading en height
+
+
+
+************************************************************************************************************************
+* VERSIE 2.1 beta 2 [veranderingingen t.o.v. versie 2.1 beta]                                                                 *
+************************************************************************************************************************
+03-04-2001  - Comment regel bij VOS-Clim bij summer max. l.l. toegevoegd (*negative if .. etc)
+03-04-2001  - Alle input forms (zie TMyvis.cpp etc.) op de heap i.p.v. op de stack
+06-04-2001  - Op verzoek Sven Bartels (BoM) een check bij removing log files naar A ingebouwd
+              Function: CmMaintenanceRemoveLogFiles() hier nu ook een check (Function Check_A_drive())
+              hierdoor was het wel noodzakelijk dat de check op de IMM.log en captain.log (op leeg zijn)
+              naar "voren gehaald werden
+            - diverse help files ge-updated
+08-04-2001  - Bij de kapiteins lijst invoeren kwamenen er maar 9 in de lijst de tiende werd wel in de lijst
+              opgenomen maar niet zichtbaar; wel een schijfbalk maar omdat captain list gedisabled is kom je er niet aan
+            - diverse HELP files ge-updated (o.a. met verwijzingen MS Windows 2000)
+10-04-2001  - probleem:
+              Bij toevoegen "Add" van observers in de observer input form en hierna cancel of Alt-F4 of x) geven
+              werden de added data niet opgeslagen maar werd werd wel de input form verlaten
+              oplossing:
+              Na "Add" en er is nog niet ge-saved en er wordt ge-cancelled dan nu een vraag of de input form werkelijk
+              geloten moet worden
+              * zie o.a. nu toegevoegde functions EvClose() en CmClose() [file observ.cpp]
+            - probleem:
+              Bij toevoegen "Add" van captains in de captain input form en hierna Cancel of Alt-F4 of x) geven
+              werden de added data niet opgeslagen maar werd werd wel de input form verlaten
+              oplossing:
+              Na "Add" en er is nog niet ge-saved en er wordt ge-cancelled dan nu een vraag of de input form werkelijk
+              geloten moet worden
+              * zie o.a. nu toegevoegde functions EvClose() en CmClose() [file captain.cpp]
+            - in function: EvClose() [file: tnotes.cpp] aanroepen naar Destroy() i.p.v. CmCancel()
+              (OWL: CmCancel -> EvClose -> Destroy ; zie OWL help: "Closing the dialog box (ObjectWindows)"
+13-04-2001  - Apparent eind die variabel is kwam als 9999 i.p.v. 999 in IMMT-2
+              Function: CmShipWind() [file TmyWind.cpp] aangepast voor check op apparent wind is 9999 (intern var.)
+              (deze wordt dan omgezet naar 999 voor RWD in IMMT-2)
+13-04-2001  - Alle OK-CANCEL-HELP buttons in input forms op zelfde afstand (left 56 - 139 - 222) gezet)
+20-04-2001  - Check wind toegevoegd: if 'wind direction = calm' then 'wind speed' must be 0
+23-04-2001  - diverse checks aangepast (zie betreffende documnet overzicht)
+
+
+
+
+************************************************************************************************************************
+* VERSIE 2.11 [veranderingingen t.o.v. versie 2.1]                                                                     *
+************************************************************************************************************************
+27-04-2001  - Op de course/heading/speed page van wind toegevoegd regel "for the actual time of the wind observation"
+
+
+
+************************************************************************************************************************
+* VERSIE 2.12 [veranderingingen t.o.v. versie 2.11]                                                                     *
+************************************************************************************************************************
+30-05-2001  - probleem: in statistics en na Maintenance | Move log files to A:\ werd het
+                        aantal gemaakte waarnemingen per waarnemer altijd 0
+              oplossing: programma keek nog op oude IMMT-1 positie i.p.v. nieuwe IMMT-2
+                         positie (VOS-Clim toegevoegd). 
+
+
+
+
+
+
+
+************************************************************************************************************************
+* VERSIE 2.1 beta [veranderingingen t.o.v. versie 2.0]                                                                 *
+************************************************************************************************************************
+19-03-2001  - bij Maintenance | station data | ship mogelijkheid om VOS-Clim deelnemer aan te geven
+              * Function: Ship_Dialog() [file: tmystat.cpp]
+              * Function: Get_station_data(0 [file: tmystat.cpp]
+              * Function: TShipDialog() [file: stat_ty.cpp]
+              * Function: TShipTransfer() [file: stat_ty.cpp]
+              * Function: TShipDialog::SetupWindow() [file: stat_ty.cpp]
+              * in file: stat_ty.h sructure + class
+
+23-03-2001  - i.v.m. Vos-Clim wind vereisten de volgende files aangepast:
+              * twind.gh
+              * twind.cpp
+              * tmywind.cpp
+              * twindcom.cpp
+              * twindber.h
+23-03-2001  - Function: Initialisatie() [file: TMyWindow.cpp] en tmywindow.h uitgebreid net VOS-CLim groepen en MQCS
+23-03-2001  - Function: IMMT_log() [file obs.cpp] volgende aanpassingen:
+              * char number 111 (IMMT version) nu 2 (was 1)
+23-03-2001  - in Function: Initialisatie() [file: TMyWindow.cpp]
+                * file_wind_source;
+                * file_wind_speed_units;
+                * file_deck_cargo;
+                * file_summer_line;
+              alle op "\0" geinitialisserd (was niet zo, dus nog controleren)  
+26-03-2001  - Functions ShipDialog() en FixedDialog() [file: stat_ty.cpp] filter (mag alleen 0-9 zijn)
+              op anemometer hoogte en diepte zeewater sensor
+26-03-2001  - Functions TAirPressureDialog() [file: tpressure.cpp] filters op reading en height
+
+
+
+************************************************************************************************************************
+* VERSIE 2.1 beta 2 [veranderingingen t.o.v. versie 2.1 beta]                                                                 *
+************************************************************************************************************************
+03-04-2001  - Comment regel bij VOS-Clim bij summer max. l.l. toegevoegd (*negative if .. etc)
+03-04-2001  - Alle input forms (zie TMyvis.cpp etc.) op de heap i.p.v. op de stack
+06-04-2001  - Op verzoek Sven Bartels (BoM) een check bij removing log files naar A ingebouwd
+              Function: CmMaintenanceRemoveLogFiles() hier nu ook een check (Function Check_A_drive())
+              hierdoor was het wel noodzakelijk dat de check op de IMM.log en captain.log (op leeg zijn)
+              naar "voren gehaald werden
+            - diverse help files ge-updated
+08-04-2001  - Bij de kapiteins lijst invoeren kwamenen er maar 9 in de lijst de tiende werd wel in de lijst
+              opgenomen maar niet zichtbaar; wel een schijfbalk maar omdat captain list gedisabled is kom je er niet aan
+            - diverse HELP files ge-updated (o.a. met verwijzingen MS Windows 2000)
+10-04-2001  - probleem:
+              Bij toevoegen "Add" van observers in de observer input form en hierna cancel of Alt-F4 of x) geven
+              werden de added data niet opgeslagen maar werd werd wel de input form verlaten
+              oplossing:
+              Na "Add" en er is nog niet ge-saved en er wordt ge-cancelled dan nu een vraag of de input form werkelijk
+              geloten moet worden
+              * zie o.a. nu toegevoegde functions EvClose() en CmClose() [file observ.cpp]
+            - probleem:
+              Bij toevoegen "Add" van captains in de captain input form en hierna Cancel of Alt-F4 of x) geven
+              werden de added data niet opgeslagen maar werd werd wel de input form verlaten
+              oplossing:
+              Na "Add" en er is nog niet ge-saved en er wordt ge-cancelled dan nu een vraag of de input form werkelijk
+              geloten moet worden
+              * zie o.a. nu toegevoegde functions EvClose() en CmClose() [file captain.cpp]
+            - in function: EvClose() [file: tnotes.cpp] aanroepen naar Destroy() i.p.v. CmCancel()
+              (OWL: CmCancel -> EvClose -> Destroy ; zie OWL help: "Closing the dialog box (ObjectWindows)"
+13-04-2001  - Apparent eind die variabel is kwam als 9999 i.p.v. 999 in IMMT-2
+              Function: CmShipWind() [file TmyWind.cpp] aangepast voor check op apparent wind is 9999 (intern var.)
+              (deze wordt dan omgezet naar 999 voor RWD in IMMT-2)
+13-04-2001  - Alle OK-CANCEL-HELP buttons in input forms op zelfde afstand (left 56 - 139 - 222) gezet)
+20-04-2001  - Check wind toegevoegd: if 'wind direction = calm' then 'wind speed' must be 0
+23-04-2001  - diverse checks aangepast (zie betreffende documnet overzicht)
+
+
+
+
+************************************************************************************************************************
+* VERSIE 2.11 [veranderingingen t.o.v. versie 2.1]                                                                     *
+************************************************************************************************************************
+27-04-2001  - Op de course/heading/speed page van wind toegevoegd regel "for the actual time of the wind observation"
+
+
+
+************************************************************************************************************************
+* VERSIE 2.12 [veranderingingen t.o.v. versie 2.11]                                                                     *
+************************************************************************************************************************
+30-05-2001  - probleem: in statistics en na Maintenance | Move log files to A:\ werd het
+                        aantal gemaakte waarnemingen per waarnemer altijd 0
+              oplossing: programma keek nog op oude IMMT-1 positie i.p.v. nieuwe IMMT-2
+                         positie (VOS-Clim toegevoegd). 
+
+
+
+
+
+
+
+
+
+
+
+

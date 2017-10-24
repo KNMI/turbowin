@@ -1,0 +1,44 @@
+//----------------------------------------------------------------------------
+//  Project Print
+//  
+//  Copyright © 1997. All Rights Reserved.
+//
+//  SUBSYSTEM:    Print Application
+//  FILE:         printapp.h
+//  AUTHOR:       
+//
+//  OVERVIEW
+//  ~~~~~~~~
+//  Constant definitions for all print resources defined in tw_17.rc.
+//
+//----------------------------------------------------------------------------
+#if !defined(print_rh)   // Sentry use file only if it's not already included.
+#define print_rh
+
+
+//
+// Printing error message string resource IDs (include/owl/printer.rh)
+//
+#define IDS_PRNON               32590
+#define IDS_PRNERRORTEMPLATE    32591
+#define IDS_PRNOUTOFMEMORY      32592
+#define IDS_PRNOUTOFDISK        32593
+#define IDS_PRNCANCEL           32594
+#define IDS_PRNMGRABORT         32595
+#define IDS_PRNGENERROR         32596
+#define IDS_PRNERRORCAPTION     32597
+
+
+//
+// Printer abort dialog & control IDs
+//
+#define IDD_ABORTDIALOG         32599            // keep different than any string IDs
+#define ID_TITLE                101              // Document title text control
+#define ID_DEVICE               102              // Device & optional port text control
+#define ID_PORT                 103              // Old port text control, unused
+#define ID_PAGE                 104              // Page # text control
+
+
+
+
+#endif  // print_rh
