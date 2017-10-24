@@ -1,0 +1,7 @@
+zxcvvvvvv	test	25/07/2007	12.00	12-12 N	001-23 W	-	-	-	-	-	-	-	-	-	-	-	HEINRICH WILHELM HERMAN	-	Bangladesh	-
+zxcvvvvvvuuuuuu	test	25/07/2007	12.00	12-12 N	001-23 W	-	-	-	-	-	-	-	-	-	-	-	HEINRICH WILHELM HERMAN	-	Bangladesh	-
+1234567	test	25/08/2007	12.00	12-12 N	001-23 W	-	-	-	-	-	-	-	-	-	-	-	HEINRICH WILHELM HERMAN	-	Bangladesh	-
+234e	float	10/07/2009	12.45	12-23 N	002-23 E	-	-	-	-	-	-	-	-	-	-	-	WWEEE WILHELM	-	United Kingdom of Great Britain and Northern Ireland	-
+1	floatt	12/12/2010	12.34	12-12 N	123-23 W	-	-	-	-	-	-	-	-	-	-	-	-	ms Happy Sailor II	Finland	-
+1	floatt	12/12/2010	12.34	12-12 N	123-23 W	-	-	-	-	-	-	-	-	-	-	-	-	ms Happy Sailor II	France	-
+12345	b	07/09/2011	12	12-12 N	005-45 W	-	-	-	-	-	-	-	-	-	-	-	-	UK test	E-SURFMAR	-
