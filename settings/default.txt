@@ -1,0 +1,8 @@
+*** Wave Climate Atlas internet settings, do not edit ***
+Global            : http://www.knmi.nl/samenw/turbowin/waves_global.html
+North Atlantic    : http://www.knmi.nl/samenw/turbowin/waves_na.html
+South Atlantic    : http://www.knmi.nl/samenw/turbowin/waves_sa.html
+Indian Ocean      : http://www.knmi.nl/samenw/turbowin/waves_in.html
+North Pacific     : http://www.knmi.nl/samenw/turbowin/waves_np.html
+South Pacific     : http://www.knmi.nl/samenw/turbowin/waves_sp.html
+North Sea         : http://www.knmi.nl/samenw/turbowin/waves_ns.html
